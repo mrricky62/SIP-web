@@ -1,0 +1,31 @@
+button,
+input,
+optgroup,
+select,
+textarea {
+  outline: none;
+
+  &:focus {
+    outline: none !important;
+  }
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.btn {
+  box-shadow: none !important;
+  border: none !important;
+  text-transform: capitalize !important;
+}
+
+.container {
+  max-width: 90% !important;
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    max-width: 95% !important;
+  }
+}

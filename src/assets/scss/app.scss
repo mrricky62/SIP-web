@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+@import "partials/reset.scss";
+@import "partials/fonts.scss";
+
+:root {
+  --color-darkblue: #02275d;
+  --color-orange: #ff7f00;
+  --color-skyblue: #ade7f7;
+}
+
+#app {
+  background-color: #f4f6fa !important;
+  font-family: "Poppins", sans-serif;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
+}
+
+.bg-darkblue {
+  background-color: var(--color-darkblue) !important;
+}
+
+.bg-orange {
+  background-color: var(--color-orange) !important;
+}
+
+.bg-skyblue {
+  background-color: var(--color-skyblue) !important;
+}
+
+.btn-outline-primary {
+  background-color: #fff !important;
+  color: var(--color-darkblue) !important;
+  border: 1px solid var(--color-darkblue) !important;
+}
+
+.v-data-table {
+  font-size: 14px !important;
+}
+
+.search-input {
+  max-width: 400px !important;
+}
+
+.col-12,
+.col-11,
+.col-10,
+.col-9,
+.col-8,
+.col-7,
+.col-6,
+.col-5,
+.col-4,
+.col-3,
+.col-2,
+.col-1 {
+  padding: 0 12px !important;
+}
+
+.col-sm-12,
+.col-sm-11,
+.col-sm-10,
+.col-sm-9,
+.col-sm-8,
+.col-sm-7,
+.col-sm-6,
+.col-sm-5,
+.col-sm-4,
+.col-sm-3,
+.col-sm-2,
+.col-sm-1 {
+  padding: 0 12px !important;
+}
+
+.col-md-12,
+.col-md-11,
+.col-md-10,
+.col-md-9,
+.col-md-8,
+.col-md-7,
+.col-md-6,
+.col-md-5,
+.col-md-4,
+.col-md-3,
+.col-md-2,
+.col-md-1 {
+  padding: 0 12px !important;
+}
+
+.col-xl-12,
+.col-xl-11,
+.col-xl-10,
+.col-xl-9,
+.col-xl-8,
+.col-xl-7,
+.col-xl-6,
+.col-xl-5,
+.col-xl-4,
+.col-xl-3,
+.col-xl-2,
+.col-xl-1 {
+  padding: 0 12px !important;
+}
