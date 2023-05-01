@@ -1,6 +1,6 @@
-# Simple IT Inventory
+# SIP
 
-Source Code IT Inventory Front-end Website
+Source Code SIP Front-end Website 
 
 ## Stack
 
