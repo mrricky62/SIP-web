@@ -98,9 +98,11 @@
               :type="isShowPassword ? 'text' : 'password'"
               @click:append="isShowPassword = !isShowPassword"
               :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Password');
-                },
+                isUpdate
+                  ? () => {}
+                  : (value) => {
+                      return genericRequiredRule(value, 'Password');
+                    },
               ]"
             />
           </div>
@@ -225,7 +227,7 @@ export default {
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {
         if (this.isUpdate) {
-          this.$store.dispatch("UpdateBarang", this.isUpdate).then((res) => {
+          this.$store.dispatch("UpdateUser", this.isUpdate).then((res) => {
             if (res) {
               this.handleClose();
             }

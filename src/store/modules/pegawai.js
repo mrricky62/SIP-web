@@ -136,6 +136,39 @@ const pegawai = {
         context.commit("SET_IS_LOADING_PEGAWAI", false);
       }
     },
+    async UpdateUser(context, id) {
+      context.commit("SET_IS_LOADING_PEGAWAI", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/user/${id}`,
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: context.state.form,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil",
+          text: result.data.message,
+        });
+
+        context.dispatch("FetchPegawai");
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_PEGAWAI", false);
+      }
+    },
   },
 };
 
