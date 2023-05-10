@@ -28,8 +28,23 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot:[`item.date`]="{ item }">
-              <span>{{ moment(item.date).format("YYYY-MM-DD") }}</span>
+            <template v-slot:[`item.is_admin`]="{ item }">
+              <v-chip
+                small
+                :color="item.is_admin ? 'success' : 'error'"
+                text-color="white"
+              >
+                {{ item.is_admin ? "Yes" : "No" }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.is_active`]="{ item }">
+              <v-chip
+                small
+                :color="item.is_active ? 'success' : 'error'"
+                text-color="white"
+              >
+                {{ item.is_active ? "Yes" : "No" }}
+              </v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
               <v-menu offset-y>
@@ -92,13 +107,12 @@ export default {
     return {
       headers: [
         { text: "No", value: "no" },
-        { text: "Date", value: "date" },
-        { text: "Name", value: "name" },
-        { text: "Description", value: "description" },
-        { text: "Post Tarif", value: "tarrif_post" },
-        { text: "Netto,Bruto", value: "weight" },
-        { text: "Stock", value: "stock" },
-        { text: "Satuan Kemasan", value: "package_unit" },
+        { text: "NIP", value: "nip" },
+        { text: "Nama", value: "nama" },
+        { text: "Pangkat", value: "pangkat" },
+        { text: "Golongan", value: "golongan" },
+        { text: "Is Admin", value: "is_admin" },
+        { text: "Is Active", value: "is_active" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       moment,
@@ -137,7 +151,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("FetchBarang");
+    this.$store.dispatch("FetchPegawai");
   },
 };
 </script>
