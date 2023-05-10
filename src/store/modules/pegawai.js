@@ -10,7 +10,7 @@ const form = {
   golongan: "",
   password: "",
   is_admin: false,
-  is_active: false,
+  is_active: true,
 };
 
 const pegawai = {
@@ -106,6 +106,32 @@ const pegawai = {
           title: "Oops...",
           text: error.response.data.message,
         });
+      } finally {
+        context.commit("SET_IS_LOADING_PEGAWAI", false);
+      }
+    },
+    async SetFormUser(context, id) {
+      context.commit("SET_IS_LOADING_PEGAWAI", true);
+      try {
+        const result = await axios({
+          url: `${apiUrl}/user/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+        });
+
+        context.state.form = {
+          nip: result.data.data.nip,
+          nama: result.data.data.nama,
+          pangkat: result.data.data.pangkat,
+          golongan: result.data.data.golongan,
+          password: "",
+          is_admin: result.data.data.is_admin,
+          is_active: result.data.data.is_active,
+        };
+      } catch (error) {
+        catchUnauthorized(error);
       } finally {
         context.commit("SET_IS_LOADING_PEGAWAI", false);
       }

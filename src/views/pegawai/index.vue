@@ -60,12 +60,6 @@
                   </v-btn>
                 </template>
                 <v-list min-width="150">
-                  <v-list-item @click="handleModalHistory(true, item.id)">
-                    <v-list-item-title class="text-primary fs-12">
-                      <i class="fa-regular fa-clock small mr-2"></i>
-                      <span>History</span>
-                    </v-list-item-title>
-                  </v-list-item>
                   <v-list-item @click="handleEdit(item.id)">
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-edit small mr-2"></i>
@@ -140,13 +134,10 @@ export default {
     handleModalForm(value) {
       this.modalForm = value;
     },
-    handleModalHistory(value, id) {
-      if (value) this.$store.dispatch("FetchBarangHistory", id);
-      this.modalHistory = value;
-    },
     handleEdit(id) {
-      this.$store.dispatch("SetFormBarang", id);
-      this.$store.commit("SET_IS_UPDATE_BARANG", id);
+      this.$store.dispatch("SetFormUser", id);
+      this.$store.commit("SET_IS_UPDATE_PEGAWAI", id);
+
       this.handleModalForm(true);
     },
   },
