@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <layout-app>
     <div class="card border-0">
       <div class="card-body">
         <div class="d-flex flex-column flex-sm-row gap-2 gap-md-3">
@@ -18,15 +18,17 @@
         </div>
       </div>
     </div>
-  </div>
+  </layout-app>
 </template>
 
 <script>
 import moment from "moment";
+import LayoutApp from "../../layouts/layout-app.vue";
 
 export default {
   name: "Home",
   components: {
+    LayoutApp,
     CardHome: () => import("@/components/molecules/card-home.vue"),
   },
   data() {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <layout-app>
     <HeaderTitle title="Home" subtitle="Data Barang" />
     <v-btn
       class="btn text-white fw-normal bg-darkblue mb-3"
@@ -82,15 +82,17 @@
     >
       <History @handleModalHistory="handleModalHistory" />
     </v-dialog>
-  </div>
+  </layout-app>
 </template>
 
 <script>
 import moment from "moment";
+import LayoutApp from "../../layouts/layout-app.vue";
 
 export default {
   name: "TunjanganPage",
   components: {
+    LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
     Form: () => import("./form.vue"),
     History: () => import("./history.vue"),

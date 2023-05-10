@@ -43,10 +43,10 @@ const router = new VueRouter({
   routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//   if (to.path === "/") return next("/dashboard");
-//   return next();
-// });
+router.beforeEach((to, from, next) => {
+  if (to.path === "/") return next("/dashboard");
+  return next();
+});
 
 // function nextFactory(context, middleware, index) {
 //   const subsequentMiddleware = middleware[index];
