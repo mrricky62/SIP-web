@@ -73,31 +73,31 @@ export default {
         {
           title: "Gaji",
           path: "/gaji",
-          icon: "fa-solid fa-boxes",
+          icon: "fa-solid fa-money-bill",
           AdminOnly: false,
         },
         {
           title: "Tunjangan",
           path: "/tunjangan",
-          icon: "fa-solid fa-boxes",
+          icon: "fa-solid fa-money-bill-1",
           AdminOnly: false,
         },
         {
           title: "Uang Makan",
           path: "/uang-makan",
-          icon: "fa-solid fa-boxes",
+          icon: "fa-solid fa-money-bill-wave",
           AdminOnly: false,
         },
         {
           title: "SPD",
           path: "/spd",
-          icon: "fa-solid fa-boxes",
+          icon: "fa-solid fa-plane-departure",
           AdminOnly: false,
         },
         {
           title: "Uang Lembur",
           path: "/uang-lembur",
-          icon: "fa-solid fa-boxes",
+          icon: "fa-solid fa-money-check",
           AdminOnly: false,
         },
         {
