@@ -1,12 +1,12 @@
 <template>
   <layout-app>
-    <HeaderTitle title="Dashboard" subtitle="Data Pegawai" />
+    <HeaderTitle title="Dashboard" subtitle="Data Gaji" />
     <v-btn
       class="btn text-white fw-normal bg-darkblue mb-3"
       @click="handleModalForm(true)"
     >
       <i class="fa fa-plus"></i>
-      Add Pegawai
+      Add Gaji
     </v-btn>
     <div class="card p-3 border-0">
       <div class="card-body">

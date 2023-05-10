@@ -7,6 +7,7 @@ import guest from "@/middleware/guest";
 import Login from "../views/auth/login.vue";
 
 import Dashboard from "@/views/dashboard/index.vue";
+import Gaji from "@/views/gaji/index.vue";
 import Tunjangan from "@/views/tunjangan/index.vue";
 import Pegawai from "@/views/pegawai/index.vue";
 
@@ -25,6 +26,14 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/gaji",
+    name: "Gaji",
+    component: Gaji,
     meta: {
       middleware: [auth],
     },
