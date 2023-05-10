@@ -1,10 +1,17 @@
 import axios from "axios";
 import catchUnauthorized from "@/utils/catch-unauthorized";
 const apiUrl = process.env.VUE_APP_API_URL;
-// import Swal from "sweetalert2";
-// import moment from "moment/moment";
+import Swal from "sweetalert2";
 
-const form = {};
+const form = {
+  nip: "",
+  nama: "",
+  pangkat: "",
+  golongan: "",
+  password: "",
+  is_admin: false,
+  is_active: false,
+};
 
 const pegawai = {
   state: {
@@ -66,6 +73,39 @@ const pegawai = {
         context.commit("SET_REPORTS_PEGAWAI", result.data.data);
       } catch (error) {
         catchUnauthorized(error);
+      } finally {
+        context.commit("SET_IS_LOADING_PEGAWAI", false);
+      }
+    },
+    async CreateUser(context) {
+      context.commit("SET_IS_LOADING_PEGAWAI", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/register`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: context.state.form,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Berhasil",
+          text: result.data.message,
+        });
+
+        context.dispatch("FetchPegawai");
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       } finally {
         context.commit("SET_IS_LOADING_PEGAWAI", false);
       }

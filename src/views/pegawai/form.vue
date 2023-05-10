@@ -3,7 +3,7 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">Form Barang</p>
+          <p class="card-title fw-medium mb-0">Form Pegawai</p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -12,93 +12,99 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Name</label>
+            <v-switch
+              inset
+              dense
+              v-model="is_active"
+              label="Is Active"
+            ></v-switch>
+          </div>
+          <div class="col-md-6">
+            <v-switch
+              inset
+              dense
+              v-model="is_admin"
+              label="Is Admin"
+            ></v-switch>
+          </div>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">NIP</label>
             <v-text-field
-              placeholder="Name"
+              placeholder="NIP"
               outlined
               dense
-              v-model="name"
+              v-model="nip"
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'Name');
+                  return genericRequiredRule(value, 'NIP');
+                },
+                (value) => {
+                  return genericNumber16Rule(value, 'NIP');
                 },
               ]"
             />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Date</label>
-            <DatePicker v-model="date" />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">CBM</label>
+            <label class="mb-2 fw-medium fs-14">Nama</label>
             <v-text-field
-              placeholder="CBM"
+              placeholder="Nama"
               outlined
               dense
-              type="number"
-              v-model="weight"
+              v-model="nama"
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'CBM');
+                  return genericRequiredRule(value, 'Nama');
                 },
               ]"
             />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Satuan Kemasan</label>
+            <label class="mb-2 fw-medium fs-14">Pangkat</label>
             <v-text-field
-              placeholder="Satuan Kemasan"
+              placeholder="Pangkat"
               outlined
               dense
-              v-model="package_unit"
+              v-model="pangkat"
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'Satuan Kemasan');
+                  return genericRequiredRule(value, 'Pangkat');
                 },
               ]"
             />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Pos Tarif</label>
+            <label class="mb-2 fw-medium fs-14">Golongan</label>
             <v-text-field
-              placeholder="Pos Tarif"
+              placeholder="Golongan"
               outlined
               dense
-              v-model="tarrif_post"
+              v-model="golongan"
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'Pos Tarif');
+                  return genericRequiredRule(value, 'Golongan');
                 },
               ]"
             />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">HS Code</label>
+            <label class="mb-2 fw-medium fs-14">Password</label>
             <v-text-field
-              placeholder="HS Code"
+              placeholder="Password"
               outlined
               dense
-              v-model="hs_code"
+              v-model="password"
+              prepend-inner-icon="mdi-lock-outline"
+              :append-icon="isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="isShowPassword ? 'text' : 'password'"
+              @click:append="isShowPassword = !isShowPassword"
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'HS Code');
+                  return genericRequiredRule(value, 'Password');
                 },
               ]"
-            />
-          </div>
-          <div class="col-md-12">
-            <label class="mb-2 fw-medium fs-14">Uraian Barang</label>
-            <v-textarea
-              placeholder="Uraian Barang"
-              rows="3"
-              outlined
-              dense
-              v-model="description"
             />
           </div>
         </div>
-      </div>
-      <div class="card-footer">
         <div class="d-flex justify-content-end">
           <button class="mr-5 text-muted" type="button" @click="handleClose">
             Kembali
@@ -118,95 +124,92 @@ import { ValidationRules } from "@/mixins/validation-rules";
 export default {
   name: "UserForm",
   mixins: [ValidationRules],
-  components: {
-    DatePicker: () => import("@/components/atoms/date-picker.vue"),
-  },
+  components: {},
   data() {
-    return {};
+    return {
+      isShowPassword: false,
+    };
   },
   computed: {
     isLoading() {
-      return this.$store.state.barang.isLoading;
+      return this.$store.state.pegawai.isLoading;
     },
     isUpdate() {
-      return this.$store.state.barang.isUpdate;
+      return this.$store.state.pegawai.isUpdate;
     },
-    list_role() {
-      return this.$store.state.barang.list_role;
-    },
-    name: {
+    nip: {
       get() {
-        return this.$store.state.barang.form.name;
+        return this.$store.state.pegawai.form.nip;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "name",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "nip",
           value,
         });
       },
     },
-    date: {
+    nama: {
       get() {
-        return this.$store.state.barang.form.date;
+        return this.$store.state.pegawai.form.nama;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "date",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "nama",
           value,
         });
       },
     },
-    description: {
+    pangkat: {
       get() {
-        return this.$store.state.barang.form.description;
+        return this.$store.state.pegawai.form.pangkat;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "description",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "pangkat",
           value,
         });
       },
     },
-    weight: {
+    golongan: {
       get() {
-        return this.$store.state.barang.form.weight;
+        return this.$store.state.pegawai.form.golongan;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "weight",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "golongan",
           value,
         });
       },
     },
-    package_unit: {
+    password: {
       get() {
-        return this.$store.state.barang.form.package_unit;
+        return this.$store.state.pegawai.form.password;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "package_unit",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "password",
           value,
         });
       },
     },
-    tarrif_post: {
+    is_admin: {
       get() {
-        return this.$store.state.barang.form.tarrif_post;
+        return this.$store.state.pegawai.form.is_admin;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "tarrif_post",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "is_admin",
           value,
         });
       },
     },
-    hs_code: {
+    is_active: {
       get() {
-        return this.$store.state.barang.form.hs_code;
+        return this.$store.state.pegawai.form.is_active;
       },
       set(value) {
-        this.$store.commit("SET_FORM_BARANG", {
-          key: "hs_code",
+        this.$store.commit("SET_FORM_PEGAWAI", {
+          key: "is_active",
           value,
         });
       },
@@ -214,8 +217,8 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$store.commit("RESET_FORM_BARANG");
-      this.$store.commit("SET_IS_UPDATE_BARANG", false);
+      this.$store.commit("RESET_FORM_PEGAWAI");
+      this.$store.commit("SET_IS_UPDATE_PEGAWAI", false);
 
       this.$emit("handleModalForm", false);
     },
@@ -229,7 +232,7 @@ export default {
           });
           return;
         }
-        this.$store.dispatch("CreateBarang").then((res) => {
+        this.$store.dispatch("CreateUser").then((res) => {
           if (res) {
             this.handleClose();
           }
