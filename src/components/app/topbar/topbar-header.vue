@@ -25,7 +25,7 @@
             <img
               :src="
                 'https://ui-avatars.com/api/?background=312E68&color=fff&font-size=0.4&name=' +
-                user.name
+                user.nama
               "
               width="40"
               height="40"
@@ -34,10 +34,10 @@
             />
             <div class="d-none d-sm-block">
               <p class="mb-0 fw-medium text-black">
-                {{ user.name }}
+                {{ user.nama }}
               </p>
               <p class="mb-0 small text-muted">
-                {{ user.role }}
+                {{ user.pangkat }} - {{ user.golongan }}
               </p>
             </div>
           </div>
