@@ -25,12 +25,15 @@
                 <v-text-field
                   outlined
                   dense
-                  placeholder="Username or Email"
+                  placeholder="NIP"
                   prepend-inner-icon="mdi-account-outline"
-                  v-model="uid"
+                  v-model="nip"
                   :rules="[
                     (value) => {
-                      return genericRequiredRule(value, 'UID');
+                      return genericRequiredRule(value, 'NIP');
+                    },
+                    (value) => {
+                      return genericNumber16Rule(value, 'NIP');
                     },
                   ]"
                 />
@@ -86,13 +89,13 @@ export default {
     isLoading() {
       return this.$store.state.app.isLoading;
     },
-    uid: {
+    nip: {
       get() {
-        return this.$store.state.app.login.uid;
+        return this.$store.state.app.login.nip;
       },
       set(value) {
         this.$store.commit("SET_FORM_LOGIN_APP", {
-          key: "uid",
+          key: "nip",
           value,
         });
       },

@@ -7,7 +7,7 @@ const app = {
   state: {
     isLoading: false,
     login: {
-      uid: "",
+      nip: "",
       password: "",
     },
     user: "",
@@ -45,7 +45,7 @@ const app = {
         localStorage.setItem("token", result.data.data.token);
 
         context.state.login = {
-          uid: "",
+          nip: "",
           password: "",
         };
 
