@@ -68,37 +68,43 @@ export default {
           title: "Dashboard",
           path: "/dashboard",
           icon: "fa-solid fa-house",
-          role: ["admin", "user"],
+          AdminOnly: false,
         },
         {
           title: "Gaji",
           path: "/gaji",
           icon: "fa-solid fa-boxes",
-          role: ["admin", "user"],
+          AdminOnly: false,
         },
         {
           title: "Tunjangan",
           path: "/tunjangan",
           icon: "fa-solid fa-boxes",
-          role: ["admin", "user"],
+          AdminOnly: false,
         },
         {
           title: "Uang Makan",
           path: "/uang-makan",
           icon: "fa-solid fa-boxes",
-          role: ["admin", "user"],
+          AdminOnly: false,
         },
         {
           title: "SPD",
           path: "/spd",
           icon: "fa-solid fa-boxes",
-          role: ["admin", "user"],
+          AdminOnly: false,
         },
         {
           title: "Uang Lembur",
           path: "/uang-lembur",
           icon: "fa-solid fa-boxes",
-          role: ["admin", "user"],
+          AdminOnly: false,
+        },
+        {
+          title: "Pegawai",
+          path: "/pegawai",
+          icon: "fa-solid fa-users",
+          AdminOnly: true,
         },
       ],
     };
@@ -114,14 +120,11 @@ export default {
     },
   },
   mounted() {
-    // //  handle role menu
-    // let role = this.user.role;
-    // // console.log(role);
-    // let navItems = this.navItems;
-    // let filteredNavItems = navItems.filter((item) => {
-    //   return item.role.includes(role.toLowerCase());
-    // });
-    // this.navItems = filteredNavItems;
+    let isAdmin = this.user.is_admin;
+
+    if (!isAdmin) {
+      this.navItems = this.navItems.filter((item) => !item.AdminOnly);
+    }
   },
 };
 </script>
