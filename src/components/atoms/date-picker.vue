@@ -20,14 +20,32 @@
         v-on="on"
       ></v-text-field>
     </template>
-    <v-date-picker :value="value" @input="handleInput"></v-date-picker>
+    <v-date-picker
+      :value="value"
+      @input="handleInput"
+      :type="type"
+    ></v-date-picker>
   </v-menu>
 </template>
 
 <script>
 export default {
   name: "AtomDatePicker",
-  props: ["value", "label"],
+  // props: ["value", "label", "type" = "date"],
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      default: "date",
+    },
+  },
   data() {
     return {
       menu: false,

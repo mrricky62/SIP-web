@@ -3,7 +3,7 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">Form Pegawai</p>
+          <p class="card-title fw-medium mb-0">Form Gaji</p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -11,102 +11,79 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-6">
-            <v-switch
-              inset
-              dense
-              v-model="is_active"
-              label="Is Active"
-            ></v-switch>
+          <div class="col-md-4">
+            <label class="mb-2 fw-medium fs-14">Tanggal</label>
+            <date-picker type="month" v-model="tanggal" />
           </div>
-          <div class="col-md-6">
-            <v-switch
-              inset
-              dense
-              v-model="is_admin"
-              label="Is Admin"
-            ></v-switch>
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">NIP</label>
+          <div class="col-md-4">
+            <label class="mb-2 fw-medium fs-14">KD Golongan</label>
             <v-text-field
-              placeholder="NIP"
+              placeholder="KD Golongan"
               outlined
               dense
-              v-model="nip"
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'NIP');
+                  return genericRequiredRule(value, 'KD Golongan');
                 },
-                (value) => {
-                  return genericNumber16Rule(value, 'NIP');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Nama</label>
-            <v-text-field
-              placeholder="Nama"
-              outlined
-              dense
-              v-model="nama"
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Nama');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Pangkat</label>
-            <v-text-field
-              placeholder="Pangkat"
-              outlined
-              dense
-              v-model="pangkat"
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Pangkat');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Golongan</label>
-            <v-text-field
-              placeholder="Golongan"
-              outlined
-              dense
-              v-model="golongan"
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Golongan');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Password</label>
-            <v-text-field
-              placeholder="Password"
-              outlined
-              dense
-              v-model="password"
-              prepend-inner-icon="mdi-lock-outline"
-              :append-icon="isShowPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="isShowPassword ? 'text' : 'password'"
-              @click:append="isShowPassword = !isShowPassword"
-              :rules="[
-                isUpdate
-                  ? () => {}
-                  : (value) => {
-                      return genericRequiredRule(value, 'Password');
-                    },
               ]"
             />
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label class="mb-2 fw-medium fs-14">Nama Rekening</label>
+            <v-text-field
+              placeholder="Nama Rekening"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Nama Rekening');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="mb-2 fw-medium fs-14">Nama Bank</label>
+            <v-text-field
+              placeholder="Nama Bank"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Nama Bank');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="mb-2 fw-medium fs-14">No Rekening</label>
+            <v-text-field
+              placeholder="No Rekening"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'No Rekening');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-4">
+            <label class="mb-2 fw-medium fs-14">Gaji Pokok</label>
+            <v-text-field
+              placeholder="Gaji Pokok"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Gaji Pokok');
+                },
+              ]"
+            />
+          </div>
+        </div>
+        <FormGajiTunjangan />
         <div class="d-flex justify-content-end">
           <button class="mr-5 text-muted" type="button" @click="handleClose">
             Kembali
@@ -122,14 +99,20 @@
 
 <script>
 import { ValidationRules } from "@/mixins/validation-rules";
+import DatePicker from "../../components/atoms/date-picker.vue";
+import moment from "moment";
 
 export default {
   name: "UserForm",
   mixins: [ValidationRules],
-  components: {},
+  components: {
+    DatePicker,
+    FormGajiTunjangan: () => import("./form/form-tunjangan.vue"),
+  },
   data() {
     return {
       isShowPassword: false,
+      tanggal: moment().format("YYYY-MM"),
     };
   },
   computed: {

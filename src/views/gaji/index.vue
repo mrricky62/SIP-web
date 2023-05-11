@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <v-dialog v-if="modalForm" v-model="modalForm" max-width="800" persistent>
+    <v-dialog v-if="modalForm" v-model="modalForm" max-width="1200" persistent>
       <Form @handleModalForm="handleModalForm" />
     </v-dialog>
   </layout-app>
@@ -91,7 +91,7 @@ import moment from "moment";
 import LayoutApp from "../../layouts/layout-app.vue";
 
 export default {
-  name: "PegawaiPage",
+  name: "GajiPage",
   components: {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
