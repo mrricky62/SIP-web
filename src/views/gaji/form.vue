@@ -19,7 +19,7 @@
               outlined
               dense
               placeholder="0"
-              v-model="model"
+              v-model="pembulatan"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -36,7 +36,7 @@
               outlined
               dense
               placeholder="0"
-              v-model="model"
+              v-model="bersih"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -62,7 +62,7 @@
 import { ValidationRules } from "@/mixins/validation-rules";
 
 export default {
-  name: "UserForm",
+  name: "FormGaji",
   mixins: [ValidationRules],
   components: {
     FormGajiPegawai: () => import("./form/1-form-pegawai.vue"),
@@ -74,84 +74,29 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.pegawai.isLoading;
+      return this.$store.state.gaji.isLoading;
     },
     isUpdate() {
-      return this.$store.state.pegawai.isUpdate;
+      return this.$store.state.gaji.isUpdate;
     },
-    nip: {
+    pembulatan: {
       get() {
-        return this.$store.state.pegawai.form.nip;
+        return this.$store.state.gaji.form.pembulatan;
       },
       set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "nip",
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pembulatan",
           value,
         });
       },
     },
-    nama: {
+    bersih: {
       get() {
-        return this.$store.state.pegawai.form.nama;
+        return this.$store.state.gaji.form.bersih;
       },
       set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "nama",
-          value,
-        });
-      },
-    },
-    pangkat: {
-      get() {
-        return this.$store.state.pegawai.form.pangkat;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "pangkat",
-          value,
-        });
-      },
-    },
-    golongan: {
-      get() {
-        return this.$store.state.pegawai.form.golongan;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "golongan",
-          value,
-        });
-      },
-    },
-    password: {
-      get() {
-        return this.$store.state.pegawai.form.password;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "password",
-          value,
-        });
-      },
-    },
-    is_admin: {
-      get() {
-        return this.$store.state.pegawai.form.is_admin;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "is_admin",
-          value,
-        });
-      },
-    },
-    is_active: {
-      get() {
-        return this.$store.state.pegawai.form.is_active;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_PEGAWAI", {
-          key: "is_active",
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "bersih",
           value,
         });
       },
@@ -174,7 +119,7 @@ export default {
           });
           return;
         }
-        this.$store.dispatch("CreateUser").then((res) => {
+        this.$store.dispatch("CreateGaji").then((res) => {
           if (res) {
             this.handleClose();
           }

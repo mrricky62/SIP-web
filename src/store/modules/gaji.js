@@ -2,7 +2,7 @@ import axios from "axios";
 import catchUnauthorized from "@/utils/catch-unauthorized";
 const apiUrl = process.env.VUE_APP_API_URL;
 import moment from "moment/moment";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 const form = {
   user_id: "",
@@ -121,6 +121,39 @@ const gaji = {
         context.commit("SET_LIST_PEGAWAI_GAJI", pegawai.data.data);
       } catch (error) {
         catchUnauthorized(error);
+      } finally {
+        context.commit("SET_IS_LOADING_GAJI", false);
+      }
+    },
+    async CreateGaji(context) {
+      context.commit("SET_IS_LOADING_GAJI", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/gaji`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: context.state.form,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+        context.dispatch("FetchGaji");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
       } finally {
         context.commit("SET_IS_LOADING_GAJI", false);
       }

@@ -9,7 +9,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_pfkbul"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -23,7 +23,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_pfk2"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -37,7 +37,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_pfk10"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -51,7 +51,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_pph"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -65,7 +65,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_swrum"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -79,7 +79,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_kelbtj"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -93,7 +93,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_lain"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -107,7 +107,7 @@
           outlined
           dense
           placeholder="0"
-          v-model="model"
+          v-model="pot_tabrum"
           :options="{
             prefix: 'Rp ',
             thousands: '.',
@@ -129,6 +129,96 @@ export default {
     return {
       model: "",
     };
+  },
+  computed: {
+    pot_pfkbul: {
+      get() {
+        return this.$store.state.gaji.form.pot_pfkbul;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_pfkbul",
+          value,
+        });
+      },
+    },
+    pot_pfk2: {
+      get() {
+        return this.$store.state.gaji.form.pot_pfk2;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_pfk2",
+          value,
+        });
+      },
+    },
+    pot_pfk10: {
+      get() {
+        return this.$store.state.gaji.form.pot_pfk10;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_pfk10",
+          value,
+        });
+      },
+    },
+    pot_pph: {
+      get() {
+        return this.$store.state.gaji.form.pot_pph;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_pph",
+          value,
+        });
+      },
+    },
+    pot_swrum: {
+      get() {
+        return this.$store.state.gaji.form.pot_swrum;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_swrum",
+          value,
+        });
+      },
+    },
+    pot_kelbtj: {
+      get() {
+        return this.$store.state.gaji.form.pot_kelbtj;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_kelbtj",
+          value,
+        });
+      },
+    },
+    pot_lain: {
+      get() {
+        return this.$store.state.gaji.form.pot_lain;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_lain",
+          value,
+        });
+      },
+    },
+    pot_tabrum: {
+      get() {
+        return this.$store.state.gaji.form.pot_tabrum;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_GAJI", {
+          key: "pot_tabrum",
+          value,
+        });
+      },
+    },
   },
 };
 </script>
