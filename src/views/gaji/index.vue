@@ -132,6 +132,7 @@ export default {
   },
   methods: {
     handleModalForm(value) {
+      if(value) this.$store.dispatch("FetchBeforeFormGaji");
       this.modalForm = value;
     },
     handleEdit(id) {

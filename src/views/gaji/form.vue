@@ -10,79 +10,7 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-4">
-            <label class="mb-2 fw-medium fs-14">Tanggal</label>
-            <date-picker type="month" v-model="tanggal" />
-          </div>
-          <div class="col-md-4">
-            <label class="mb-2 fw-medium fs-14">KD Golongan</label>
-            <v-text-field
-              placeholder="KD Golongan"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'KD Golongan');
-                },
-              ]"
-            />
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <label class="mb-2 fw-medium fs-14">Nama Rekening</label>
-            <v-text-field
-              placeholder="Nama Rekening"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Nama Rekening');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-4">
-            <label class="mb-2 fw-medium fs-14">Nama Bank</label>
-            <v-text-field
-              placeholder="Nama Bank"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Nama Bank');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-4">
-            <label class="mb-2 fw-medium fs-14">No Rekening</label>
-            <v-text-field
-              placeholder="No Rekening"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'No Rekening');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-4">
-            <label class="mb-2 fw-medium fs-14">Gaji Pokok</label>
-            <v-text-field
-              placeholder="Gaji Pokok"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Gaji Pokok');
-                },
-              ]"
-            />
-          </div>
-        </div>
+        <FormGajiPegawai />
         <FormGajiTunjangan />
         <div class="row">
           <div class="col-sm-6">
@@ -132,21 +60,17 @@
 
 <script>
 import { ValidationRules } from "@/mixins/validation-rules";
-import DatePicker from "../../components/atoms/date-picker.vue";
-import moment from "moment";
 
 export default {
   name: "UserForm",
   mixins: [ValidationRules],
   components: {
-    DatePicker,
-    FormGajiTunjangan: () => import("./form/form-tunjangan.vue"),
-    FormGajiPotongan: () => import("./form/form-potongan.vue"),
+    FormGajiPegawai: () => import("./form/1-form-pegawai.vue"),
+    FormGajiTunjangan: () => import("./form/2-form-tunjangan.vue"),
+    FormGajiPotongan: () => import("./form/3-form-potongan.vue"),
   },
   data() {
-    return {
-      tanggal: moment().format("YYYY-MM"),
-    };
+    return {};
   },
   computed: {
     isLoading() {
