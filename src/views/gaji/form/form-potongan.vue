@@ -1,10 +1,10 @@
 <template>
   <div>
     <hr />
-    <label class="mb-2 fw-medium fs-14 mb-5"> - Tunjangan</label>
+    <label class="mb-2 fw-medium fs-14 mb-5"> - Potongan</label>
     <div class="row">
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Istri</label>
+        <label class="mb-2 fs-14">Pot Pfkbul</label>
         <vuetify-money
           outlined
           dense
@@ -18,7 +18,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Anak</label>
+        <label class="mb-2 fs-14">Pot Pfk2</label>
         <vuetify-money
           outlined
           dense
@@ -32,7 +32,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj PNS</label>
+        <label class="mb-2 fs-14">Pot Pfk10</label>
         <vuetify-money
           outlined
           dense
@@ -46,7 +46,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Struk</label>
+        <label class="mb-2 fs-14">Pot PPH</label>
         <vuetify-money
           outlined
           dense
@@ -60,7 +60,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Fungs</label>
+        <label class="mb-2 fs-14">Pot Swrum</label>
         <vuetify-money
           outlined
           dense
@@ -74,7 +74,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Daerah</label>
+        <label class="mb-2 fs-14">Pot Kelbtj</label>
         <vuetify-money
           outlined
           dense
@@ -88,7 +88,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Pencil</label>
+        <label class="mb-2 fs-14">Pot Lain</label>
         <vuetify-money
           outlined
           dense
@@ -102,49 +102,7 @@
         />
       </div>
       <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj TJLain</label>
-        <vuetify-money
-          outlined
-          dense
-          placeholder="0"
-          v-model="model"
-          :options="{
-            prefix: 'Rp ',
-            thousands: '.',
-            precision: 0,
-          }"
-        />
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Kompen</label>
-        <vuetify-money
-          outlined
-          dense
-          placeholder="0"
-          v-model="model"
-          :options="{
-            prefix: 'Rp ',
-            thousands: '.',
-            precision: 0,
-          }"
-        />
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj Beras</label>
-        <vuetify-money
-          outlined
-          dense
-          placeholder="0"
-          v-model="model"
-          :options="{
-            prefix: 'Rp ',
-            thousands: '.',
-            precision: 0,
-          }"
-        />
-      </div>
-      <div class="col-sm-6 col-md-4">
-        <label class="mb-2 fs-14">Tunj PPH</label>
+        <label class="mb-2 fs-14">Pot Tabrum</label>
         <vuetify-money
           outlined
           dense
@@ -165,7 +123,7 @@
 import { ValidationRules } from "@/mixins/validation-rules";
 
 export default {
-  name: "FormGajiTunjangan",
+  name: "FormGajiPotongan",
   mixins: [ValidationRules],
   data() {
     return {

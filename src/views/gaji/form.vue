@@ -84,6 +84,39 @@
           </div>
         </div>
         <FormGajiTunjangan />
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="mb-2 fs-14">Pembulatan</label>
+            <vuetify-money
+              outlined
+              dense
+              placeholder="0"
+              v-model="model"
+              :options="{
+                prefix: 'Rp ',
+                thousands: '.',
+                precision: 0,
+              }"
+            />
+          </div>
+        </div>
+        <FormGajiPotongan />
+        <div class="row">
+          <div class="col-sm-6">
+            <label class="mb-2 fs-14">Bersih</label>
+            <vuetify-money
+              outlined
+              dense
+              placeholder="0"
+              v-model="model"
+              :options="{
+                prefix: 'Rp ',
+                thousands: '.',
+                precision: 0,
+              }"
+            />
+          </div>
+        </div>
         <div class="d-flex justify-content-end">
           <button class="mr-5 text-muted" type="button" @click="handleClose">
             Kembali
@@ -108,10 +141,10 @@ export default {
   components: {
     DatePicker,
     FormGajiTunjangan: () => import("./form/form-tunjangan.vue"),
+    FormGajiPotongan: () => import("./form/form-potongan.vue"),
   },
   data() {
     return {
-      isShowPassword: false,
       tanggal: moment().format("YYYY-MM"),
     };
   },
