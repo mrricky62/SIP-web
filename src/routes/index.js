@@ -5,6 +5,7 @@ import auth from "@/middleware/auth";
 import guest from "@/middleware/guest";
 
 import Login from "../views/auth/login.vue";
+import ChangePassword from "../views/auth/change-password.vue";
 
 import Dashboard from "@/views/dashboard/index.vue";
 import Gaji from "@/views/gaji/index.vue";
@@ -23,6 +24,14 @@ const routes = [
     component: Login,
     meta: {
       middleware: [guest],
+    },
+  },
+  {
+    path: "/change-password",
+    name: "ChangePassword",
+    component: ChangePassword,
+    meta: {
+      middleware: [auth],
     },
   },
   {

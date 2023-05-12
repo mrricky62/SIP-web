@@ -51,13 +51,15 @@
             </p>
           </li>
           <li><hr class="dropdown-divider" /></li>
-          <!-- <li>
-            <a class="dropdown-item text-black small" href="#">
+          <li>
+            <router-link
+              to="/change-password"
+              class="dropdown-item text-black small mb-2"
+            >
               <i class="fa-solid fa-lock mr-1"></i>
               Ganti Password
-            </a>
-          </li> -->
-          <!-- <li><hr class="dropdown-divider" /></li> -->
+            </router-link>
+          </li>
           <li>
             <a class="dropdown-item text-danger small" @click="handleLogout">
               <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>
