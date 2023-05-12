@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 const form = {
   user_id: "",
   tanggal: moment().format("YYYY-MM"),
+  tanggal_spm: moment().format("YYYY-MM-DD"),
   jam_kerja: "",
   jam_libur: "",
   jam_makan: "",

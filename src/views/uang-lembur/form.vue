@@ -32,6 +32,12 @@
             <label class="mb-2 fw-medium fs-14">Tanggal</label>
             <date-picker type="month" v-model="tanggal" />
           </div>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">Tanggal SPM</label>
+            <date-picker v-model="tanggal_spm" />
+          </div>
+        </div>
+        <div class="row">
           <div class="col-sm-6 col-md-4">
             <label class="mb-2 fw-medium fs-14">Jam Kerja</label>
             <v-text-field
@@ -76,6 +82,8 @@
               ]"
             />
           </div>
+        </div>
+        <div class="row">
           <div class="col-12">
             <label class="mb-2 fw-medium fs-14">Lembur</label>
             <vuetify-money
@@ -186,6 +194,17 @@ export default {
       set(value) {
         this.$store.commit("SET_FORM_UANG_LEMBUR", {
           key: "tanggal",
+          value,
+        });
+      },
+    },
+    tanggal_spm: {
+      get() {
+        return this.$store.state.uangLembur.form.tanggal_spm;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
+          key: "tanggal_spm",
           value,
         });
       },
