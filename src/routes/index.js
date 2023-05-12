@@ -10,6 +10,7 @@ import Dashboard from "@/views/dashboard/index.vue";
 import Gaji from "@/views/gaji/index.vue";
 import Tunjangan from "@/views/tunjangan/index.vue";
 import UangMakan from "@/views/uang-makan/index.vue";
+import SPD from "@/views/spd/index.vue";
 import Pegawai from "@/views/pegawai/index.vue";
 
 Vue.use(VueRouter);
@@ -51,6 +52,14 @@ const routes = [
     path: "/uang-makan",
     name: "UangMakan",
     component: UangMakan,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/spd",
+    name: "SPD",
+    component: SPD,
     meta: {
       middleware: [auth],
     },
