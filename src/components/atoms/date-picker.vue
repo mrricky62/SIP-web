@@ -12,7 +12,6 @@
         :value="value"
         :label="label"
         prepend-inner-icon="mdi-calendar"
-        hide-details="true"
         readonly
         outlined
         dense

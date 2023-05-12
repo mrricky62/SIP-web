@@ -78,7 +78,7 @@
       </div>
     </div>
 
-    <v-dialog v-if="modalForm" v-model="modalForm" max-width="1200" persistent>
+    <v-dialog v-if="modalForm" v-model="modalForm" max-width="800" persistent>
       <Form @handleModalForm="handleModalForm" />
     </v-dialog>
     <v-dialog
@@ -141,7 +141,7 @@ export default {
   },
   methods: {
     handleModalForm(value) {
-      if (value) this.$store.dispatch("FetchBeforeFormTunjangan");
+      if (value) this.$store.dispatch("FetchBeforeFormUangMakan");
       this.modalForm = value;
     },
     handleEdit(id) {
