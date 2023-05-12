@@ -80,8 +80,13 @@
       </div>
       <div class="col-md-4">
         <label class="mb-2 fw-medium fs-14">Gaji Pokok</label>
-        <v-text-field
-          placeholder="Gaji Pokok"
+        <vuetify-money
+          placeholder="0"
+          :options="{
+            prefix: 'Rp ',
+            thousands: '.',
+            precision: 0,
+          }"
           v-model="gaji_pokok"
           outlined
           dense

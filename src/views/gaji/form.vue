@@ -112,7 +112,7 @@ export default {
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {
         if (this.isUpdate) {
-          this.$store.dispatch("UpdateUser", this.isUpdate).then((res) => {
+          this.$store.dispatch("UpdateGaji", this.isUpdate).then((res) => {
             if (res) {
               this.handleClose();
             }

@@ -196,6 +196,44 @@ const gaji = {
         context.commit("SET_IS_LOADING_GAJI", false);
       }
     },
+    async UpdateGaji(context, id) {
+      context.commit("SET_IS_LOADING_GAJI", true);
+
+      try {
+        const payload = context.state.form;
+        delete payload.user;
+        delete payload.total_potongan;
+        delete payload.total_tunjangan;
+
+        const result = await axios({
+          url: `${apiUrl}/gaji/${id}`,
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: payload,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+        context.dispatch("FetchGaji");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_GAJI", false);
+      }
+    },
   },
 };
 
