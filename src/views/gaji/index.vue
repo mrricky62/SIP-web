@@ -28,24 +28,22 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot:[`item.is_admin`]="{ item }">
-              <v-chip
-                small
-                :color="item.is_admin ? 'success' : 'error'"
-                text-color="white"
-              >
-                {{ item.is_admin ? "Yes" : "No" }}
-              </v-chip>
+            <template v-slot:[`item.gaji_pokok`]="{ item }">
+              {{ format3Digit(item.gaji_pokok) }}
             </template>
-            <template v-slot:[`item.is_active`]="{ item }">
-              <v-chip
-                small
-                :color="item.is_active ? 'success' : 'error'"
-                text-color="white"
-              >
-                {{ item.is_active ? "Yes" : "No" }}
-              </v-chip>
+            <template v-slot:[`item.total_potongan`]="{ item }">
+              {{ format3Digit(item.total_potongan) }}
             </template>
+            <template v-slot:[`item.pembulatan`]="{ item }">
+              {{ format3Digit(item.pembulatan) }}
+            </template>
+            <template v-slot:[`item.total_tunjangan`]="{ item }">
+              {{ format3Digit(item.total_tunjangan) }}
+            </template>
+            <template v-slot:[`item.bersih`]="{ item }">
+              {{ format3Digit(item.bersih) }}
+            </template>
+
             <template v-slot:[`item.action`]="{ item }">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
@@ -60,6 +58,12 @@
                   </v-btn>
                 </template>
                 <v-list min-width="150">
+                  <v-list-item @click="handleModalDetail(true, item.id)">
+                    <v-list-item-title class="text-primary fs-12">
+                      <i class="fas fa-eye small mr-2"></i>
+                      <span>Detail</span>
+                    </v-list-item-title>
+                  </v-list-item>
                   <v-list-item @click="handleEdit(item.id)">
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-edit small mr-2"></i>
@@ -83,12 +87,21 @@
     <v-dialog v-if="modalForm" v-model="modalForm" max-width="1200" persistent>
       <Form @handleModalForm="handleModalForm" />
     </v-dialog>
+    <v-dialog
+      v-if="modalDetail"
+      v-model="modalDetail"
+      max-width="800"
+      persistent
+    >
+      <Detail @handleModalDetail="handleModalDetail" />
+    </v-dialog>
   </layout-app>
 </template>
 
 <script>
-import moment from "moment";
 import LayoutApp from "../../layouts/layout-app.vue";
+import moment from "moment";
+import format3Digit from "@/utils/format-3digit.js";
 
 export default {
   name: "GajiPage",
@@ -96,43 +109,46 @@ export default {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
     Form: () => import("./form.vue"),
+    Detail: () => import("./detail.vue"),
   },
   data() {
     return {
       headers: [
-        { text: "No", value: "no" },
-        { text: "NIP", value: "nip" },
-        { text: "Nama", value: "nama" },
-        { text: "Pangkat", value: "pangkat" },
-        { text: "Golongan", value: "golongan" },
-        { text: "Is Admin", value: "is_admin" },
-        { text: "Is Active", value: "is_active" },
+        { text: "NIP", value: "user.nip" },
+        { text: "Tanggal", value: "tanggal" },
+        { text: "KdGol", value: "kdgol" },
+        { text: "Gaji Pokok", value: "gaji_pokok" },
+        { text: "Potongan", value: "total_potongan" },
+        { text: "Pembulatan", value: "pembulatan" },
+        { text: "Tunjangan", value: "total_tunjangan" },
+        { text: "Bersih", value: "bersih" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
+      format3Digit,
       moment,
       modalForm: false,
-      modalHistory: false,
+      modalDetail: false,
     };
   },
   computed: {
     isLoading() {
-      return this.$store.state.pegawai.isLoading;
+      return this.$store.state.gaji.isLoading;
     },
     reports() {
-      return this.$store.state.pegawai.reports;
+      return this.$store.state.gaji.reports;
     },
     optionsTable: {
       get() {
-        return this.$store.state.pegawai.optionsTable;
+        return this.$store.state.gaji.optionsTable;
       },
       set(value) {
-        this.$store.commit("SET_OPTIONS_TABLE_PEGAWAI", value);
+        this.$store.commit("SET_OPTIONS_TABLE_GAJI", value);
       },
     },
   },
   methods: {
     handleModalForm(value) {
-      if(value) this.$store.dispatch("FetchBeforeFormGaji");
+      if (value) this.$store.dispatch("FetchBeforeFormGaji");
       this.modalForm = value;
     },
     handleEdit(id) {
@@ -141,9 +157,13 @@ export default {
 
       this.handleModalForm(true);
     },
+    handleModalDetail(value, id) {
+      if (value) this.$store.dispatch("FetchGajiDetail", id);
+      this.modalDetail = value;
+    },
   },
   mounted() {
-    this.$store.dispatch("FetchPegawai");
+    this.$store.dispatch("FetchGaji");
   },
 };
 </script>

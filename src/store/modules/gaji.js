@@ -107,6 +107,25 @@ const gaji = {
         context.commit("SET_IS_LOADING_GAJI", false);
       }
     },
+    async FetchGajiDetail(context, id) {
+      context.commit("SET_IS_LOADING_GAJI", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/gaji/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+        });
+
+        context.commit("SET_REPORT_GAJI", result.data.data);
+      } catch (error) {
+        catchUnauthorized(error);
+      } finally {
+        context.commit("SET_IS_LOADING_GAJI", false);
+      }
+    },
     async FetchBeforeFormGaji(context) {
       context.commit("SET_IS_LOADING_GAJI", true);
 
