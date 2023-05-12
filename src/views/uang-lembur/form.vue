@@ -297,11 +297,13 @@ export default {
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {
         if (this.isUpdate) {
-          this.$store.dispatch("UpdateUangMakan", this.isUpdate).then((res) => {
-            if (res) {
-              this.handleClose();
-            }
-          });
+          this.$store
+            .dispatch("UpdateUangLembur", this.isUpdate)
+            .then((res) => {
+              if (res) {
+                this.handleClose();
+              }
+            });
           return;
         }
         this.$store.dispatch("CreateUangLembur").then((res) => {
