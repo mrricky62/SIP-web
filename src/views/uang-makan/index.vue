@@ -28,16 +28,9 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot:[`item.besaran_tunjangan`]="{ item }">
-              {{ format3Digit(item.besaran_tunjangan) }}
+            <template v-slot:[`item.bersih`]="{ item }">
+              {{ format3Digit(item.bersih) }}
             </template>
-            <template v-slot:[`item.jumlah_potongan`]="{ item }">
-              {{ format3Digit(item.jumlah_potongan) }}
-            </template>
-            <template v-slot:[`item.tunj_dibayar`]="{ item }">
-              {{ format3Digit(item.tunj_dibayar) }}
-            </template>
-
             <template v-slot:[`item.action`]="{ item }">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
@@ -99,7 +92,7 @@ import format3Digit from "@/utils/format-3digit.js";
 import Swal from "sweetalert2";
 
 export default {
-  name: "TunjanganPage",
+  name: "UangMakanPage",
   components: {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
@@ -110,11 +103,11 @@ export default {
     return {
       headers: [
         { text: "NIP", value: "user.nip" },
-        { text: "Tanggal", value: "tanggal" },
-        { text: "Grade", value: "grade" },
-        { text: "Tunjangan", value: "besaran_tunjangan" },
-        { text: "Jumlah Potongan", value: "jumlah_potongan" },
-        { text: "Tunjangan Dibayar", value: "tunj_dibayar" },
+        { text: "Bulan", value: "bulan" },
+        { text: "Tahun", value: "tahun" },
+        { text: "Jumlah Hari", value: "jml_hari" },
+        { text: "Nilai", value: "bersih" },
+        { text: "Tanggal SPM", value: "tanggal_spm" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       format3Digit,
@@ -125,17 +118,17 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.tunjangan.isLoading;
+      return this.$store.state.uangMakan.isLoading;
     },
     reports() {
-      return this.$store.state.tunjangan.reports;
+      return this.$store.state.uangMakan.reports;
     },
     optionsTable: {
       get() {
-        return this.$store.state.tunjangan.optionsTable;
+        return this.$store.state.uangMakan.optionsTable;
       },
       set(value) {
-        this.$store.commit("SET_OPTIONS_TABLE_TUNJANGAN", value);
+        this.$store.commit("SET_OPTIONS_TABLE_UANG_MAKAN", value);
       },
     },
   },
@@ -170,7 +163,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("FetchTunjangan");
+    this.$store.dispatch("FetchUangMakan");
   },
 };
 </script>
