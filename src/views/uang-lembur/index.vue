@@ -145,7 +145,7 @@ export default {
       this.handleModalForm(true);
     },
     handleModalDetail(value, id) {
-      if (value) this.$store.dispatch("FetchUangMakanDetail", id);
+      if (value) this.$store.dispatch("FetchUangLemburDetail", id);
       this.modalDetail = value;
     },
     handleDelete(id) {

@@ -4,7 +4,7 @@
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
           <p class="card-title fw-medium mb-0">
-            Detail Uang Makan {{ report.user.nama }} pada {{ report.tanggal }}
+            Detail Uang Lembur {{ report.user.nama }} pada {{ report.tanggal }}
           </p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
@@ -22,7 +22,6 @@
                   { key: 'Nama', value: report.user.nama },
                   { key: 'Pangkat', value: report.user.pangkat },
                   { key: 'Golongan', value: report.user.golongan },
-                  { key: 'No Rekening', value: report.no_rek },
                 ]"
                 :key="i"
               >
@@ -38,8 +37,6 @@
                 v-for="(item, i) in [
                   { key: 'Tanggal', value: report.tanggal },
                   { key: 'Tanggal SPM', value: report.tanggal_spm },
-                  { key: 'Kdgol', value: report.kdgol },
-                  { key: 'Jumlah Hari', value: report.jml_hari },
                 ]"
                 :key="i"
               >
@@ -52,20 +49,25 @@
         </div>
 
         <br />
+        <br />
 
         <table class="fs-14">
           <tr
             v-for="(item, i) in [
-              { key: 'Tarif', value: report.tarif },
-              { key: 'Kotor', value: report.kotor },
-              { key: 'PPH', value: report.pph },
-              { key: 'Bersih', value: report.bersih },
+              { key: 'Jam Kerja', value: report.jam_kerja },
+              { key: 'Jam Libur', value: report.jam_libur },
+              { key: 'Jam Makan', value: report.jam_makan },
+              { key: 'Jumlah Jam', value: report.jumlah_jam },
+              { key: 'Lembur', value: `RP.${format3Digit(report.lembur)}` },
+              { key: 'Makan', value: `RP.${format3Digit(report.makan)}` },
+              { key: 'PPH', value: `RP.${format3Digit(report.pph)}` },
+              { key: 'Bersih', value: `RP.${format3Digit(report.bersih)}` },
             ]"
             :key="i"
           >
-            <td style="min-width: 150px">{{ item.key }}</td>
+            <td style="min-width: 150px; line-height: 30px">{{ item.key }}</td>
             <td style="min-width: 20px">:</td>
-            <td class="fw-medium">Rp.{{ format3Digit(item.value) }}</td>
+            <td class="fw-medium">{{ item.value }}</td>
           </tr>
         </table>
 
@@ -79,7 +81,7 @@
 import format3Digit from "@/utils/format-3digit.js";
 
 export default {
-  name: "UangMakanDetail",
+  name: "UangLemburDetail",
   components: {},
   data() {
     return {
@@ -88,10 +90,10 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.uangMakan.isLoading;
+      return this.$store.state.uangLembur.isLoading;
     },
     report() {
-      return this.$store.state.uangMakan.report;
+      return this.$store.state.uangLembur.report;
     },
   },
   methods: {
