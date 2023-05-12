@@ -48,7 +48,7 @@
           </div>
           <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Tanggal SPM</label>
-            <date-picker type="month" v-model="tanggal_spm" />
+            <date-picker v-model="tanggal_spm" />
           </div>
           <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">No Rekening</label>
@@ -299,7 +299,7 @@ export default {
           });
           return;
         }
-        this.$store.dispatch("CreateTunjangan").then((res) => {
+        this.$store.dispatch("CreateUangMakan").then((res) => {
           if (res) {
             this.handleClose();
           }

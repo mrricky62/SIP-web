@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const form = {
   user_id: "",
   tanggal: moment().format("YYYY-MM"),
-  tanggal_spm: moment().format("YYYY-MM"),
+  tanggal_spm: moment().format("YYYY-MM-DD"),
   kdgol: "",
 
   jml_hari: 0,
@@ -129,7 +129,7 @@ const uangMakan = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uangMakan`,
+          url: `${apiUrl}/uang-makan`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
