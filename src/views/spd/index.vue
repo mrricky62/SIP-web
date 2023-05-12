@@ -6,7 +6,7 @@
       @click="handleModalForm(true)"
     >
       <i class="fa fa-plus"></i>
-      Add SPD
+      Ajukan SPD
     </v-btn>
     <div class="card p-3 border-0">
       <div class="card-body">
@@ -103,11 +103,11 @@ export default {
     return {
       headers: [
         { text: "NIP", value: "user.nip" },
-        { text: "Bulan", value: "bulan" },
-        { text: "Tahun", value: "tahun" },
-        { text: "Jumlah Hari", value: "jml_hari" },
-        { text: "Nilai", value: "bersih" },
-        { text: "Tanggal SPM", value: "tanggal_spm" },
+        // { text: "Bulan", value: "bulan" },
+        // { text: "Tahun", value: "tahun" },
+        // { text: "Jumlah Hari", value: "jml_hari" },
+        // { text: "Nilai", value: "bersih" },
+        // { text: "Tanggal SPM", value: "tanggal_spm" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       format3Digit,
@@ -118,23 +118,22 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.uangMakan.isLoading;
+      return this.$store.state.spd.isLoading;
     },
     reports() {
-      return this.$store.state.uangMakan.reports;
+      return this.$store.state.spd.reports;
     },
     optionsTable: {
       get() {
-        return this.$store.state.uangMakan.optionsTable;
+        return this.$store.state.spd.optionsTable;
       },
       set(value) {
-        this.$store.commit("SET_OPTIONS_TABLE_UANG_MAKAN", value);
+        this.$store.commit("SET_OPTIONS_TABLE_SPD", value);
       },
     },
   },
   methods: {
     handleModalForm(value) {
-      if (value) this.$store.dispatch("FetchBeforeFormUangMakan");
       this.modalForm = value;
     },
     handleEdit(id) {
@@ -163,7 +162,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("FetchUangMakan");
+    this.$store.dispatch("FetchSPD");
   },
 };
 </script>

@@ -12,37 +12,6 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Pegawai</label>
-            <v-autocomplete
-              placeholder="Pegawai"
-              :items="list_pegawai"
-              item-text="nama"
-              item-value="id"
-              v-model="user_id"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Pegawai');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Kdgol</label>
-            <v-text-field
-              placeholder="Kdgol"
-              v-model="kdgol"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Kdgol');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Tanggal</label>
             <date-picker type="month" v-model="tanggal" />
           </div>
@@ -51,39 +20,53 @@
             <date-picker v-model="tanggal_spm" />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">No Rekening</label>
+            <label class="mb-2 fw-medium fs-14">Tujuan</label>
             <v-text-field
-              placeholder="No Rekening"
-              v-model="no_rek"
+              placeholder="Tujuan"
+              v-model="tujuan"
               outlined
               dense
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'No Rekening');
+                  return genericRequiredRule(value, 'Tujuan');
                 },
               ]"
             />
           </div>
-          <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Jumlah Hari</label>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">Sifat</label>
             <v-text-field
-              placeholder="Jumlah Hari"
-              v-model="jml_hari"
+              placeholder="Sifat"
+              v-model="sifat"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Sifat');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">Lama</label>
+            <v-text-field
+              placeholder="Lama"
               type="number"
+              v-model="lama"
               outlined
               dense
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'Jumlah Hari');
+                  return genericRequiredRule(value, 'Lama');
                 },
               ]"
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Tarif</label>
+            <label class="mb-2 fw-medium fs-14">Uang Harian</label>
             <vuetify-money
               placeholder="0"
-              v-model="tarif"
+              v-model="uang_harian"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -94,10 +77,10 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Kotor</label>
+            <label class="mb-2 fw-medium fs-14">Uang Transport</label>
             <vuetify-money
               placeholder="0"
-              v-model="kotor"
+              v-model="uang_transport"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -108,10 +91,10 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">PPH</label>
+            <label class="mb-2 fw-medium fs-14">Uang Penginapan</label>
             <vuetify-money
               placeholder="0"
-              v-model="pph"
+              v-model="uang_penginapan"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -122,10 +105,10 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Bersih</label>
+            <label class="mb-2 fw-medium fs-14">Total</label>
             <vuetify-money
               placeholder="0"
-              v-model="bersih"
+              v-model="total"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -155,7 +138,7 @@ import { ValidationRules } from "@/mixins/validation-rules";
 import DatePicker from "../../components/atoms/date-picker.vue";
 
 export default {
-  name: "FormUangMakan",
+  name: "FormSPD",
   mixins: [ValidationRules],
   components: { DatePicker },
   data() {
@@ -163,31 +146,17 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.uangMakan.isLoading;
+      return this.$store.state.spd.isLoading;
     },
     isUpdate() {
-      return this.$store.state.uangMakan.isUpdate;
-    },
-    list_pegawai() {
-      return this.$store.state.uangMakan.list_pegawai;
-    },
-    user_id: {
-      get() {
-        return this.$store.state.uangMakan.form.user_id;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "user_id",
-          value,
-        });
-      },
+      return this.$store.state.spd.isUpdate;
     },
     tanggal: {
       get() {
-        return this.$store.state.uangMakan.form.tanggal;
+        return this.$store.state.spd.form.tanggal;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
+        this.$store.commit("SET_FORM_SPD", {
           key: "tanggal",
           value,
         });
@@ -195,88 +164,88 @@ export default {
     },
     tanggal_spm: {
       get() {
-        return this.$store.state.uangMakan.form.tanggal_spm;
+        return this.$store.state.spd.form.tanggal_spm;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
+        this.$store.commit("SET_FORM_SPD", {
           key: "tanggal_spm",
           value,
         });
       },
     },
-    kdgol: {
+    tujuan: {
       get() {
-        return this.$store.state.uangMakan.form.kdgol;
+        return this.$store.state.spd.form.tujuan;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "kdgol",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "tujuan",
           value,
         });
       },
     },
-    jml_hari: {
+    sifat: {
       get() {
-        return this.$store.state.uangMakan.form.jml_hari;
+        return this.$store.state.spd.form.sifat;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "jml_hari",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "sifat",
           value,
         });
       },
     },
-    tarif: {
+    uang_harian: {
       get() {
-        return this.$store.state.uangMakan.form.tarif;
+        return this.$store.state.spd.form.uang_harian;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "tarif",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "uang_harian",
           value,
         });
       },
     },
-    kotor: {
+    uang_transport: {
       get() {
-        return this.$store.state.uangMakan.form.kotor;
+        return this.$store.state.spd.form.uang_transport;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "kotor",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "uang_transport",
           value,
         });
       },
     },
-    pph: {
+    uang_penginapan: {
       get() {
-        return this.$store.state.uangMakan.form.pph;
+        return this.$store.state.spd.form.uang_penginapan;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "pph",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "uang_penginapan",
           value,
         });
       },
     },
-    bersih: {
+    total: {
       get() {
-        return this.$store.state.uangMakan.form.bersih;
+        return this.$store.state.spd.form.total;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "bersih",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "total",
           value,
         });
       },
     },
-    no_rek: {
+    lama: {
       get() {
-        return this.$store.state.uangMakan.form.no_rek;
+        return this.$store.state.spd.form.lama;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "no_rek",
+        this.$store.commit("SET_FORM_SPD", {
+          key: "lama",
           value,
         });
       },
@@ -284,8 +253,8 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$store.commit("RESET_FORM_UANG_MAKAN");
-      this.$store.commit("SET_IS_UPDATE_UANG_MAKAN", false);
+      this.$store.commit("RESET_FORM_SPD");
+      this.$store.commit("SET_IS_UPDATE_SPD", false);
 
       this.$emit("handleModalForm", false);
     },
@@ -299,7 +268,7 @@ export default {
           });
           return;
         }
-        this.$store.dispatch("CreateUangMakan").then((res) => {
+        this.$store.dispatch("CreateSPD").then((res) => {
           if (res) {
             this.handleClose();
           }

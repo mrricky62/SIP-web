@@ -5,7 +5,6 @@ import moment from "moment/moment";
 import Swal from "sweetalert2";
 
 const form = {
-  user_id: "",
   tanggal: moment().format("YYYY-MM"),
   tanggal_spm: moment().format("YYYY-MM-DD"),
   tujuan: "",
@@ -27,7 +26,6 @@ const spd = {
     },
     reports: [],
     report: {},
-    list_pegawai: [],
     form: {
       ...form,
     },
@@ -45,9 +43,6 @@ const spd = {
     },
     SET_REPORT_SPD(state, payload) {
       state.report = payload;
-    },
-    SET_LIST_PEGAWAI_SPD(state, payload) {
-      state.list_pegawai = payload;
     },
     SET_FORM_SPD(state, payload) {
       state.form[payload.key] = payload.value;
@@ -67,7 +62,7 @@ const spd = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uang-lembur`,
+          url: `${apiUrl}/spd`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
@@ -90,7 +85,7 @@ const spd = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uang-lembur/${id}`,
+          url: `${apiUrl}/spd/${id}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
@@ -104,30 +99,12 @@ const spd = {
         context.commit("SET_IS_LOADING_SPD", false);
       }
     },
-    async FetchBeforeFormSPD(context) {
-      context.commit("SET_IS_LOADING_SPD", true);
-
-      try {
-        const pegawai = await axios({
-          url: `${apiUrl}/user/list`,
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${context.rootState.app.token}`,
-          },
-        });
-        context.commit("SET_LIST_PEGAWAI_SPD", pegawai.data.data);
-      } catch (error) {
-        catchUnauthorized(error);
-      } finally {
-        context.commit("SET_IS_LOADING_SPD", false);
-      }
-    },
     async CreateSPD(context) {
       context.commit("SET_IS_LOADING_SPD", true);
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uang-lembur`,
+          url: `${apiUrl}/spd`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
@@ -140,7 +117,7 @@ const spd = {
           title: "Success",
           text: result.data.message,
         });
-        context.dispatch("Fetchspd");
+        context.dispatch("FetchSPD");
 
         return true;
       } catch (error) {
@@ -160,7 +137,7 @@ const spd = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uang-lembur/${id}`,
+          url: `${apiUrl}/spd/${id}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
@@ -191,7 +168,7 @@ const spd = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uang-lembur/${id}`,
+          url: `${apiUrl}/spd/${id}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
@@ -204,7 +181,7 @@ const spd = {
           title: "Success",
           text: result.data.message,
         });
-        context.dispatch("Fetchspd");
+        context.dispatch("FetchSPD");
 
         return true;
       } catch (error) {
@@ -224,7 +201,7 @@ const spd = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uang-lembur/${id}`,
+          url: `${apiUrl}/spd/${id}`,
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
@@ -236,7 +213,7 @@ const spd = {
           title: "Success",
           text: result.data.message,
         });
-        context.dispatch("Fetchspd");
+        context.dispatch("FetchSPD");
 
         return true;
       } catch (error) {
