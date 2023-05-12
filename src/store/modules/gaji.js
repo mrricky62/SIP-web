@@ -13,30 +13,30 @@ const form = {
   no_rek: "",
   gaji_pokok: "",
 
-  tunj_istri: "",
-  tunj_anak: "",
-  tunj_pns: "",
-  tunj_struk: "",
-  tunj_fungs: "",
-  tunj_daerah: "",
-  tunj_pencil: "",
-  tunj_tjlain: "",
-  tunj_kompen: "",
-  tunj_beras: "",
-  tunj_pph: "",
+  tunj_istri: "0",
+  tunj_anak: "0",
+  tunj_pns: "0",
+  tunj_struk: "0",
+  tunj_fungs: "0",
+  tunj_daerah: "0",
+  tunj_pencil: "0",
+  tunj_tjlain: "0",
+  tunj_kompen: "0",
+  tunj_beras: "0",
+  tunj_pph: "0",
 
-  pembulatan: "",
+  pembulatan: "0",
 
-  pot_pfkbul: "",
-  pot_pfk2: "",
-  pot_pfk10: "",
-  pot_pph: "",
-  pot_swrum: "",
-  pot_kelbtj: "",
-  pot_lain: "",
-  pot_tabrum: "",
+  pot_pfkbul: "0",
+  pot_pfk2: "0",
+  pot_pfk10: "0",
+  pot_pph: "0",
+  pot_swrum: "0",
+  pot_kelbtj: "0",
+  pot_lain: "0",
+  pot_tabrum: "0",
 
-  bersih: "",
+  bersih: "0",
 };
 
 const gaji = {
@@ -212,6 +212,38 @@ const gaji = {
             Authorization: `Bearer ${context.rootState.app.token}`,
           },
           data: payload,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+        context.dispatch("FetchGaji");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_GAJI", false);
+      }
+    },
+    async DeleteGaji(context, id) {
+      context.commit("SET_IS_LOADING_GAJI", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/gaji/${id}`,
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
         });
 
         Swal.fire({

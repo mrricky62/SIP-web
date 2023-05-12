@@ -70,12 +70,12 @@
                       <span>Edit</span>
                     </v-list-item-title>
                   </v-list-item>
-                  <!-- <v-list-item @click="handleDelete(item.id)">
+                  <v-list-item @click="handleDelete(item.id)">
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-trash small mr-2"></i>
                       <span>Delete</span>
                     </v-list-item-title>
-                  </v-list-item> -->
+                  </v-list-item>
                 </v-list>
               </v-menu>
             </template>
@@ -102,6 +102,7 @@
 import LayoutApp from "../../layouts/layout-app.vue";
 import moment from "moment";
 import format3Digit from "@/utils/format-3digit.js";
+import Swal from "sweetalert2";
 
 export default {
   name: "GajiPage",
@@ -160,6 +161,20 @@ export default {
     handleModalDetail(value, id) {
       if (value) this.$store.dispatch("FetchGajiDetail", id);
       this.modalDetail = value;
+    },
+    handleDelete(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.$store.dispatch("DeleteGaji", id);
+        }
+      });
     },
   },
   mounted() {
