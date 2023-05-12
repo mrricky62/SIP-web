@@ -118,9 +118,9 @@ export default {
         { text: "Tanggal", value: "tanggal" },
         { text: "KdGol", value: "kdgol" },
         { text: "Gaji Pokok", value: "gaji_pokok" },
-        { text: "Potongan", value: "total_potongan" },
         { text: "Pembulatan", value: "pembulatan" },
-        { text: "Tunjangan", value: "total_tunjangan" },
+        { text: "T. Potongan", value: "total_potongan" },
+        { text: "T. Tunjangan", value: "total_tunjangan" },
         { text: "Bersih", value: "bersih" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
@@ -152,8 +152,8 @@ export default {
       this.modalForm = value;
     },
     handleEdit(id) {
-      this.$store.dispatch("SetFormUser", id);
-      this.$store.commit("SET_IS_UPDATE_PEGAWAI", id);
+      this.$store.dispatch("SetFormUpdateGaji", id);
+      this.$store.commit("SET_IS_UPDATE_GAJI", id);
 
       this.handleModalForm(true);
     },

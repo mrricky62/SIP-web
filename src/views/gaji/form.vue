@@ -104,8 +104,8 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$store.commit("RESET_FORM_PEGAWAI");
-      this.$store.commit("SET_IS_UPDATE_PEGAWAI", false);
+      this.$store.commit("RESET_FORM_GAJI");
+      this.$store.commit("SET_IS_UPDATE_GAJI", false);
 
       this.$emit("handleModalForm", false);
     },
