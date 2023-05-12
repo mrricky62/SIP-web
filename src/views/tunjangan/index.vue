@@ -28,20 +28,14 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot:[`item.gaji_pokok`]="{ item }">
-              {{ format3Digit(item.gaji_pokok) }}
+            <template v-slot:[`item.besaran_tunjangan`]="{ item }">
+              {{ format3Digit(item.besaran_tunjangan) }}
             </template>
-            <template v-slot:[`item.total_potongan`]="{ item }">
-              {{ format3Digit(item.total_potongan) }}
+            <template v-slot:[`item.jumlah_potongan`]="{ item }">
+              {{ format3Digit(item.jumlah_potongan) }}
             </template>
-            <template v-slot:[`item.pembulatan`]="{ item }">
-              {{ format3Digit(item.pembulatan) }}
-            </template>
-            <template v-slot:[`item.total_tunjangan`]="{ item }">
-              {{ format3Digit(item.total_tunjangan) }}
-            </template>
-            <template v-slot:[`item.bersih`]="{ item }">
-              {{ format3Digit(item.bersih) }}
+            <template v-slot:[`item.tunj_dibayar`]="{ item }">
+              {{ format3Digit(item.tunj_dibayar) }}
             </template>
 
             <template v-slot:[`item.action`]="{ item }">
@@ -117,12 +111,10 @@ export default {
       headers: [
         { text: "NIP", value: "user.nip" },
         { text: "Tanggal", value: "tanggal" },
-        { text: "KdGol", value: "kdgol" },
-        { text: "Gaji Pokok", value: "gaji_pokok" },
-        { text: "Pembulatan", value: "pembulatan" },
-        { text: "T. Potongan", value: "total_potongan" },
-        { text: "T. Tunjangan", value: "total_tunjangan" },
-        { text: "Bersih", value: "bersih" },
+        { text: "Grade", value: "grade" },
+        { text: "Tunjangan", value: "besaran_tunjangan" },
+        { text: "Jumlah Potongan", value: "jumlah_potongan" },
+        { text: "Tunjangan Dibayar", value: "tunj_dibayar" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       format3Digit,
