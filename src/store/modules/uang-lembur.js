@@ -168,7 +168,19 @@ const uangLembur = {
           },
         });
 
-        context.state.form = result.data.data;
+        const data = result.data.data;
+        context.state.form = {
+          user_id: data.user_id,
+          tanggal: data.tanggal,
+          tanggal_spm: data.tanggal_spm,
+          jam_kerja: data.jam_kerja,
+          jam_libur: data.jam_libur,
+          jam_makan: data.jam_makan,
+          lembur: data.lembur,
+          makan: data.makan,
+          pph: data.pph,
+          bersih: data.bersih,
+        };
       } catch (error) {
         catchUnauthorized(error);
       } finally {
@@ -179,18 +191,13 @@ const uangLembur = {
       context.commit("SET_IS_LOADING_UANG_LEMBUR", true);
 
       try {
-        const payload = context.state.form;
-        delete payload.user;
-        delete payload.tahun;
-        delete payload.bulan;
-
         const result = await axios({
           url: `${apiUrl}/uang-lembur/${id}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
           },
-          data: payload,
+          data: context.state.form,
         });
 
         Swal.fire({

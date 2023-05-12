@@ -139,8 +139,8 @@ export default {
       this.modalForm = value;
     },
     handleEdit(id) {
-      this.$store.dispatch("SetFormUpdateUangMakan", id);
-      this.$store.commit("SET_IS_UPDATE_UANG_MAKAN", id);
+      this.$store.dispatch("SetFormUpdateUangLembur", id);
+      this.$store.commit("SET_IS_UPDATE_UANG_LEMBUR", id);
 
       this.handleModalForm(true);
     },
