@@ -3,6 +3,7 @@
     <HeaderTitle title="Dashboard" subtitle="Uang Lembur" />
     <v-btn
       class="btn text-white fw-normal bg-darkblue mb-3"
+      v-if="isAdmin"
       @click="handleModalForm(true)"
     >
       <i class="fa fa-plus"></i>
@@ -123,6 +124,9 @@ export default {
     },
     reports() {
       return this.$store.state.uangLembur.reports;
+    },
+    isAdmin() {
+      return this.$store.state.app.user.is_admin;
     },
     optionsTable: {
       get() {

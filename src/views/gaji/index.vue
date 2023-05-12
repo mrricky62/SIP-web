@@ -3,6 +3,7 @@
     <HeaderTitle title="Dashboard" subtitle="Data Gaji" />
     <v-btn
       class="btn text-white fw-normal bg-darkblue mb-3"
+      v-if="isAdmin"
       @click="handleModalForm(true)"
     >
       <i class="fa fa-plus"></i>
@@ -138,6 +139,9 @@ export default {
     },
     reports() {
       return this.$store.state.gaji.reports;
+    },
+    isAdmin() {
+      return this.$store.state.app.user.is_admin;
     },
     optionsTable: {
       get() {
