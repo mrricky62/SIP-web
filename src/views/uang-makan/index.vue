@@ -157,7 +157,7 @@ export default {
         cancelButtonColor: "#d33",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$store.dispatch("DeleteTunjangan", id);
+          this.$store.dispatch("DeleteUangMakan", id);
         }
       });
     },
