@@ -9,6 +9,7 @@ import dashboard from "./modules/dashboard";
 import gaji from "./modules/gaji";
 import tunjangan from "./modules/tunjangan";
 import uangMakan from "./modules/uang-makan";
+import uangLembur from "./modules/uang-lembur";
 import pegawai from "./modules/pegawai";
 
 export default new Vuex.Store({
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     gaji,
     tunjangan,
     uangMakan,
+    uangLembur,
     pegawai,
   },
 });

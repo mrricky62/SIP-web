@@ -29,61 +29,58 @@
             />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Kdgol</label>
-            <v-text-field
-              placeholder="Kdgol"
-              v-model="kdgol"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Kdgol');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Tanggal</label>
             <date-picker type="month" v-model="tanggal" />
           </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Tanggal SPM</label>
-            <date-picker v-model="tanggal_spm" />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">No Rekening</label>
+          <div class="col-sm-6 col-md-4">
+            <label class="mb-2 fw-medium fs-14">Jam Kerja</label>
             <v-text-field
-              placeholder="No Rekening"
-              v-model="no_rek"
+              placeholder="Jam Kerja"
+              v-model="jam_kerja"
               outlined
               dense
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'No Rekening');
+                  return genericRequiredRule(value, 'Jam Kerja');
                 },
               ]"
             />
           </div>
-          <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Jumlah Hari</label>
+          <div class="col-sm-6 col-md-4">
+            <label class="mb-2 fw-medium fs-14">Jam Libur</label>
             <v-text-field
-              placeholder="Jumlah Hari"
-              v-model="jml_hari"
+              placeholder="Jam Libur"
+              v-model="jam_libur"
               type="number"
               outlined
               dense
               :rules="[
                 (value) => {
-                  return genericRequiredRule(value, 'Jumlah Hari');
+                  return genericRequiredRule(value, 'Jam Libur');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <label class="mb-2 fw-medium fs-14">Jam Makan</label>
+            <v-text-field
+              placeholder="Jam Makan"
+              v-model="jam_makan"
+              type="number"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Jam Makan');
                 },
               ]"
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Tarif</label>
+            <label class="mb-2 fw-medium fs-14">Lembur</label>
             <vuetify-money
               placeholder="0"
-              v-model="tarif"
+              v-model="lembur"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -94,10 +91,10 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Kotor</label>
+            <label class="mb-2 fw-medium fs-14">Makan</label>
             <vuetify-money
               placeholder="0"
-              v-model="kotor"
+              v-model="makan"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -155,7 +152,7 @@ import { ValidationRules } from "@/mixins/validation-rules";
 import DatePicker from "../../components/atoms/date-picker.vue";
 
 export default {
-  name: "FormUangMakan",
+  name: "FormUangLembur",
   mixins: [ValidationRules],
   components: { DatePicker },
   data() {
@@ -163,20 +160,20 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.uangMakan.isLoading;
+      return this.$store.state.uangLembur.isLoading;
     },
     isUpdate() {
-      return this.$store.state.uangMakan.isUpdate;
+      return this.$store.state.uangLembur.isUpdate;
     },
     list_pegawai() {
-      return this.$store.state.uangMakan.list_pegawai;
+      return this.$store.state.uangLembur.list_pegawai;
     },
     user_id: {
       get() {
-        return this.$store.state.uangMakan.form.user_id;
+        return this.$store.state.uangLembur.form.user_id;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
           key: "user_id",
           value,
         });
@@ -184,76 +181,76 @@ export default {
     },
     tanggal: {
       get() {
-        return this.$store.state.uangMakan.form.tanggal;
+        return this.$store.state.uangLembur.form.tanggal;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
           key: "tanggal",
           value,
         });
       },
     },
-    tanggal_spm: {
+    jam_kerja: {
       get() {
-        return this.$store.state.uangMakan.form.tanggal_spm;
+        return this.$store.state.uangLembur.form.jam_kerja;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "tanggal_spm",
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
+          key: "jam_kerja",
           value,
         });
       },
     },
-    kdgol: {
+    jam_libur: {
       get() {
-        return this.$store.state.uangMakan.form.kdgol;
+        return this.$store.state.uangLembur.form.jam_libur;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "kdgol",
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
+          key: "jam_libur",
           value,
         });
       },
     },
-    jml_hari: {
+    jam_makan: {
       get() {
-        return this.$store.state.uangMakan.form.jml_hari;
+        return this.$store.state.uangLembur.form.jam_makan;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "jml_hari",
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
+          key: "jam_makan",
           value,
         });
       },
     },
-    tarif: {
+    lembur: {
       get() {
-        return this.$store.state.uangMakan.form.tarif;
+        return this.$store.state.uangLembur.form.lembur;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "tarif",
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
+          key: "lembur",
           value,
         });
       },
     },
-    kotor: {
+    makan: {
       get() {
-        return this.$store.state.uangMakan.form.kotor;
+        return this.$store.state.uangLembur.form.makan;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "kotor",
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
+          key: "makan",
           value,
         });
       },
     },
     pph: {
       get() {
-        return this.$store.state.uangMakan.form.pph;
+        return this.$store.state.uangLembur.form.pph;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
           key: "pph",
           value,
         });
@@ -261,22 +258,11 @@ export default {
     },
     bersih: {
       get() {
-        return this.$store.state.uangMakan.form.bersih;
+        return this.$store.state.uangLembur.form.bersih;
       },
       set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
+        this.$store.commit("SET_FORM_UANG_LEMBUR", {
           key: "bersih",
-          value,
-        });
-      },
-    },
-    no_rek: {
-      get() {
-        return this.$store.state.uangMakan.form.no_rek;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_UANG_MAKAN", {
-          key: "no_rek",
           value,
         });
       },
@@ -284,8 +270,8 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$store.commit("RESET_FORM_UANG_MAKAN");
-      this.$store.commit("SET_IS_UPDATE_UANG_MAKAN", false);
+      this.$store.commit("RESET_FORM_UANG_LEMBUR");
+      this.$store.commit("SET_IS_UPDATE_UANG_LEMBUR", false);
 
       this.$emit("handleModalForm", false);
     },
@@ -299,7 +285,7 @@ export default {
           });
           return;
         }
-        this.$store.dispatch("CreateUangMakan").then((res) => {
+        this.$store.dispatch("CreateUangLembur").then((res) => {
           if (res) {
             this.handleClose();
           }

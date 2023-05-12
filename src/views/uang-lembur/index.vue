@@ -134,7 +134,7 @@ export default {
   },
   methods: {
     handleModalForm(value) {
-      if (value) this.$store.dispatch("FetchBeforeFormUangMakan");
+      if (value) this.$store.dispatch("FetchBeforeFormUangLembur");
       this.modalForm = value;
     },
     handleEdit(id) {
