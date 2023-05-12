@@ -92,7 +92,7 @@ const uangMakan = {
 
       try {
         const result = await axios({
-          url: `${apiUrl}/uangMakan/${id}`,
+          url: `${apiUrl}/uang-makan/${id}`,
           method: "GET",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
