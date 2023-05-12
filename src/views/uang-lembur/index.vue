@@ -1,12 +1,12 @@
 <template>
   <layout-app>
-    <HeaderTitle title="Dashboard" subtitle="Data SPD" />
+    <HeaderTitle title="Dashboard" subtitle="Uang Lembur" />
     <v-btn
       class="btn text-white fw-normal bg-darkblue mb-3"
       @click="handleModalForm(true)"
     >
       <i class="fa fa-plus"></i>
-      Add SPD
+      Add Uang Lembur
     </v-btn>
     <div class="card p-3 border-0">
       <div class="card-body">
@@ -92,7 +92,7 @@ import format3Digit from "@/utils/format-3digit.js";
 import Swal from "sweetalert2";
 
 export default {
-  name: "SPDPage",
+  name: "UangLemburPage",
   components: {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),

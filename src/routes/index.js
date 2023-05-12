@@ -11,6 +11,7 @@ import Gaji from "@/views/gaji/index.vue";
 import Tunjangan from "@/views/tunjangan/index.vue";
 import UangMakan from "@/views/uang-makan/index.vue";
 import SPD from "@/views/spd/index.vue";
+import UangLembur from "@/views/uang-lembur/index.vue";
 import Pegawai from "@/views/pegawai/index.vue";
 
 Vue.use(VueRouter);
@@ -60,6 +61,14 @@ const routes = [
     path: "/spd",
     name: "SPD",
     component: SPD,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/uang-lembur",
+    name: "UangLembur",
+    component: UangLembur,
     meta: {
       middleware: [auth],
     },
