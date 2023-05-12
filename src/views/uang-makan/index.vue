@@ -102,6 +102,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No", value: "no" },
         { text: "NIP", value: "user.nip" },
         { text: "Bulan", value: "bulan" },
         { text: "Tahun", value: "tahun" },

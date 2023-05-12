@@ -102,10 +102,11 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No", value: "no" },
         { text: "NIP", value: "user.nip" },
         { text: "Bulan", value: "bulan" },
         { text: "Tahun", value: "tahun" },
-        { text: "Jumlah Hari", value: "jml_hari" },
+        { text: "Jumlah Jam", value: "jumlah_jam" },
         { text: "Nilai", value: "bersih" },
         { text: "Tanggal SPM", value: "tanggal_spm" },
         { text: "Action", value: "action", sortable: false, align: "right" },
@@ -118,17 +119,17 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.uangMakan.isLoading;
+      return this.$store.state.uangLembur.isLoading;
     },
     reports() {
-      return this.$store.state.uangMakan.reports;
+      return this.$store.state.uangLembur.reports;
     },
     optionsTable: {
       get() {
-        return this.$store.state.uangMakan.optionsTable;
+        return this.$store.state.uangLembur.optionsTable;
       },
       set(value) {
-        this.$store.commit("SET_OPTIONS_TABLE_UANG_MAKAN", value);
+        this.$store.commit("SET_OPTIONS_TABLE_UANG_LEMBUR", value);
       },
     },
   },
@@ -163,7 +164,7 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch("FetchUangMakan");
+    this.$store.dispatch("FetchUangLembur");
   },
 };
 </script>

@@ -115,6 +115,7 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No", value: "no" },
         { text: "NIP", value: "user.nip" },
         { text: "Tanggal", value: "tanggal" },
         { text: "KdGol", value: "kdgol" },
