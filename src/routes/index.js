@@ -9,6 +9,7 @@ import Login from "../views/auth/login.vue";
 import Dashboard from "@/views/dashboard/index.vue";
 import Gaji from "@/views/gaji/index.vue";
 import Tunjangan from "@/views/tunjangan/index.vue";
+import UangMakan from "@/views/uang-makan/index.vue";
 import Pegawai from "@/views/pegawai/index.vue";
 
 Vue.use(VueRouter);
@@ -42,6 +43,14 @@ const routes = [
     path: "/tunjangan",
     name: "Tunjangan",
     component: Tunjangan,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/uang-makan",
+    name: "UangMakan",
+    component: UangMakan,
     meta: {
       middleware: [auth],
     },
