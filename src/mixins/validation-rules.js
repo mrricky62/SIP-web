@@ -13,6 +13,8 @@ export const ValidationRules = {
         const pattern = /^\d{16}$/;
         return pattern.test(value) || `${msg} harus 16 digit angka`;
       },
+      genericMatchRule: (value, msg, match) =>
+        value === match || `${msg} tidak sama`,
     };
   },
 };

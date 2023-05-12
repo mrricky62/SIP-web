@@ -22,7 +22,7 @@
             <br />
             <br />
             <div class="row">
-              <div class="col-12 mb-3">
+              <div class="col-12 mb-2">
                 <v-text-field
                   outlined
                   dense
@@ -31,7 +31,7 @@
                   :append-icon="showOldPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="showOldPassword ? 'text' : 'password'"
                   @click:append="showOldPassword = !showOldPassword"
-                  v-model="password"
+                  v-model="old_password"
                   :rules="[
                     (value) => {
                       return genericRequiredRule(value, 'Password Lama');
@@ -39,7 +39,7 @@
                   ]"
                 />
               </div>
-              <div class="col-12 mb-3">
+              <div class="col-12 mb-2">
                 <v-text-field
                   outlined
                   dense
@@ -48,7 +48,7 @@
                   :append-icon="showNewPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="showNewPassword ? 'text' : 'password'"
                   @click:append="showNewPassword = !showNewPassword"
-                  v-model="password"
+                  v-model="new_password"
                   :rules="[
                     (value) => {
                       return genericRequiredRule(value, 'Password Baru');
@@ -56,7 +56,7 @@
                   ]"
                 />
               </div>
-              <div class="col-12 mb-3">
+              <div class="col-12 mb-2">
                 <v-text-field
                   outlined
                   dense
@@ -65,12 +65,19 @@
                   :append-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                   :type="showConfirmPassword ? 'text' : 'password'"
                   @click:append="showConfirmPassword = !showConfirmPassword"
-                  v-model="password"
+                  v-model="confirm_password"
                   :rules="[
                     (value) => {
                       return genericRequiredRule(
                         value,
                         'Konfirmasi Password Baru'
+                      );
+                    },
+                    (value) => {
+                      return genericMatchRule(
+                        value,
+                        'Password Baru',
+                        this.new_password
                       );
                     },
                   ]"
@@ -112,24 +119,35 @@ export default {
     isLoading() {
       return this.$store.state.app.isLoading;
     },
-    nip: {
+    old_password: {
       get() {
-        return this.$store.state.app.login.nip;
+        return this.$store.state.app.changePassword.old_password;
       },
       set(value) {
-        this.$store.commit("SET_FORM_LOGIN_APP", {
-          key: "nip",
+        this.$store.commit("SET_FORM_CHANGE_PASSWORD_APP", {
+          key: "old_password",
           value,
         });
       },
     },
-    password: {
+    new_password: {
       get() {
-        return this.$store.state.app.login.password;
+        return this.$store.state.app.changePassword.new_password;
       },
       set(value) {
-        this.$store.commit("SET_FORM_LOGIN_APP", {
-          key: "password",
+        this.$store.commit("SET_FORM_CHANGE_PASSWORD_APP", {
+          key: "new_password",
+          value,
+        });
+      },
+    },
+    confirm_password: {
+      get() {
+        return this.$store.state.app.changePassword.confirm_password;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_CHANGE_PASSWORD_APP", {
+          key: "confirm_password",
           value,
         });
       },
@@ -138,7 +156,7 @@ export default {
   methods: {
     handleSubmit() {
       if (this.$refs.initialReport.validate()) {
-        this.$store.dispatch("Login").then((response) => {
+        this.$store.dispatch("ChangePassword").then((response) => {
           if (response) {
             this.$refs.initialReport.reset();
           }

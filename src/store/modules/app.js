@@ -2,6 +2,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 const apiUrl = process.env.VUE_APP_API_URL;
 import router from "../../routes/index";
+import catchUnauthorized from "@/utils/catch-unauthorized";
 
 const app = {
   state: {
@@ -9,6 +10,11 @@ const app = {
     login: {
       nip: "",
       password: "",
+    },
+    changePassword: {
+      old_password: "",
+      new_password: "",
+      confirm_password: "",
     },
     user: "",
     token: "",
@@ -19,6 +25,9 @@ const app = {
     },
     SET_FORM_LOGIN_APP(state, payload) {
       state.login[payload.key] = payload.value;
+    },
+    SET_FORM_CHANGE_PASSWORD_APP(state, payload) {
+      state.changePassword[payload.key] = payload.value;
     },
     SET_USER_APP(state, payload) {
       state.user = payload;
@@ -53,6 +62,43 @@ const app = {
 
         return true;
       } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_APP", false);
+      }
+    },
+    async ChangePassword(context) {
+      context.commit("SET_IS_LOADING_APP", true);
+      try {
+        const result = await axios({
+          url: `${apiUrl}/change-password`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: context.state.changePassword,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+
+        context.state.changePassword = {
+          old_password: "",
+          new_password: "",
+          confirm_password: "",
+        };
+
+        router.push("/");
+      } catch (error) {
+        catchUnauthorized(error);
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
