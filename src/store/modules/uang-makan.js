@@ -182,11 +182,11 @@ const uangMakan = {
       try {
         const payload = context.state.form;
         delete payload.user;
-        delete payload.total_potongan;
-        delete payload.total_UANG_MAKAN;
+        delete payload.tahun;
+        delete payload.bulan;
 
         const result = await axios({
-          url: `${apiUrl}/uangMakan/${id}`,
+          url: `${apiUrl}/uang-makan/${id}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,

@@ -292,7 +292,7 @@ export default {
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {
         if (this.isUpdate) {
-          this.$store.dispatch("UpdateTunjangan", this.isUpdate).then((res) => {
+          this.$store.dispatch("UpdateUangMakan", this.isUpdate).then((res) => {
             if (res) {
               this.handleClose();
             }
