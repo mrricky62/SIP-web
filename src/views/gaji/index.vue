@@ -135,7 +135,9 @@ export default {
       headers: [
         { text: "No", value: "no" },
         { text: "NIP", value: "user.nip" },
-        { text: "Tanggal", value: "tanggal" },
+        // { text: "Tanggal", value: "tanggal" },
+        { text: "Bulan", value: "bulan" },
+        { text: "Tahun", value: "tahun" },
         { text: "KdGol", value: "kdgol" },
         { text: "Gaji Pokok", value: "gaji_pokok" },
         { text: "Pembulatan", value: "pembulatan" },
