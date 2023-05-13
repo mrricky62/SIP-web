@@ -21,7 +21,6 @@
               placeholder="0"
               v-model="pembulatan"
               :options="{
-                prefix: 'Rp ',
                 thousands: '.',
                 precision: 0,
               }"

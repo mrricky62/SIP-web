@@ -39,7 +39,7 @@
                   return genericRequiredRule(value, 'NIP');
                 },
                 (value) => {
-                  return genericNumber16Rule(value, 'NIP');
+                  return genericNumber18Rule(value, 'NIP');
                 },
               ]"
             />

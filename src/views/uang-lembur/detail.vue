@@ -15,7 +15,7 @@
         <br />
         <div class="row">
           <div class="col-md-6">
-            <table class="fs-14">
+            <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
                   { key: 'NIP', value: report.user.nip },
@@ -32,7 +32,7 @@
             </table>
           </div>
           <div class="col-md-6">
-            <table class="fs-14">
+            <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
                   { key: 'Tanggal', value: report.tanggal },
@@ -51,7 +51,7 @@
         <br />
         <br />
 
-        <table class="fs-14">
+        <table class="simple-table fs-14">
           <tr
             v-for="(item, i) in [
               { key: 'Jam Kerja', value: report.jam_kerja },

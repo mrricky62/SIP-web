@@ -108,12 +108,11 @@ export default {
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      // this.$store.dispatch("CreateGaji").then((res) => {
-      //   if (res) {
-      //     this.handleClose();
-      //   }
-      // });
-      console.log("submit");
+      this.$store.dispatch("ImportGaji").then((res) => {
+        if (res) {
+          this.handleClose();
+        }
+      });
     },
   },
 };

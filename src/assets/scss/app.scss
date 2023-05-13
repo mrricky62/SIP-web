@@ -13,6 +13,15 @@
   font-family: "Poppins", sans-serif;
 }
 
+.simple-table {
+  tr {
+    th,
+    td {
+      vertical-align: top !important;
+    }
+  }
+}
+
 .fw-medium {
   font-weight: 500 !important;
 }

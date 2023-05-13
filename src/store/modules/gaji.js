@@ -181,6 +181,41 @@ const gaji = {
         context.commit("SET_IS_LOADING_GAJI", false);
       }
     },
+    async ImportGaji(context) {
+      context.commit("SET_IS_LOADING_GAJI", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/gaji/import`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: {
+            data: context.state.form_import,
+          },
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+        context.dispatch("FetchGaji");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_GAJI", false);
+      }
+    },
     async SetFormUpdateGaji(context, id) {
       context.commit("SET_IS_LOADING_GAJI", true);
 

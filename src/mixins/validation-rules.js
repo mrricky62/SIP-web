@@ -9,9 +9,9 @@ export const ValidationRules = {
         const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return pattern.test(value) || `Email tidak valid`;
       },
-      genericNumber16Rule: (value, msg) => {
-        const pattern = /^\d{16}$/;
-        return pattern.test(value) || `${msg} harus 16 digit angka`;
+      genericNumber18Rule: (value, msg) => {
+        const pattern = /^\d{18}$/;
+        return pattern.test(value) || `${msg} harus 18 digit angka`;
       },
       genericMatchRule: (value, msg, match) =>
         value === match || `${msg} tidak sama`,

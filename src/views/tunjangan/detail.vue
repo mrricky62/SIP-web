@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="card-body">
-        <table class="fs-14">
+        <table class="simple-table fs-14">
           <tr
             v-for="(item, i) in [
               { key: 'NIP', value: report.user.nip },
@@ -30,7 +30,7 @@
         <br />
         <div class="row">
           <div class="col-md-6">
-            <table class="fs-14">
+            <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
                   { key: 'Grade', value: report.grade },
@@ -49,7 +49,7 @@
             </table>
           </div>
           <div class="col-md-6">
-            <table class="fs-14">
+            <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
                   { key: 'Nama Bank', value: report.nama_bank },
