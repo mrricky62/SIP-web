@@ -53,6 +53,7 @@ const gaji = {
     form: {
       ...form,
     },
+    form_import: [],
     isUpdate: false,
   },
   mutations: {
@@ -78,6 +79,9 @@ const gaji = {
       state.form = {
         ...form,
       };
+    },
+    SET_FORM_IMPORT_GAJI(state, payload) {
+      state.form_import = payload;
     },
     SET_IS_UPDATE_GAJI(state, payload) {
       state.isUpdate = payload;

@@ -2,12 +2,20 @@
   <layout-app>
     <HeaderTitle title="Dashboard" subtitle="Data Gaji" />
     <v-btn
-      class="btn text-white fw-normal bg-darkblue mb-3"
+      class="btn text-white fw-normal bg-darkblue mb-3 mr-3"
       v-if="isAdmin"
       @click="handleModalForm(true)"
     >
       <i class="fa fa-plus"></i>
       Add Gaji
+    </v-btn>
+    <v-btn
+      class="btn text-white fw-normal bg-darkblue mb-3"
+      v-if="isAdmin"
+      @click="handleModalFormImport(true)"
+    >
+      <i class="fa fa-file-excel mr-1"></i>
+      Import Excel
     </v-btn>
     <div class="card p-3 border-0">
       <div class="card-body">
@@ -89,6 +97,14 @@
       <Form @handleModalForm="handleModalForm" />
     </v-dialog>
     <v-dialog
+      v-if="modalFormImport"
+      v-model="modalFormImport"
+      max-width="600"
+      persistent
+    >
+      <FormImport @handleModalFormImport="handleModalFormImport" />
+    </v-dialog>
+    <v-dialog
       v-if="modalDetail"
       v-model="modalDetail"
       max-width="800"
@@ -111,6 +127,7 @@ export default {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
     Form: () => import("./form.vue"),
+    FormImport: () => import("./form-import.vue"),
     Detail: () => import("./detail.vue"),
   },
   data() {
@@ -130,6 +147,7 @@ export default {
       format3Digit,
       moment,
       modalForm: false,
+      modalFormImport: false,
       modalDetail: false,
     };
   },
@@ -156,6 +174,9 @@ export default {
     handleModalForm(value) {
       if (value) this.$store.dispatch("FetchBeforeFormGaji");
       this.modalForm = value;
+    },
+    handleModalFormImport(value) {
+      this.modalFormImport = value;
     },
     handleEdit(id) {
       this.$store.dispatch("SetFormUpdateGaji", id);
