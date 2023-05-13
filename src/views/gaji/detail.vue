@@ -12,31 +12,16 @@
         </div>
       </div>
       <div class="card-body">
-        <table class="simple-table fs-14">
-          <tr
-            v-for="(item, i) in [
-              { key: 'NIP', value: report.user.nip },
-              { key: 'Nama', value: report.user.nama },
-              { key: 'Pangkat', value: report.user.pangkat },
-              { key: 'Golongan', value: report.user.golongan },
-            ]"
-            :key="i"
-          >
-            <td style="min-width: 150px">{{ item.key }}</td>
-            <td style="min-width: 20px">:</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </table>
         <br />
         <div class="row">
           <div class="col-md-6">
             <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
-                  { key: 'Tanggal', value: report.tanggal },
-                  { key: 'Gaji Pokok', value: format3Digit(report.gaji_pokok) },
-                  { key: 'Pembulatan', value: format3Digit(report.pembulatan) },
-                  { key: 'Bersih', value: format3Digit(report.bersih) },
+                  { key: 'NIP', value: report.user.nip },
+                  { key: 'Nama', value: report.user.nama },
+                  { key: 'Pangkat', value: report.user.pangkat },
+                  { key: 'Golongan', value: report.user.golongan },
                 ]"
                 :key="i"
               >
@@ -63,6 +48,20 @@
             </table>
           </div>
         </div>
+        <table class="simple-table fs-14">
+          <tr
+            v-for="(item, i) in [
+              { key: 'Gaji Pokok', value: format3Digit(report.gaji_pokok) },
+
+              { key: 'Bersih', value: format3Digit(report.bersih) },
+            ]"
+            :key="i"
+          >
+            <td style="min-width: 150px">{{ item.key }}</td>
+            <td style="min-width: 20px">:</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
         <br />
         <br />
         <div class="row">
@@ -85,6 +84,10 @@
                     { key: 'Tunj Kompen', value: report.tunj_kompen },
                     { key: 'Tunj Beras', value: report.tunj_beras },
                     { key: 'Tunj PPH', value: report.tunj_pph },
+                    {
+                      key: 'Pembulatan',
+                      value: format3Digit(report.pembulatan),
+                    },
                     { key: 'Total Tunjangan', value: report.total_tunjangan },
                   ]"
                   :key="i"

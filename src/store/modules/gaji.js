@@ -219,7 +219,7 @@ const gaji = {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Format file salah, pastikan file yang diupload benar",
+          text: error.response.data.message,
         });
       } finally {
         context.commit("SET_IS_LOADING_GAJI", false);
