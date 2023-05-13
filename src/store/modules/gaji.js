@@ -207,10 +207,19 @@ const gaji = {
       } catch (error) {
         catchUnauthorized(error);
 
+        if (error.response.status == 413) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "File terlalu besar",
+          });
+          return;
+        }
+
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: error.response.data.message,
+          text: "Format file salah, pastikan file yang diupload benar",
         });
       } finally {
         context.commit("SET_IS_LOADING_GAJI", false);
