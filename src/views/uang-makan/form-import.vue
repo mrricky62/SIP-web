@@ -3,7 +3,7 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">Form Import Gaji</p>
+          <p class="card-title fw-medium mb-0">Form Import Uang Makan</p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -35,7 +35,7 @@ import { ValidationRules } from "@/mixins/validation-rules";
 var XLSX = require("xlsx");
 
 export default {
-  name: "FormImportGaji",
+  name: "FormImportUangMakan",
   mixins: [ValidationRules],
   components: {},
   data() {
@@ -69,53 +69,21 @@ export default {
           payload.push({
             nip: iterator.nip,
             tanggal: `${iterator.tahun}-${iterator.bulan}`,
+            tanggal_spm: iterator.tgl,
             kdgol: iterator.kdgol,
-            nama_rek: iterator.nmrek,
-            nama_bank: iterator.nm_bank,
-            no_rek: iterator.rekening,
-            gaji_pokok: iterator.gjpokok,
 
-            tunj_istri: iterator.tjistri,
-            tunj_anak: iterator.tjanak,
-            tunj_pns: iterator.tjupns,
-            tunj_struk: iterator.tjstruk,
-            tunj_fungs: iterator.tjfungs,
-            tunj_daerah: iterator.tjdaerah,
-            tunj_pencil: iterator.tjpencil,
-            tunj_tjlain: iterator.tjlain,
-            tunj_kompen: iterator.tjkompen,
-            tunj_beras: iterator.tjberas,
-            tunj_pph: iterator.tjpph,
+            jml_hari: iterator.tjistri,
+            tarif: iterator.tjanak,
+            kotor: iterator.tjupns,
+            pph: iterator.tjstruk,
+            bersih: iterator.tjfungs,
 
-            pembulatan: iterator.pembul,
-
-            pot_pfkbul: iterator.potpfkbul,
-            pot_pfk2: iterator.potpfk2,
-            pot_pfk10: iterator.potpfk10,
-            pot_pph: iterator.potpph,
-            pot_swrum: iterator.potswrum,
-            pot_kelbtj: iterator.potkelbtj,
-            pot_lain: iterator.kdgol,
-            pot_tabrum: iterator.pottabrum,
-
-            bersih: iterator.bersih,
+            no_rek: iterator.pembul,
           });
         }
 
-        const chunked = payload.reduce((resultArray, item, index) => {
-          const chunkIndex = Math.floor(index / 100);
-
-          if (!resultArray[chunkIndex]) {
-            resultArray[chunkIndex] = []; // start a new chunk
-          }
-
-          resultArray[chunkIndex].push(item);
-
-          return resultArray;
-        }, []);
-
-        commit("SET_FORM_IMPORT_GAJI", chunked);
-        console.log("chunked", chunked);
+        console.log("payload", payload);
+        commit("SET_FORM_IMPORT_GAJI", payload);
       };
       reader.readAsArrayBuffer(f);
     },

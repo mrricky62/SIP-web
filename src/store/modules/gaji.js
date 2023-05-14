@@ -185,21 +185,23 @@ const gaji = {
       context.commit("SET_IS_LOADING_GAJI", true);
 
       try {
-        const result = await axios({
-          url: `${apiUrl}/gaji/import`,
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${context.rootState.app.token}`,
-          },
-          data: {
-            data: context.state.form_import,
-          },
-        });
+        for (const iterator of context.state.form_import) {
+          await axios({
+            url: `${apiUrl}/gaji/import`,
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${context.rootState.app.token}`,
+            },
+            data: {
+              data: iterator,
+            },
+          });
+        }
 
         Swal.fire({
           icon: "success",
           title: "Success",
-          text: result.data.message,
+          text: "Data berhasil diimport",
         });
         context.dispatch("FetchGaji");
 
