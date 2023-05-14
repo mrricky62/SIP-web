@@ -68,27 +68,41 @@ export default {
         for (const iterator of json) {
           payload.push({
             nip: iterator.nip,
-            tanggal: `${iterator.tahun}-${iterator.bulan}`,
-            tanggal_spm: iterator.tgl,
+            tanggal: `${iterator.thn}-${iterator.bln}`,
+            tanggal_spm: new Date(
+              Math.round((iterator.tgl - 25569) * 86400 * 1000)
+            ),
             kdgol: iterator.kdgol,
 
-            jml_hari: iterator.tjistri,
-            tarif: iterator.tjanak,
-            kotor: iterator.tjupns,
-            pph: iterator.tjstruk,
-            bersih: iterator.tjfungs,
+            jml_hari: iterator.jmlhari,
+            tarif: iterator.tarif,
+            kotor: iterator.kotor,
+            pph: iterator.pph,
+            bersih: iterator.bersih,
 
-            no_rek: iterator.pembul,
+            no_rek: iterator.rekening,
           });
         }
 
-        console.log("payload", payload);
-        commit("SET_FORM_IMPORT_GAJI", payload);
+        const chunked = payload.reduce((resultArray, item, index) => {
+          const chunkIndex = Math.floor(index / 100);
+
+          if (!resultArray[chunkIndex]) {
+            resultArray[chunkIndex] = []; // start a new chunk
+          }
+
+          resultArray[chunkIndex].push(item);
+
+          return resultArray;
+        }, []);
+
+        commit("SET_FORM_IMPORT_UANG_MAKAN", chunked);
+        console.log("chunked", chunked);
       };
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      this.$store.dispatch("ImportGaji").then((res) => {
+      this.$store.dispatch("ImportUangMakan").then((res) => {
         if (res) {
           this.handleClose();
         }

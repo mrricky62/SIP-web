@@ -38,7 +38,6 @@ export default {
     },
     label: {
       type: String,
-      required: true,
     },
     type: {
       type: String,

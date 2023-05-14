@@ -33,6 +33,7 @@ const uangMakan = {
     form: {
       ...form,
     },
+    form_import: [],
     isUpdate: false,
   },
   mutations: {
@@ -58,6 +59,9 @@ const uangMakan = {
       state.form = {
         ...form,
       };
+    },
+    SET_FORM_IMPORT_UANG_MAKAN(state, payload) {
+      state.form_import = payload;
     },
     SET_IS_UPDATE_UANG_MAKAN(state, payload) {
       state.isUpdate = payload;
@@ -141,6 +145,43 @@ const uangMakan = {
           icon: "success",
           title: "Success",
           text: result.data.message,
+        });
+        context.dispatch("FetchUangMakan");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_UANG_MAKAN", false);
+      }
+    },
+    async ImportUangMakan(context) {
+      context.commit("SET_IS_LOADING_UANG_MAKAN", true);
+
+      try {
+        for (const iterator of context.state.form_import) {
+          await axios({
+            url: `${apiUrl}/uang-makan/import`,
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${context.rootState.app.token}`,
+            },
+            data: {
+              data: iterator,
+            },
+          });
+        }
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Import data berhasil dilakukan!",
         });
         context.dispatch("FetchUangMakan");
 
