@@ -53,10 +53,6 @@
             />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Tanggal</label>
-            <date-picker type="month" v-model="tanggal" />
-          </div>
-          <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Sifat</label>
             <v-select
               placeholder="Sifat"
@@ -173,12 +169,10 @@
 
 <script>
 import { ValidationRules } from "@/mixins/validation-rules";
-import DatePicker from "../../components/atoms/date-picker.vue";
 
 export default {
   name: "FormSPD",
   mixins: [ValidationRules],
-  components: { DatePicker },
   data() {
     return {};
   },
@@ -218,17 +212,6 @@ export default {
       set(value) {
         this.$store.commit("SET_FORM_SPD", {
           key: "no_spd",
-          value,
-        });
-      },
-    },
-    tanggal: {
-      get() {
-        return this.$store.state.spd.form.tanggal;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_SPD", {
-          key: "tanggal",
           value,
         });
       },

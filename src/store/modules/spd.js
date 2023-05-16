@@ -1,14 +1,12 @@
 import axios from "axios";
 import catchUnauthorized from "@/utils/catch-unauthorized";
 const apiUrl = process.env.VUE_APP_API_URL;
-import moment from "moment/moment";
 import Swal from "sweetalert2";
 
 const form = {
   filepath: "",
   no_st: "",
   no_spd: "",
-  tanggal: moment().format("YYYY-MM"),
   tujuan: "",
   sifat: "",
   lama: "0",
