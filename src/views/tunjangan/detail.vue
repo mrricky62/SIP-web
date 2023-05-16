@@ -12,33 +12,16 @@
         </div>
       </div>
       <div class="card-body">
-        <table class="simple-table fs-14">
-          <tr
-            v-for="(item, i) in [
-              { key: 'NIP', value: report.user.nip },
-              { key: 'Nama', value: report.user.nama },
-              { key: 'Pangkat', value: report.user.pangkat },
-              { key: 'Golongan', value: report.user.golongan },
-            ]"
-            :key="i"
-          >
-            <td style="min-width: 150px">{{ item.key }}</td>
-            <td style="min-width: 20px">:</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </table>
         <br />
         <div class="row">
           <div class="col-md-6">
             <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
-                  { key: 'Grade', value: report.grade },
-                  { key: 'Tanggal', value: report.tanggal },
-                  {
-                    key: 'Tunjangan',
-                    value: format3Digit(report.besaran_tunjangan),
-                  },
+                  { key: 'NIP', value: report.user.nip },
+                  { key: 'Nama', value: report.user.nama },
+                  { key: 'Pangkat', value: report.user.pangkat },
+                  { key: 'Golongan', value: report.user.golongan },
                 ]"
                 :key="i"
               >
@@ -64,6 +47,24 @@
             </table>
           </div>
         </div>
+        <br />
+        <table class="simple-table fs-14">
+          <tr
+            v-for="(item, i) in [
+              { key: 'Grade', value: report.grade },
+              { key: 'Tanggal', value: report.tanggal },
+              {
+                key: 'Tunjangan',
+                value: format3Digit(report.besaran_tunjangan),
+              },
+            ]"
+            :key="i"
+          >
+            <td style="min-width: 150px">{{ item.key }}</td>
+            <td style="min-width: 20px">:</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
         <br />
         <br />
         <div class="row">
