@@ -50,12 +50,25 @@
                 <td style="min-width: 20px">:</td>
                 <td>{{ item.value }}</td>
               </tr>
+              <tr>
+                <td>Dokumen</td>
+                <td>:</td>
+                <td>
+                  <a
+                    :href="`${docUrl}/documents/${report.filepath}`"
+                    target="_blank"
+                  >
+                    {{ report.filepath }}
+                  </a>
+                </td>
+              </tr>
             </table>
           </div>
         </div>
 
         <br />
-        <table class="simple-table fs-14">
+        <br />
+        <table class="simple-table fs-14 w-100">
           <tr
             v-for="(item, i) in [
               { key: 'Tujuan', value: report.tujuan },
@@ -64,22 +77,19 @@
             ]"
             :key="i"
           >
-            <td style="min-width: 150px">{{ item.key }}</td>
+            <td style="min-width: 200px; line-height: 28px">{{ item.key }}</td>
             <td style="min-width: 20px">:</td>
-            <td>{{ item.value }}</td>
+            <td class="text-right">{{ item.value }}</td>
           </tr>
-        </table>
-        <br />
-        <table class="simple-table fs-14">
           <tr
             v-for="(item, i) in [
               { key: 'Uang Harian', value: report.uang_harian },
               {
-                key: 'Uang Transport (Pergi)',
+                key: 'Uang Transport (pergi)',
                 value: report.uang_transport_pergi,
               },
               {
-                key: 'Uang Transport (Pulang)',
+                key: 'Uang Transport (pulang)',
                 value: report.uang_transport_pulang,
               },
               { key: 'Uang Transport (DPD)', value: report.uang_transport_dpd },
@@ -88,9 +98,11 @@
             ]"
             :key="i"
           >
-            <td style="min-width: 200px; line-height: 30px">{{ item.key }}</td>
-            <td style="min-width: 20px">:</td>
-            <td class="fw-medium">Rp.{{ format3Digit(item.value) }}</td>
+            <td style="line-height: 28px">{{ item.key }}</td>
+            <td>:</td>
+            <td class="fw-medium text-right">
+              Rp.{{ format3Digit(item.value) }}
+            </td>
           </tr>
         </table>
       </div>
@@ -100,6 +112,7 @@
 
 <script>
 import format3Digit from "@/utils/format-3digit.js";
+const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   name: "SPDDetail",
@@ -107,6 +120,8 @@ export default {
   data() {
     return {
       format3Digit,
+      // put url only
+      docUrl: apiUrl.split("/api")[0],
     };
   },
   computed: {

@@ -155,7 +155,7 @@ export default {
     return {
       headers: [
         { text: "No", value: "no" },
-        { text: "NIP", value: "user.nip" },
+        // { text: "NIP", value: "user.nip" },
         { text: "No SPD", value: "no_spd" },
         { text: "No ST", value: "no_st" },
         { text: "Sifat", value: "sifat" },
