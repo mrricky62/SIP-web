@@ -11,13 +11,65 @@
       </div>
       <div class="card-body">
         <div class="row">
+          <div class="col-12">
+            <label class="mb-2 fw-medium fs-14">File Documents</label>
+            <v-file-input
+              outlined
+              dense
+              v-model="filepath"
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'File');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">No ST</label>
+            <v-text-field
+              placeholder="No ST"
+              outlined
+              dense
+              v-model="no_st"
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'No ST');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">No SPD</label>
+            <v-text-field
+              placeholder="No SPD"
+              outlined
+              dense
+              v-model="no_spd"
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'No SPD');
+                },
+              ]"
+            />
+          </div>
           <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Tanggal</label>
             <date-picker type="month" v-model="tanggal" />
           </div>
           <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Tanggal SPM</label>
-            <date-picker v-model="tanggal_spm" />
+            <label class="mb-2 fw-medium fs-14">Sifat</label>
+            <v-select
+              placeholder="Sifat"
+              :items="['Dalam Kota', 'Luar Kota']"
+              v-model="sifat"
+              outlined
+              dense
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Sifat');
+                },
+              ]"
+            />
           </div>
           <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Tujuan</label>
@@ -29,20 +81,6 @@
               :rules="[
                 (value) => {
                   return genericRequiredRule(value, 'Tujuan');
-                },
-              ]"
-            />
-          </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Sifat</label>
-            <v-text-field
-              placeholder="Sifat"
-              v-model="sifat"
-              outlined
-              dense
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Sifat');
                 },
               ]"
             />
@@ -63,34 +101,6 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Uang Harian</label>
-            <vuetify-money
-              placeholder="0"
-              v-model="uang_harian"
-              :options="{
-                prefix: 'Rp ',
-                thousands: '.',
-                precision: 0,
-              }"
-              outlined
-              dense
-            />
-          </div>
-          <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Uang Transport</label>
-            <vuetify-money
-              placeholder="0"
-              v-model="uang_transport"
-              :options="{
-                prefix: 'Rp ',
-                thousands: '.',
-                precision: 0,
-              }"
-              outlined
-              dense
-            />
-          </div>
-          <div class="col-12">
             <label class="mb-2 fw-medium fs-14">Uang Penginapan</label>
             <vuetify-money
               placeholder="0"
@@ -105,10 +115,38 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Total</label>
+            <label class="mb-2 fw-medium fs-14">Uang Transport Pergi</label>
             <vuetify-money
               placeholder="0"
-              v-model="total"
+              v-model="uang_transport_pergi"
+              :options="{
+                prefix: 'Rp ',
+                thousands: '.',
+                precision: 0,
+              }"
+              outlined
+              dense
+            />
+          </div>
+          <div class="col-12">
+            <label class="mb-2 fw-medium fs-14">Uang Transport Pulang</label>
+            <vuetify-money
+              placeholder="0"
+              v-model="uang_transport_pulang"
+              :options="{
+                prefix: 'Rp ',
+                thousands: '.',
+                precision: 0,
+              }"
+              outlined
+              dense
+            />
+          </div>
+          <div class="col-12">
+            <label class="mb-2 fw-medium fs-14">Uang Transport DPD</label>
+            <vuetify-money
+              placeholder="0"
+              v-model="uang_transport_dpd"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -151,6 +189,39 @@ export default {
     isUpdate() {
       return this.$store.state.spd.isUpdate;
     },
+    filepath: {
+      get() {
+        return this.$store.state.spd.form.filepath;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_SPD", {
+          key: "filepath",
+          value,
+        });
+      },
+    },
+    no_st: {
+      get() {
+        return this.$store.state.spd.form.no_st;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_SPD", {
+          key: "no_st",
+          value,
+        });
+      },
+    },
+    no_spd: {
+      get() {
+        return this.$store.state.spd.form.no_spd;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_SPD", {
+          key: "no_spd",
+          value,
+        });
+      },
+    },
     tanggal: {
       get() {
         return this.$store.state.spd.form.tanggal;
@@ -158,17 +229,6 @@ export default {
       set(value) {
         this.$store.commit("SET_FORM_SPD", {
           key: "tanggal",
-          value,
-        });
-      },
-    },
-    tanggal_spm: {
-      get() {
-        return this.$store.state.spd.form.tanggal_spm;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_SPD", {
-          key: "tanggal_spm",
           value,
         });
       },
@@ -195,24 +255,46 @@ export default {
         });
       },
     },
-    uang_harian: {
+    lama: {
       get() {
-        return this.$store.state.spd.form.uang_harian;
+        return this.$store.state.spd.form.lama;
       },
       set(value) {
         this.$store.commit("SET_FORM_SPD", {
-          key: "uang_harian",
+          key: "lama",
           value,
         });
       },
     },
-    uang_transport: {
+    uang_transport_pergi: {
       get() {
-        return this.$store.state.spd.form.uang_transport;
+        return this.$store.state.spd.form.uang_transport_pergi;
       },
       set(value) {
         this.$store.commit("SET_FORM_SPD", {
-          key: "uang_transport",
+          key: "uang_transport_pergi",
+          value,
+        });
+      },
+    },
+    uang_transport_pulang: {
+      get() {
+        return this.$store.state.spd.form.uang_transport_pulang;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_SPD", {
+          key: "uang_transport_pulang",
+          value,
+        });
+      },
+    },
+    uang_transport_dpd: {
+      get() {
+        return this.$store.state.spd.form.uang_transport_dpd;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_SPD", {
+          key: "uang_transport_dpd",
           value,
         });
       },
@@ -224,28 +306,6 @@ export default {
       set(value) {
         this.$store.commit("SET_FORM_SPD", {
           key: "uang_penginapan",
-          value,
-        });
-      },
-    },
-    total: {
-      get() {
-        return this.$store.state.spd.form.total;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_SPD", {
-          key: "total",
-          value,
-        });
-      },
-    },
-    lama: {
-      get() {
-        return this.$store.state.spd.form.lama;
-      },
-      set(value) {
-        this.$store.commit("SET_FORM_SPD", {
-          key: "lama",
           value,
         });
       },

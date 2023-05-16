@@ -5,15 +5,17 @@ import moment from "moment/moment";
 import Swal from "sweetalert2";
 
 const form = {
+  filepath: "",
+  no_st: "",
+  no_spd: "",
   tanggal: moment().format("YYYY-MM"),
-  tanggal_spm: moment().format("YYYY-MM-DD"),
   tujuan: "",
   sifat: "",
-  uang_harian: "0",
-  uang_transport: "0",
-  uang_penginapan: "0",
-  total: "0",
   lama: "0",
+  uang_transport_pergi: "0",
+  uang_transport_pulang: "0",
+  uang_transport_dpd: "0",
+  uang_penginapan: "0",
 };
 
 const spd = {
@@ -103,13 +105,35 @@ const spd = {
       context.commit("SET_IS_LOADING_SPD", true);
 
       try {
+        const payload = new FormData();
+        payload.append("filepath", context.state.form.filepath);
+        payload.append("no_st", context.state.form.no_st);
+        payload.append("no_spd", context.state.form.no_spd);
+        payload.append("tanggal", context.state.form.tanggal);
+        payload.append("tujuan", context.state.form.tujuan);
+        payload.append("sifat", context.state.form.sifat);
+        payload.append("lama", context.state.form.lama);
+        payload.append(
+          "uang_transport_pergi",
+          context.state.form.uang_transport_pergi
+        );
+        payload.append(
+          "uang_transport_pulang",
+          context.state.form.uang_transport_pulang
+        );
+        payload.append(
+          "uang_transport_dpd",
+          context.state.form.uang_transport_dpd
+        );
+        payload.append("uang_penginapan", context.state.form.uang_penginapan);
+
         const result = await axios({
           url: `${apiUrl}/spd`,
           method: "POST",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
           },
-          data: context.state.form,
+          data: payload,
         });
 
         Swal.fire({
