@@ -21,7 +21,11 @@
           <button class="mr-5 text-muted" type="button" @click="handleClose">
             Kembali
           </button>
-          <button class="btn bg-darkblue text-white" type="submit">
+          <button
+            class="btn bg-darkblue text-white"
+            type="submit"
+            :disabled="isLoading"
+          >
             Import
           </button>
         </div>
@@ -68,19 +72,20 @@ export default {
         for (const iterator of json) {
           payload.push({
             nip: iterator.nip,
-            tanggal: `${iterator.thn}-${iterator.bln}`,
-            tanggal_spm: new Date(
-              Math.round((iterator.tgl - 25569) * 86400 * 1000)
-            ),
-            kdgol: iterator.kdgol,
+            tanggal: `${iterator.tahun}-${iterator.bulan}`,
+            grade: iterator.grade,
+            nama_bank: iterator.nama_bank,
+            no_rek: iterator.no_rek,
+            besaran_tunjangan: iterator.besaran_tunjangan,
 
-            jml_hari: iterator.jmlhari,
-            tarif: iterator.tarif,
-            kotor: iterator.kotor,
-            pph: iterator.pph,
-            bersih: iterator.bersih,
+            pot_hukdis: iterator.pot_hukdis,
+            pot_absen: iterator.pot_absen,
+            pot_pph: iterator.pot_pph,
 
-            no_rek: iterator.rekening,
+            tunj_netto: iterator.tunj_netto,
+            tunj_pph: iterator.tunj_pph,
+            permintaan: iterator.permintaan,
+            tunj_dibayar: iterator.tunj_dibayar,
           });
         }
 
@@ -96,13 +101,13 @@ export default {
           return resultArray;
         }, []);
 
-        commit("SET_FORM_IMPORT_UANG_MAKAN", chunked);
+        commit("SET_FORM_IMPORT_TUNJANGAN", chunked);
         console.log("chunked", chunked);
       };
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      this.$store.dispatch("ImportUangMakan").then((res) => {
+      this.$store.dispatch("ImportTunjangan").then((res) => {
         if (res) {
           this.handleClose();
         }
