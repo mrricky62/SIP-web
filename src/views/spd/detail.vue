@@ -3,15 +3,20 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">
-            Detail Uang Makan {{ report.user.nama }} pada {{ report.tanggal }}
-          </p>
+          <p class="card-title fw-medium mb-0">Detail SPD</p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </div>
       </div>
       <div class="card-body">
+        <div
+          v-if="report.status === 'DITOLAK'"
+          class="alert alert-danger"
+          role="alert"
+        >
+          {{ report.catatan }}
+        </div>
         <br />
         <div class="row">
           <div class="col-md-6">
@@ -22,7 +27,6 @@
                   { key: 'Nama', value: report.user.nama },
                   { key: 'Pangkat', value: report.user.pangkat },
                   { key: 'Golongan', value: report.user.golongan },
-                  { key: 'No Rekening', value: report.no_rek },
                 ]"
                 :key="i"
               >
@@ -36,10 +40,9 @@
             <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
-                  { key: 'Tanggal', value: report.tanggal },
                   { key: 'Tanggal SPM', value: report.tanggal_spm },
-                  { key: 'Kdgol', value: report.kdgol },
-                  { key: 'Jumlah Hari', value: report.jml_hari },
+                  { key: 'No SPD', value: report.no_spd },
+                  { key: 'No ST', value: report.no_st },
                 ]"
                 :key="i"
               >
@@ -52,24 +55,44 @@
         </div>
 
         <br />
-
         <table class="simple-table fs-14">
           <tr
             v-for="(item, i) in [
-              { key: 'Tarif', value: report.tarif },
-              { key: 'Kotor', value: report.kotor },
-              { key: 'PPH', value: report.pph },
-              { key: 'Bersih', value: report.bersih },
+              { key: 'Tujuan', value: report.tujuan },
+              { key: 'Sifat', value: report.sifat },
+              { key: 'Lama', value: report.lama },
             ]"
             :key="i"
           >
             <td style="min-width: 150px">{{ item.key }}</td>
             <td style="min-width: 20px">:</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+        <br />
+        <table class="simple-table fs-14">
+          <tr
+            v-for="(item, i) in [
+              { key: 'Uang Harian', value: report.uang_harian },
+              {
+                key: 'Uang Transport (Pergi)',
+                value: report.uang_transport_pergi,
+              },
+              {
+                key: 'Uang Transport (Pulang)',
+                value: report.uang_transport_pulang,
+              },
+              { key: 'Uang Transport (DPD)', value: report.uang_transport_dpd },
+              { key: 'Uang Penginapan', value: report.uang_penginapan },
+              { key: 'Total', value: report.total },
+            ]"
+            :key="i"
+          >
+            <td style="min-width: 200px; line-height: 30px">{{ item.key }}</td>
+            <td style="min-width: 20px">:</td>
             <td class="fw-medium">Rp.{{ format3Digit(item.value) }}</td>
           </tr>
         </table>
-
-        <br />
       </div>
     </v-card>
   </div>
@@ -79,7 +102,7 @@
 import format3Digit from "@/utils/format-3digit.js";
 
 export default {
-  name: "UangMakanDetail",
+  name: "SPDDetail",
   components: {},
   data() {
     return {
@@ -88,10 +111,10 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.uangMakan.isLoading;
+      return this.$store.state.spd.isLoading;
     },
     report() {
-      return this.$store.state.uangMakan.report;
+      return this.$store.state.spd.report;
     },
   },
   methods: {

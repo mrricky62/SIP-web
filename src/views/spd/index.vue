@@ -67,13 +67,19 @@
                       <span>Detail</span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="handleModalFormApprove(true, item.id)">
+                  <v-list-item
+                    @click="handleModalFormApprove(true, item.id)"
+                    v-if="item.status === 'PENDING'"
+                  >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-check small mr-2"></i>
                       <span>Set to Approve</span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="handleModalFormReject(true, item.id)">
+                  <v-list-item
+                    @click="handleModalFormReject(true, item.id)"
+                    v-if="item.status === 'PENDING'"
+                  >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-eject small mr-2"></i>
                       <span>Set to Reject</span>
@@ -207,7 +213,7 @@ export default {
       this.handleModalForm(true);
     },
     handleModalDetail(value, id) {
-      if (value) this.$store.dispatch("FetchUangMakanDetail", id);
+      if (value) this.$store.dispatch("FetchSPDDetail", id);
       this.modalDetail = value;
     },
     handleDelete(id) {
