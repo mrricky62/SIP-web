@@ -28,8 +28,24 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot:[`item.bersih`]="{ item }">
-              {{ format3Digit(item.bersih) }}
+            <!-- <template v-slot:[`item.total`]="{ item }">
+              {{ format3Digit(item.total) }}
+            </template> -->
+            <template v-slot:[`item.status`]="{ item }">
+              <v-chip small v-if="item.status == 'PENDING'" color="orange" dark>
+                {{ item.status }}
+              </v-chip>
+              <v-chip
+                small
+                v-if="item.status == 'DISETUJUI'"
+                color="green"
+                dark
+              >
+                {{ item.status }}
+              </v-chip>
+              <v-chip small v-if="item.status == 'DITOLAK'" color="red" dark>
+                {{ item.status }}
+              </v-chip>
             </template>
             <template v-slot:[`item.action`]="{ item }">
               <v-menu offset-y>
@@ -102,12 +118,16 @@ export default {
   data() {
     return {
       headers: [
+        { text: "No", value: "no" },
         { text: "NIP", value: "user.nip" },
-        // { text: "Bulan", value: "bulan" },
-        // { text: "Tahun", value: "tahun" },
-        // { text: "Jumlah Hari", value: "jml_hari" },
-        // { text: "Nilai", value: "bersih" },
-        // { text: "Tanggal SPM", value: "tanggal_spm" },
+        { text: "No SPD", value: "no_spd" },
+        { text: "No ST", value: "no_st" },
+        { text: "Sifat", value: "sifat" },
+        { text: "Tujuan", value: "tujuan" },
+        { text: "Lama", value: "lama" },
+        { text: "Status", value: "status" },
+        { text: "Total", value: "total" },
+        { text: "Tanggal SPM", value: "tanggal_spm" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       format3Digit,
