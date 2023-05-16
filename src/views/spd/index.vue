@@ -207,8 +207,8 @@ export default {
       this.modalFormReject = value;
     },
     handleEdit(id) {
-      this.$store.dispatch("SetFormUpdateUangMakan", id);
-      this.$store.commit("SET_IS_UPDATE_UANG_MAKAN", id);
+      this.$store.dispatch("SetFormUpdateSPD", id);
+      this.$store.commit("SET_IS_UPDATE_SPD", id);
 
       this.handleModalForm(true);
     },

@@ -147,7 +147,6 @@ const spd = {
         payload.append("filepath", context.state.form.filepath);
         payload.append("no_st", context.state.form.no_st);
         payload.append("no_spd", context.state.form.no_spd);
-        payload.append("tanggal", context.state.form.tanggal);
         payload.append("tujuan", context.state.form.tujuan);
         payload.append("sifat", context.state.form.sifat);
         payload.append("lama", context.state.form.lama);
@@ -312,16 +311,16 @@ const spd = {
 
         const data = result.data.data;
         context.state.form = {
-          user_id: data.user_id,
-          tanggal: data.tanggal,
-          tanggal_spm: data.tanggal_spm,
-          jam_kerja: data.jam_kerja,
-          jam_libur: data.jam_libur,
-          jam_makan: data.jam_makan,
-          lembur: data.lembur,
-          makan: data.makan,
-          pph: data.pph,
-          bersih: data.bersih,
+          filepath: "",
+          no_st: data.no_st,
+          no_spd: data.no_spd,
+          tujuan: data.tujuan,
+          sifat: data.sifat,
+          lama: data.lama,
+          uang_transport_pergi: data.uang_transport_pergi,
+          uang_transport_pulang: data.uang_transport_pulang,
+          uang_transport_dpd: data.uang_transport_dpd,
+          uang_penginapan: data.uang_penginapan,
         };
       } catch (error) {
         catchUnauthorized(error);
@@ -333,13 +332,36 @@ const spd = {
       context.commit("SET_IS_LOADING_SPD", true);
 
       try {
+        const payload = new FormData();
+        if (context.state.form.filepath !== "") {
+          payload.append("filepath", context.state.form.filepath);
+        }
+        payload.append("no_st", context.state.form.no_st);
+        payload.append("no_spd", context.state.form.no_spd);
+        payload.append("tujuan", context.state.form.tujuan);
+        payload.append("sifat", context.state.form.sifat);
+        payload.append("lama", context.state.form.lama);
+        payload.append(
+          "uang_transport_pergi",
+          context.state.form.uang_transport_pergi
+        );
+        payload.append(
+          "uang_transport_pulang",
+          context.state.form.uang_transport_pulang
+        );
+        payload.append(
+          "uang_transport_dpd",
+          context.state.form.uang_transport_dpd
+        );
+        payload.append("uang_penginapan", context.state.form.uang_penginapan);
+
         const result = await axios({
           url: `${apiUrl}/spd/${id}`,
           method: "PUT",
           headers: {
             Authorization: `Bearer ${context.rootState.app.token}`,
           },
-          data: context.state.form,
+          data: payload,
         });
 
         Swal.fire({

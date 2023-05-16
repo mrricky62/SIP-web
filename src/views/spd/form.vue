@@ -17,6 +17,14 @@
               outlined
               dense
               v-model="filepath"
+              v-if="isUpdate"
+              messages="Kosongkan jika tidak ingin mengubah file"
+            />
+            <v-file-input
+              outlined
+              dense
+              v-model="filepath"
+              v-else
               :rules="[
                 (value) => {
                   return genericRequiredRule(value, 'File');
@@ -304,7 +312,7 @@ export default {
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {
         if (this.isUpdate) {
-          this.$store.dispatch("UpdateUangMakan", this.isUpdate).then((res) => {
+          this.$store.dispatch("UpdateSPD", this.isUpdate).then((res) => {
             if (res) {
               this.handleClose();
             }
