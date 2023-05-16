@@ -68,7 +68,7 @@
 
         <br />
         <br />
-        <table class="simple-table fs-14 w-100">
+        <table class="simple-table fs-14">
           <tr
             v-for="(item, i) in [
               { key: 'Tujuan', value: report.tujuan },
@@ -79,7 +79,7 @@
           >
             <td style="min-width: 200px; line-height: 28px">{{ item.key }}</td>
             <td style="min-width: 20px">:</td>
-            <td class="text-right">{{ item.value }}</td>
+            <td class="">{{ item.value }}</td>
           </tr>
           <tr
             v-for="(item, i) in [
@@ -100,9 +100,7 @@
           >
             <td style="line-height: 28px">{{ item.key }}</td>
             <td>:</td>
-            <td class="fw-medium text-right">
-              Rp.{{ format3Digit(item.value) }}
-            </td>
+            <td class="fw-medium">Rp.{{ format3Digit(item.value) }}</td>
           </tr>
         </table>
       </div>

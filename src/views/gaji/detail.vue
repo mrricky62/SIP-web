@@ -13,41 +13,25 @@
       </div>
       <div class="card-body">
         <br />
-        <div class="row">
-          <div class="col-md-6">
-            <table class="simple-table fs-14">
-              <tr
-                v-for="(item, i) in [
-                  { key: 'NIP', value: report.user.nip },
-                  { key: 'Nama', value: report.user.nama },
-                  { key: 'Pangkat', value: report.user.pangkat },
-                  { key: 'Golongan', value: report.user.golongan },
-                ]"
-                :key="i"
-              >
-                <td style="min-width: 150px">{{ item.key }}</td>
-                <td style="min-width: 20px">:</td>
-                <td>{{ item.value }}</td>
-              </tr>
-            </table>
-          </div>
-          <div class="col-md-6">
-            <table class="simple-table fs-14">
-              <tr
-                v-for="(item, i) in [
-                  { key: 'Nama Bank', value: report.nama_bank },
-                  { key: 'Nama Rekening', value: report.nama_rek },
-                  { key: 'No Rekening', value: report.no_rek },
-                ]"
-                :key="i"
-              >
-                <td style="min-width: 150px">{{ item.key }}</td>
-                <td style="min-width: 20px">:</td>
-                <td>{{ item.value }}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
+        <table class="simple-table fs-14">
+          <tr
+            v-for="(item, i) in [
+              { key: 'NIP', value: report.user.nip },
+              { key: 'Nama', value: report.user.nama },
+              { key: 'Pangkat', value: report.user.pangkat },
+              { key: 'Golongan', value: report.user.golongan },
+              { key: 'Nama Bank', value: report.nama_bank },
+              { key: 'Nama Rekening', value: report.nama_rek },
+              { key: 'No Rekening', value: report.no_rek },
+            ]"
+            :key="i"
+          >
+            <td style="min-width: 150px">{{ item.key }}</td>
+            <td style="min-width: 20px">:</td>
+            <td>{{ item.value }}</td>
+          </tr>
+        </table>
+        <br />
         <table class="simple-table fs-14">
           <tr
             v-for="(item, i) in [

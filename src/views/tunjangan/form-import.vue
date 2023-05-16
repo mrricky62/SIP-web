@@ -3,7 +3,7 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">Form Import Gaji</p>
+          <p class="card-title fw-medium mb-0">Form Import Tunjangan</p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -12,17 +12,10 @@
       <div class="card-body">
         <input
           type="file"
-          class="form-control mb-3"
+          class="form-control"
           required
           @change="handleFileUpload"
         />
-        <a
-          class="fs-14"
-          :href="`${docUrl}/templates/template-gaji.xlsx`"
-          download
-        >
-          Download Template Import
-        </a>
         <br />
         <div class="d-flex justify-content-end">
           <button class="mr-5 text-muted" type="button" @click="handleClose">
@@ -40,16 +33,13 @@
 <script>
 import { ValidationRules } from "@/mixins/validation-rules";
 var XLSX = require("xlsx");
-const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
-  name: "FormImportGaji",
+  name: "FormImportTunjangan",
   mixins: [ValidationRules],
   components: {},
   data() {
-    return {
-      docUrl: apiUrl.split("/api")[0],
-    };
+    return {};
   },
   computed: {
     isLoading() {
@@ -78,37 +68,19 @@ export default {
         for (const iterator of json) {
           payload.push({
             nip: iterator.nip,
-            tanggal: `${iterator.tahun}-${iterator.bulan}`,
+            tanggal: `${iterator.thn}-${iterator.bln}`,
+            tanggal_spm: new Date(
+              Math.round((iterator.tgl - 25569) * 86400 * 1000)
+            ),
             kdgol: iterator.kdgol,
-            nama_rek: iterator.nmrek,
-            nama_bank: iterator.nm_bank,
-            no_rek: iterator.rekening,
-            gaji_pokok: iterator.gjpokok,
 
-            tunj_istri: iterator.tjistri,
-            tunj_anak: iterator.tjanak,
-            tunj_pns: iterator.tjupns,
-            tunj_struk: iterator.tjstruk,
-            tunj_fungs: iterator.tjfungs,
-            tunj_daerah: iterator.tjdaerah,
-            tunj_pencil: iterator.tjpencil,
-            tunj_tjlain: iterator.tjlain,
-            tunj_kompen: iterator.tjkompen,
-            tunj_beras: iterator.tjberas,
-            tunj_pph: iterator.tjpph,
-
-            pembulatan: iterator.pembul,
-
-            pot_pfkbul: iterator.potpfkbul,
-            pot_pfk2: iterator.potpfk2,
-            pot_pfk10: iterator.potpfk10,
-            pot_pph: iterator.potpph,
-            pot_swrum: iterator.potswrum,
-            pot_kelbtj: iterator.potkelbtj,
-            pot_lain: iterator.kdgol,
-            pot_tabrum: iterator.pottabrum,
-
+            jml_hari: iterator.jmlhari,
+            tarif: iterator.tarif,
+            kotor: iterator.kotor,
+            pph: iterator.pph,
             bersih: iterator.bersih,
+
+            no_rek: iterator.rekening,
           });
         }
 
@@ -124,13 +96,13 @@ export default {
           return resultArray;
         }, []);
 
-        commit("SET_FORM_IMPORT_GAJI", chunked);
+        commit("SET_FORM_IMPORT_UANG_MAKAN", chunked);
         console.log("chunked", chunked);
       };
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      this.$store.dispatch("ImportGaji").then((res) => {
+      this.$store.dispatch("ImportUangMakan").then((res) => {
         if (res) {
           this.handleClose();
         }
