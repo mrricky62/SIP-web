@@ -48,6 +48,8 @@ export default {
   },
   methods: {
     handleClose() {
+      this.$store.commit("SET_FORM_IMPORT_UANG_LEMBUR", []);
+
       this.$emit("handleModalFormImport", false);
     },
     handleFileUpload(e) {
@@ -72,14 +74,14 @@ export default {
             tanggal_spm: new Date(
               Math.round((iterator.tgl - 25569) * 86400 * 1000)
             ),
-            jam_kerja: "",
-            jam_libur: "",
-            jam_makan: "",
+            jam_kerja: iterator.jkerja,
+            jam_libur: iterator.jlibur,
+            jam_makan: iterator.jmakan,
 
-            lembur: "0",
-            makan: "0",
-            pph: "0",
-            bersih: "0",
+            lembur: iterator.lembur,
+            makan: iterator.makan,
+            pph: iterator.pph,
+            bersih: iterator.bersih,
           });
         }
 
@@ -95,17 +97,17 @@ export default {
           return resultArray;
         }, []);
 
-        commit("SET_FORM_IMPORT_UANG_MAKAN", chunked);
+        commit("SET_FORM_IMPORT_UANG_LEMBUR", chunked);
         console.log("chunked", chunked);
       };
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      //   this.$store.dispatch("ImportUangMakan").then((res) => {
-      //     if (res) {
-      //       this.handleClose();
-      //     }
-      //   });
+      this.$store.dispatch("ImportUangLembur").then((res) => {
+        if (res) {
+          this.handleClose();
+        }
+      });
     },
   },
 };

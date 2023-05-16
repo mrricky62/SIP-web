@@ -32,6 +32,7 @@ const uangLembur = {
     form: {
       ...form,
     },
+    form_import: [],
     isUpdate: false,
   },
   mutations: {
@@ -57,6 +58,9 @@ const uangLembur = {
       state.form = {
         ...form,
       };
+    },
+    SET_FORM_IMPORT_UANG_LEMBUR(state, payload) {
+      state.form_import = payload;
     },
     SET_IS_UPDATE_UANG_LEMBUR(state, payload) {
       state.isUpdate = payload;
@@ -140,6 +144,43 @@ const uangLembur = {
           icon: "success",
           title: "Success",
           text: result.data.message,
+        });
+        context.dispatch("FetchUangLembur");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_UANG_LEMBUR", false);
+      }
+    },
+    async ImportUangLembur(context) {
+      context.commit("SET_IS_LOADING_UANG_LEMBUR", true);
+
+      try {
+        for (const iterator of context.state.form_import) {
+          await axios({
+            url: `${apiUrl}/uang-lembur/import`,
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${context.rootState.app.token}`,
+            },
+            data: {
+              data: iterator,
+            },
+          });
+        }
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Data berhasil diimport",
         });
         context.dispatch("FetchUangLembur");
 
