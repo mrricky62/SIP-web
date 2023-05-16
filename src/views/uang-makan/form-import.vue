@@ -12,10 +12,17 @@
       <div class="card-body">
         <input
           type="file"
-          class="form-control"
+          class="form-control mb-3"
           required
           @change="handleFileUpload"
         />
+        <a
+          class="fs-14"
+          :href="`${docUrl}/templates/template-uang-makan.xlsx`"
+          download
+        >
+          Download Template Import
+        </a>
         <br />
         <div class="d-flex justify-content-end">
           <button class="mr-5 text-muted" type="button" @click="handleClose">
@@ -33,13 +40,16 @@
 <script>
 import { ValidationRules } from "@/mixins/validation-rules";
 var XLSX = require("xlsx");
+const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
   name: "FormImportUangMakan",
   mixins: [ValidationRules],
   components: {},
   data() {
-    return {};
+    return {
+      docUrl: apiUrl.split("/api")[0],
+    };
   },
   computed: {
     isLoading() {
