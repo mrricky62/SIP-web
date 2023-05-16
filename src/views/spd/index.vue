@@ -4,6 +4,7 @@
     <v-btn
       class="btn text-white fw-normal bg-darkblue mb-3"
       @click="handleModalForm(true)"
+      v-if="!isAdmin"
     >
       <i class="fa fa-plus"></i>
       Ajukan SPD
@@ -69,7 +70,7 @@
                   </v-list-item>
                   <v-list-item
                     @click="handleModalFormApprove(true, item.id)"
-                    v-if="item.status === 'PENDING'"
+                    v-if="item.status === 'PENDING' && isAdmin"
                   >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-check small mr-2"></i>
@@ -78,14 +79,17 @@
                   </v-list-item>
                   <v-list-item
                     @click="handleModalFormReject(true, item.id)"
-                    v-if="item.status === 'PENDING'"
+                    v-if="item.status === 'PENDING' && isAdmin"
                   >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-eject small mr-2"></i>
                       <span>Set to Reject</span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="handleEdit(item.id)">
+                  <v-list-item
+                    @click="handleEdit(item.id)"
+                    v-if="item.status === 'PENDING' && !isAdmin"
+                  >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-edit small mr-2"></i>
                       <span>Edit</span>
@@ -181,6 +185,9 @@ export default {
     reports() {
       return this.$store.state.spd.reports;
     },
+    isAdmin() {
+      return this.$store.state.app.user.is_admin;
+    },
     optionsTable: {
       get() {
         return this.$store.state.spd.optionsTable;
@@ -226,7 +233,7 @@ export default {
         cancelButtonColor: "#d33",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.$store.dispatch("DeleteUangMakan", id);
+          this.$store.dispatch("DeleteSPD", id);
         }
       });
     },
