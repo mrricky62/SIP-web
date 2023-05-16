@@ -30,6 +30,10 @@ const form_approve = {
   total: "0",
 };
 
+const form_reject = {
+  catatan: "",
+};
+
 const spd = {
   state: {
     isLoading: false,
@@ -45,6 +49,9 @@ const spd = {
     },
     form_approve: {
       ...form_approve,
+    },
+    form_reject: {
+      ...form_reject,
     },
     isUpdate: false,
   },
@@ -75,6 +82,14 @@ const spd = {
     RESET_FORM_APPROVE_SPD(state) {
       state.form_approve = {
         ...form_approve,
+      };
+    },
+    SET_FORM_REJECT_SPD(state, payload) {
+      state.form_reject[payload.key] = payload.value;
+    },
+    RESET_FORM_REJECT_SPD(state) {
+      state.form_reject = {
+        ...form_reject,
       };
     },
     SET_IS_UPDATE_SPD(state, payload) {
@@ -228,6 +243,39 @@ const spd = {
             Authorization: `Bearer ${context.rootState.app.token}`,
           },
           data: context.state.form_approve,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+        context.dispatch("FetchSPD");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_SPD", false);
+      }
+    },
+    async RejectSPD(context, id) {
+      context.commit("SET_IS_LOADING_SPD", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/spd/reject/${id}`,
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: context.state.form_reject,
         });
 
         Swal.fire({

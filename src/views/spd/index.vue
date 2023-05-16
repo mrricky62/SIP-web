@@ -73,6 +73,12 @@
                       <span>Set to Approve</span>
                     </v-list-item-title>
                   </v-list-item>
+                  <v-list-item @click="handleModalFormReject(true, item.id)">
+                    <v-list-item-title class="text-primary fs-12">
+                      <i class="fas fa-eject small mr-2"></i>
+                      <span>Set to Reject</span>
+                    </v-list-item-title>
+                  </v-list-item>
                   <v-list-item @click="handleEdit(item.id)">
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-edit small mr-2"></i>
@@ -105,6 +111,14 @@
       <FormApprove @handleModalFormApprove="handleModalFormApprove" />
     </v-dialog>
     <v-dialog
+      v-if="modalFormReject"
+      v-model="modalFormReject"
+      max-width="800"
+      persistent
+    >
+      <FormReject @handleModalFormReject="handleModalFormReject" />
+    </v-dialog>
+    <v-dialog
       v-if="modalDetail"
       v-model="modalDetail"
       max-width="800"
@@ -128,6 +142,7 @@ export default {
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
     Form: () => import("./form.vue"),
     FormApprove: () => import("./form-approve.vue"),
+    FormReject: () => import("./form-reject.vue"),
     Detail: () => import("./detail.vue"),
   },
   data() {
@@ -149,6 +164,7 @@ export default {
       moment,
       modalForm: false,
       modalFormApprove: false,
+      modalFormReject: false,
       modalDetail: false,
     };
   },
@@ -178,6 +194,11 @@ export default {
         this.$store.commit("SET_IS_UPDATE_SPD", id);
       }
       this.modalFormApprove = value;
+    },
+    handleModalFormReject(value, id) {
+      if (value) this.$store.commit("SET_IS_UPDATE_SPD", id);
+
+      this.modalFormReject = value;
     },
     handleEdit(id) {
       this.$store.dispatch("SetFormUpdateUangMakan", id);
