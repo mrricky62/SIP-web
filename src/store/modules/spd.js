@@ -16,6 +16,20 @@ const form = {
   uang_penginapan: "0",
 };
 
+const form_approve = {
+  no_st: "",
+  no_spd: "",
+  tujuan: "",
+  sifat: "",
+  lama: "0",
+  uang_harian: "0",
+  uang_transport_pergi: "0",
+  uang_transport_pulang: "0",
+  uang_transport_dpd: "0",
+  uang_penginapan: "0",
+  total: "0",
+};
+
 const spd = {
   state: {
     isLoading: false,
@@ -28,6 +42,9 @@ const spd = {
     report: {},
     form: {
       ...form,
+    },
+    form_approve: {
+      ...form_approve,
     },
     isUpdate: false,
   },
@@ -50,6 +67,14 @@ const spd = {
     RESET_FORM_SPD(state) {
       state.form = {
         ...form,
+      };
+    },
+    SET_FORM_APPROVE_SPD(state, payload) {
+      state.form_approve[payload.key] = payload.value;
+    },
+    RESET_FORM_APPROVE_SPD(state) {
+      state.form_approve = {
+        ...form_approve,
       };
     },
     SET_IS_UPDATE_SPD(state, payload) {
@@ -132,6 +157,77 @@ const spd = {
             Authorization: `Bearer ${context.rootState.app.token}`,
           },
           data: payload,
+        });
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: result.data.message,
+        });
+        context.dispatch("FetchSPD");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_SPD", false);
+      }
+    },
+    async FetchBeforeApproveSPD(context, id) {
+      context.commit("SET_IS_LOADING_SPD", true);
+      try {
+        const result = await axios({
+          url: `${apiUrl}/spd/${id}`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+        });
+
+        const data = result.data.data;
+
+        context.state.form_approve = {
+          no_st: data.no_st,
+          no_spd: data.no_spd,
+          tujuan: data.tujuan,
+          sifat: data.sifat,
+          lama: data.lama,
+
+          uang_harian: data.uang_harian,
+          uang_transport_pergi: data.uang_transport_pergi,
+          uang_transport_pulang: data.uang_transport_pulang,
+          uang_transport_dpd: data.uang_transport_dpd,
+          uang_penginapan: data.uang_penginapan,
+          total:
+            +data.uang_harian +
+            +data.uang_transport_pergi +
+            +data.uang_transport_pulang +
+            +data.uang_transport_dpd +
+            +data.uang_penginapan,
+        };
+      } catch (error) {
+        catchUnauthorized(error);
+      } finally {
+        context.commit("SET_IS_LOADING_SPD", false);
+      }
+    },
+    async ApproveSPD(context, id) {
+      context.commit("SET_IS_LOADING_SPD", true);
+
+      try {
+        const result = await axios({
+          url: `${apiUrl}/spd/approve/${id}`,
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${context.rootState.app.token}`,
+          },
+          data: context.state.form_approve,
         });
 
         Swal.fire({
