@@ -57,7 +57,7 @@ export default {
   },
   computed: {
     isLoading() {
-      return this.$store.state.tunjangan.isLoading;
+      return this.$store.state.spd.isLoading;
     },
   },
   methods: {
@@ -82,20 +82,22 @@ export default {
         for (const iterator of json) {
           payload.push({
             nip: iterator.nip,
-            tanggal: `${iterator.tahun}-${iterator.bulan}`,
-            grade: iterator.grade,
-            nama_bank: iterator.nama_bank,
-            no_rek: iterator.no_rek,
-            besaran_tunjangan: iterator.besaran_tunjangan,
+            tanggal_spm: new Date(
+              Math.round((iterator.tgl - 25569) * 86400 * 1000)
+            ),
+            no_st: iterator.no_st,
+            no_spd: iterator.no_spd,
+            tujuan: iterator.tujuan,
+            sifat: iterator.sifat,
 
-            pot_hukdis: iterator.pot_hukdis,
-            pot_absen: iterator.pot_absen,
-            pot_pph: iterator.pot_pph,
+            uang_harian: iterator.uang_harian,
+            uang_transport_pergi: iterator.uang_transport_pergi,
+            uang_transport_pulang: iterator.uang_transport_pulang,
+            uang_transport_dpd: iterator.uang_transport_dpd,
+            uang_penginapan: iterator.uang_penginapan,
 
-            tunj_netto: iterator.tunj_netto,
-            tunj_pph: iterator.tunj_pph,
-            permintaan: iterator.permintaan,
-            tunj_dibayar: iterator.tunj_dibayar,
+            total: iterator.total,
+            lama: iterator.lama,
           });
         }
 
@@ -111,13 +113,13 @@ export default {
           return resultArray;
         }, []);
 
-        commit("SET_FORM_IMPORT_TUNJANGAN", chunked);
+        commit("SET_FORM_IMPORT_SPD", chunked);
         console.log("chunked", chunked);
       };
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      this.$store.dispatch("ImportTunjangan").then((res) => {
+      this.$store.dispatch("ImportSPD").then((res) => {
         if (res) {
           this.handleClose();
         }

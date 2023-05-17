@@ -53,6 +53,7 @@ const spd = {
     form_reject: {
       ...form_reject,
     },
+    form_import: [],
     isUpdate: false,
   },
   mutations: {
@@ -91,6 +92,9 @@ const spd = {
       state.form_reject = {
         ...form_reject,
       };
+    },
+    SET_FORM_IMPORT_SPD(state, payload) {
+      state.form_import = payload;
     },
     SET_IS_UPDATE_SPD(state, payload) {
       state.isUpdate = payload;
@@ -177,6 +181,43 @@ const spd = {
           icon: "success",
           title: "Success",
           text: result.data.message,
+        });
+        context.dispatch("FetchSPD");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_SPD", false);
+      }
+    },
+    async ImportSPD(context) {
+      context.commit("SET_IS_LOADING_SPD", true);
+
+      try {
+        for (const iterator of context.state.form_import) {
+          await axios({
+            url: `${apiUrl}/spd/import`,
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${context.rootState.app.token}`,
+            },
+            data: {
+              data: iterator,
+            },
+          });
+        }
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Import data SPD berhasil",
         });
         context.dispatch("FetchSPD");
 
