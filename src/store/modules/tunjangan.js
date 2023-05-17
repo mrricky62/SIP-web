@@ -49,6 +49,7 @@ const tunjangan = {
       ...form,
     },
     form_import: [],
+    form_import_potongan: [],
     isUpdate: false,
   },
   mutations: {
@@ -77,6 +78,9 @@ const tunjangan = {
     },
     SET_FORM_IMPORT_TUNJANGAN(state, payload) {
       state.form_import = payload;
+    },
+    SET_FORM_IMPORT_POTONGAN_TUNJANGAN(state, payload) {
+      state.form_import_potongan = payload;
     },
     SET_IS_UPDATE_TUNJANGAN(state, payload) {
       state.isUpdate = payload;
@@ -197,6 +201,43 @@ const tunjangan = {
           icon: "success",
           title: "Success",
           text: "Import data tunjangan berhasil",
+        });
+        context.dispatch("FetchTunjangan");
+
+        return true;
+      } catch (error) {
+        catchUnauthorized(error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.response.data.message,
+        });
+      } finally {
+        context.commit("SET_IS_LOADING_TUNJANGAN", false);
+      }
+    },
+    async ImportTunjanganPotongan(context) {
+      context.commit("SET_IS_LOADING_TUNJANGAN", true);
+
+      try {
+        for (const iterator of context.state.form_import_potongan) {
+          await axios({
+            url: `${apiUrl}/tunjangan/import-potongan`,
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${context.rootState.app.token}`,
+            },
+            data: {
+              data: iterator,
+            },
+          });
+        }
+
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Import data tunjangan (potongan) berhasil",
         });
         context.dispatch("FetchTunjangan");
 

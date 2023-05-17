@@ -85,19 +85,18 @@ export default {
           payload.push({
             nip: iterator.nip,
             tanggal: `${iterator.tahun}-${iterator.bulan}`,
-            grade: iterator.grade,
-            nama_bank: iterator.nama_bank,
-            no_rek: iterator.no_rek,
-            besaran_tunjangan: iterator.besaran_tunjangan,
 
-            pot_hukdis: iterator.pot_hukdis,
-            pot_absen: iterator.pot_absen,
-            pot_pph: iterator.pot_pph,
-
-            tunj_netto: iterator.tunj_netto,
-            tunj_pph: iterator.tunj_pph,
-            permintaan: iterator.permintaan,
-            tunj_dibayar: iterator.tunj_dibayar,
+            pot_iwp: iterator.iwp,
+            pot_dkp: iterator.dkp,
+            pot_pinjaman: iterator.pinjaman,
+            pot_tmptinggal: iterator.tmpt_tinggal,
+            pot_agama: iterator.agama,
+            pot_darmawanita: iterator.darmawanita,
+            pot_bapors: iterator.bapors,
+            pot_kasangkatan: iterator.kas_angkatan,
+            pot_uangmakan: iterator.uang_makan,
+            pot_lain: iterator.lainnya,
+            jumlah_potongan: iterator.jumlah,
           });
         }
 
@@ -113,13 +112,13 @@ export default {
           return resultArray;
         }, []);
 
-        commit("SET_FORM_IMPORT_TUNJANGAN", chunked);
+        commit("SET_FORM_IMPORT_POTONGAN_TUNJANGAN", chunked);
         console.log("chunked", chunked);
       };
       reader.readAsArrayBuffer(f);
     },
     async handleSubmit() {
-      this.$store.dispatch("ImportTunjangan").then((res) => {
+      this.$store.dispatch("ImportTunjanganPotongan").then((res) => {
         if (res) {
           this.handleClose();
         }
