@@ -3,7 +3,9 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">Form Import Tunjangan</p>
+          <p class="card-title fw-medium mb-0">
+            Form Import Tunjangan (Potongan)
+          </p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -18,7 +20,7 @@
         />
         <a
           class="fs-14"
-          :href="`${docUrl}/templates/template-tunjangan.xlsx`"
+          :href="`${docUrl}/templates/template-tunjangan-potongan.xlsx`"
           download
         >
           Download Template Import
@@ -47,7 +49,7 @@ var XLSX = require("xlsx");
 const apiUrl = process.env.VUE_APP_API_URL;
 
 export default {
-  name: "FormImportTunjangan",
+  name: "FormImportTunjanganPotongan",
   mixins: [ValidationRules],
   components: {},
   data() {
@@ -62,7 +64,7 @@ export default {
   },
   methods: {
     handleClose() {
-      this.$emit("handleModalFormImport", false);
+      this.$emit("handleModalFormImportPotongan", false);
     },
     handleFileUpload(e) {
       var files = e.target.files,
