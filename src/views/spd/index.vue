@@ -2,12 +2,20 @@
   <layout-app>
     <HeaderTitle title="Dashboard" subtitle="Data SPD" />
     <v-btn
-      class="btn text-white fw-normal bg-darkblue mb-3"
+      class="btn text-white fw-normal bg-darkblue mb-3 mr-3"
       @click="handleModalForm(true)"
       v-if="!isAdmin"
     >
       <i class="fa fa-plus"></i>
       Ajukan SPD
+    </v-btn>
+    <v-btn
+      class="btn text-white fw-normal bg-darkblue mb-3 mr-3"
+      v-if="isAdmin"
+      @click="handleModalFormImport(true)"
+    >
+      <i class="fa fa-file-excel mr-1"></i>
+      Import Excel
     </v-btn>
     <div class="card p-3 border-0">
       <div class="card-body">
@@ -113,6 +121,14 @@
       <Form @handleModalForm="handleModalForm" />
     </v-dialog>
     <v-dialog
+      v-if="modalFormImport"
+      v-model="modalFormImport"
+      max-width="600"
+      persistent
+    >
+      <FormImport @handleModalFormImport="handleModalFormImport" />
+    </v-dialog>
+    <v-dialog
       v-if="modalFormApprove"
       v-model="modalFormApprove"
       max-width="800"
@@ -151,6 +167,7 @@ export default {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
     Form: () => import("./form.vue"),
+    FormImport: () => import("./form-import.vue"),
     FormApprove: () => import("./form-approve.vue"),
     FormReject: () => import("./form-reject.vue"),
     Detail: () => import("./detail.vue"),
@@ -173,6 +190,7 @@ export default {
       format3Digit,
       moment,
       modalForm: false,
+      modalFormImport: false,
       modalFormApprove: false,
       modalFormReject: false,
       modalDetail: false,
@@ -200,6 +218,9 @@ export default {
   methods: {
     handleModalForm(value) {
       this.modalForm = value;
+    },
+    handleModalFormImport(value) {
+      this.modalFormImport = value;
     },
     handleModalFormApprove(value, id) {
       if (value) {
