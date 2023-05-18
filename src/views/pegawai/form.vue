@@ -58,30 +58,36 @@
               ]"
             />
           </div>
-          <div class="col-md-6">
-            <label class="mb-2 fw-medium fs-14">Pangkat</label>
-            <v-text-field
-              placeholder="Pangkat"
-              outlined
-              dense
-              v-model="pangkat"
-              :rules="[
-                (value) => {
-                  return genericRequiredRule(value, 'Pangkat');
-                },
-              ]"
-            />
-          </div>
+
           <div class="col-md-6">
             <label class="mb-2 fw-medium fs-14">Golongan</label>
-            <v-text-field
+            <v-select
               placeholder="Golongan"
+              :items="list_pangkat"
+              item-text="Golongan"
+              item-value="Golongan"
+              @change="setPangkat"
               outlined
               dense
               v-model="golongan"
               :rules="[
                 (value) => {
                   return genericRequiredRule(value, 'Golongan');
+                },
+              ]"
+            />
+          </div>
+          <div class="col-md-6">
+            <label class="mb-2 fw-medium fs-14">Pangkat</label>
+            <v-text-field
+              placeholder="Pangkat"
+              outlined
+              dense
+              disabled
+              v-model="pangkat"
+              :rules="[
+                (value) => {
+                  return genericRequiredRule(value, 'Pangkat');
                 },
               ]"
             />
@@ -138,6 +144,9 @@ export default {
     },
     isUpdate() {
       return this.$store.state.pegawai.isUpdate;
+    },
+    list_pangkat() {
+      return this.$store.state.pegawai.list_pangkat;
     },
     nip: {
       get() {
@@ -223,6 +232,13 @@ export default {
       this.$store.commit("SET_IS_UPDATE_PEGAWAI", false);
 
       this.$emit("handleModalForm", false);
+    },
+    setPangkat() {
+      let pangkat = this.list_pangkat.filter(
+        (item) => item.Golongan === this.golongan
+      );
+
+      this.pangkat = pangkat[0].Pangkat;
     },
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {

@@ -27,6 +27,76 @@ const pegawai = {
       ...form,
     },
     isUpdate: false,
+    list_pangkat: [
+      {
+        Golongan: "I/a",
+        Pangkat: "Juru Muda",
+      },
+      {
+        Golongan: "I/b",
+        Pangkat: "Juru Muda Tingkat 1",
+      },
+      {
+        Golongan: "I/c",
+        Pangkat: "Juru",
+      },
+      {
+        Golongan: "I/d",
+        Pangkat: "Juru Tingkat 1",
+      },
+      {
+        Golongan: "II/a",
+        Pangkat: "Pengatur Muda",
+      },
+      {
+        Golongan: "II/b",
+        Pangkat: "Pengatur Muda Tingkat 1",
+      },
+      {
+        Golongan: "II/c",
+        Pangkat: "Pengatur",
+      },
+      {
+        Golongan: "II/d",
+        Pangkat: "Pengatur Tingkat 1",
+      },
+      {
+        Golongan: "III/a",
+        Pangkat: "Penata Muda",
+      },
+      {
+        Golongan: "III/b",
+        Pangkat: "Penata Muda Tingkat 1",
+      },
+      {
+        Golongan: "III/c",
+        Pangkat: "Penata",
+      },
+      {
+        Golongan: "III/d",
+        Pangkat: "Penata Tingkat 1",
+      },
+      {
+        Golongan: "IV/a",
+        Pangkat: "Pembina",
+      },
+      {
+        Golongan: "IV/b",
+        Pangkat: "Pembina Tingkat 1",
+      },
+      {
+        Golongan: "IV/c",
+        Pangkat: "Pembina Utama Muda",
+      },
+      {
+        Golongan: "IV/d",
+        Pangkat: "Pembina Utama Madya",
+      },
+      {
+        Golongan: "IV/e",
+        Pangkat: "Pembina Utama",
+      },
+    ],
   },
   mutations: {
     SET_IS_LOADING_PEGAWAI(state, payload) {
