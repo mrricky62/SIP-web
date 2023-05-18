@@ -17,14 +17,6 @@
               outlined
               dense
               v-model="filepath"
-              v-if="isUpdate"
-              messages="Kosongkan jika tidak ingin mengubah file"
-            />
-            <v-file-input
-              outlined
-              dense
-              v-model="filepath"
-              v-else
               :rules="[
                 (value) => {
                   return genericRequiredRule(value, 'File');
@@ -147,7 +139,9 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Uang Transport DPD</label>
+            <label class="mb-2 fw-medium fs-14"
+              >Daftar Pengeluaran Riil (DPR)</label
+            >
             <vuetify-money
               placeholder="0"
               v-model="uang_transport_dpd"

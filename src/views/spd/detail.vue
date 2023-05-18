@@ -92,7 +92,10 @@
                 key: 'Uang Transport (pulang)',
                 value: report.uang_transport_pulang,
               },
-              { key: 'Uang Transport (DPD)', value: report.uang_transport_dpd },
+              {
+                key: 'Daftar Pengeluaran Riil (DPR)',
+                value: report.uang_transport_dpd,
+              },
               { key: 'Uang Penginapan', value: report.uang_penginapan },
               { key: 'Total', value: report.total },
             ]"

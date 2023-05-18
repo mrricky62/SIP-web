@@ -96,7 +96,7 @@
                   </v-list-item>
                   <v-list-item
                     @click="handleEdit(item.id)"
-                    v-if="item.status === 'PENDING' && !isAdmin"
+                    v-if="item.status !== 'DISETUJUI' && !isAdmin"
                   >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-edit small mr-2"></i>

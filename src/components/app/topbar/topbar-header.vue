@@ -3,6 +3,7 @@
     <div class="container py-1">
       <div class="navbar-brand">
         <div class="d-flex align-items-center text-black">
+          <img src="@/assets/logo-bc.png" width="50" alt="logo" class="mr-3" />
           <img src="@/assets/logo.png" width="50" alt="logo" />
           <div class="d-none d-sm-block">
             <h1 class="mb-0 h5 ml-3 fw-bold fs-16">Kementrian Keuangan</h1>

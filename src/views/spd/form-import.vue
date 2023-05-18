@@ -3,7 +3,7 @@
     <v-card class="card" :loading="isLoading">
       <div class="card-header py-3">
         <div class="d-flex justify-content-between align-items-center">
-          <p class="card-title fw-medium mb-0">Form Import Tunjangan</p>
+          <p class="card-title fw-medium mb-0">Form Import SPD</p>
           <v-btn icon @click="handleClose">
             <v-icon>mdi-close</v-icon>
           </v-btn>
@@ -93,7 +93,7 @@ export default {
             uang_harian: iterator.uang_harian,
             uang_transport_pergi: iterator.uang_transport_pergi,
             uang_transport_pulang: iterator.uang_transport_pulang,
-            uang_transport_dpd: iterator.uang_transport_dpd,
+            uang_transport_dpd: iterator.uang_transport_dpr,
             uang_penginapan: iterator.uang_penginapan,
 
             total: iterator.total,

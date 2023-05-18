@@ -14,7 +14,7 @@
           <div class="col-12">
             <label class="mb-2 fw-medium fs-14">Catatan</label>
             <v-textarea
-              placeholder="No ST"
+              placeholder="catatan"
               outlined
               dense
               v-model="catatan"

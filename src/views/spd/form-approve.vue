@@ -144,7 +144,9 @@
             />
           </div>
           <div class="col-12">
-            <label class="mb-2 fw-medium fs-14">Uang Transport DPD</label>
+            <label class="mb-2 fw-medium fs-14"
+              >Daftar Pengeluaran Riil (DPR)</label
+            >
             <vuetify-money
               placeholder="0"
               v-model="uang_transport_dpd"
