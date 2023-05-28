@@ -2,7 +2,7 @@
   <layout-app>
     <div class="card border-0">
       <div class="card-body p-4 p-md-5">
-        <h4>Welcome 👋</h4>
+        <h4>Welcome {{ user.nama }} 👋</h4>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Exercitationem suscipit repudiandae soluta fuga quam facilis quisquam
@@ -28,6 +28,9 @@ export default {
   computed: {
     isLoading() {
       return this.$store.state.dashboard.isLoading;
+    },
+    user() {
+      return this.$store.state.app.user;
     },
   },
   mounted() {

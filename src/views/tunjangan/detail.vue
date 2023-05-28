@@ -53,10 +53,6 @@
             v-for="(item, i) in [
               { key: 'Grade', value: report.grade },
               { key: 'Tanggal', value: report.tanggal },
-              {
-                key: 'Tunjangan',
-                value: format3Digit(report.besaran_tunjangan),
-              },
             ]"
             :key="i"
           >
@@ -76,9 +72,13 @@
                 <div
                   class="d-flex justify-content-between"
                   v-for="(item, i) in [
+                    { key: 'Besar Tunjangan', value: report.besaran_tunjangan },
+                    { key: 'Pot Hukdis', value: report.pot_hukdis },
+                    { key: 'Pot Absen', value: report.pot_absen },
                     { key: 'Tunj Netto', value: report.tunj_netto },
                     { key: 'Tunj PPH', value: report.tunj_pph },
-                    { key: 'Perminataan', value: report.permintaan },
+                    { key: 'Pot PPH', value: report.pot_pph },
+                    { key: 'Permintaan', value: report.permintaan },
                     { key: 'Tunjangan Dibayar', value: report.tunj_dibayar },
                   ]"
                   :key="i"
@@ -94,14 +94,11 @@
           <div class="col-md-5">
             <div class="card">
               <div class="card-body">
-                <p class="fs-14 fw-medium">Potongan</p>
+                <p class="fs-14 fw-medium">Potongan Kantor</p>
 
                 <div
                   class="d-flex justify-content-between"
                   v-for="(item, i) in [
-                    { key: 'Pot Hukdis', value: report.pot_hukdis },
-                    { key: 'Pot Absen', value: report.pot_absen },
-                    { key: 'Pot PPH', value: report.pot_pph },
                     { key: 'Pot IWP', value: report.pot_iwp },
                     { key: 'Pot DKP', value: report.pot_dkp },
                     { key: 'Pot Pinjaman', value: report.pot_pinjaman },
