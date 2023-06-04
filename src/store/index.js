@@ -12,6 +12,7 @@ import uangMakan from "./modules/uang-makan";
 import spd from "./modules/spd";
 import uangLembur from "./modules/uang-lembur";
 import pegawai from "./modules/pegawai";
+import summary from "./modules/summary";
 
 export default new Vuex.Store({
   modules: {
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     spd,
     uangLembur,
     pegawai,
+    summary,
   },
 });
