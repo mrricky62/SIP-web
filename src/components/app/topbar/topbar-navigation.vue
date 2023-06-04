@@ -68,43 +68,49 @@ export default {
           title: "Dashboard",
           path: "/dashboard",
           icon: "fa-solid fa-house",
-          AdminOnly: false,
+          role: ["admin", "user"],
         },
         {
           title: "Gaji",
           path: "/gaji",
           icon: "fa-solid fa-money-bill",
-          AdminOnly: false,
+          role: ["admin", "user"],
         },
         {
           title: "Tunjangan",
           path: "/tunjangan",
           icon: "fa-solid fa-money-bill-1",
-          AdminOnly: false,
+          role: ["admin", "user"],
         },
         {
           title: "Uang Makan",
           path: "/uang-makan",
           icon: "fa-solid fa-money-bill-wave",
-          AdminOnly: false,
+          role: ["admin", "user"],
         },
         {
           title: "SPD",
           path: "/spd",
           icon: "fa-solid fa-plane-departure",
-          AdminOnly: false,
+          role: ["admin", "user"],
         },
         {
           title: "Uang Lembur",
           path: "/uang-lembur",
           icon: "fa-solid fa-money-check",
-          AdminOnly: false,
+          role: ["admin", "user"],
         },
         {
           title: "Pegawai",
           path: "/pegawai",
           icon: "fa-solid fa-users",
-          AdminOnly: true,
+          role: ["admin"],
+        },
+        {
+          title: "Summary",
+          path: "/summary",
+          icon: "fa-solid fa-file-alt",
+          role: ["user"],
         },
       ],
     };
@@ -122,9 +128,9 @@ export default {
   mounted() {
     let isAdmin = this.user.is_admin;
 
-    if (!isAdmin) {
-      this.navItems = this.navItems.filter((item) => !item.AdminOnly);
-    }
+    this.navItems = this.navItems.filter((item) => {
+      return item.role.includes(isAdmin ? "admin" : "user");
+    });
   },
 };
 </script>
