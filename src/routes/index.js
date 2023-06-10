@@ -15,6 +15,7 @@ import SPD from "@/views/spd/index.vue";
 import UangLembur from "@/views/uang-lembur/index.vue";
 import Pegawai from "@/views/pegawai/index.vue";
 import Summary from "@/views/summary/index.vue";
+import Print from "@/views/summary/print.vue";
 
 Vue.use(VueRouter);
 
@@ -95,6 +96,14 @@ const routes = [
     path: "/summary",
     name: "Summary",
     component: Summary,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/print",
+    name: "Print",
+    component: Print,
     meta: {
       middleware: [auth],
     },

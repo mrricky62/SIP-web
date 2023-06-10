@@ -8,13 +8,16 @@
             <label class="fs-14 mb-2">Tanggal</label>
             <DatePicker v-model="tanggal" type="month" />
           </div>
-          <!-- <v-btn class="btn text-white fw-normal bg-darkblue mb-3 mr-3">
+          <v-btn
+            class="btn text-white fw-normal bg-darkblue mb-3 mr-3"
+            @click="exportToPDF"
+          >
             <i class="fa fa-print"></i>
             Print
-          </v-btn> -->
+          </v-btn>
         </div>
         <div class="card">
-          <div class="card-body">
+          <div id="element-to-convert" class="card-body">
             <table class="simple-table fs-14">
               <tr
                 class="d-block d-sm-table-row"
@@ -342,6 +345,7 @@
 <script>
 import LayoutApp from "../../layouts/layout-app.vue";
 import format3Digit from "@/utils/format-3digit.js";
+import html2pdf from "html2pdf.js";
 
 export default {
   name: "SummaryPage",
@@ -379,7 +383,14 @@ export default {
       this.$store.dispatch("FetchSummary");
     },
   },
-  methods: {},
+  methods: {
+    exportToPDF() {
+      html2pdf(document.getElementById("element-to-convert"), {
+        margin: 1,
+        filename: "i-was-html.pdf",
+      });
+    },
+  },
   mounted() {
     this.$store.dispatch("FetchSummary");
   },

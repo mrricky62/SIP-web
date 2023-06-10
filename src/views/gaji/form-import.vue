@@ -105,7 +105,7 @@ export default {
             pot_pph: iterator.potpph,
             pot_swrum: iterator.potswrum,
             pot_kelbtj: iterator.potkelbtj,
-            pot_lain: iterator.kdgol,
+            pot_lain: iterator.potlain,
             pot_tabrum: iterator.pottabrum,
 
             bersih: iterator.bersih,
