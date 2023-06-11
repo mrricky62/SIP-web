@@ -14,35 +14,31 @@
         Print
       </v-btn>
     </div>
-    <div id="element-to-convert" ref="document">
-      <table class="simple-table fs-14" width="100%">
-        <tr>
-          <td>
-            <img src="@/assets/header-surat.png" width="100" alt="logo" />
-          </td>
-          <td style="text-align: center" width="590">
-            <tr style="font-size: 16px; font-weight: bold">
-              KEMENTERIAN KEUANGAN REPUBLIK INDONESIA
-            </tr>
-            <tr style="font-size: 14px; font-weight: bold">
-              DIREKTORAT JENDERAL BEA DAN CUKAI
-            </tr>
-            <tr style="font-size: 14px; font-weight: bold">
-              KANTOR PELAYANAN UTAMA BEA DAN CUKAI TIPE B BATAM
-            </tr>
-            <tr style="font-size: 10px">
-              JALAN KUDA LAUT BATU AMPAR BATAM 29432
-            </tr>
-            <tr style="font-size: 10px">
-              TELEPON (0778) 458818, 458263; FAKSIMILI (0778) 458149; SITUS
-              WWW.BCBATAM.BEACUKAI.GO.ID
-            </tr>
-          </td>
-        </tr>
-      </table>
+    <div id="longtext">
+      <div class="d-flex">
+        <img src="@/assets/header-surat.png" width="100" alt="logo" />
+        <div class="text-center mx-auto">
+          <p class="mb-0" style="font-size: 16px; font-weight: bold">
+            KEMENTERIAN KEUANGAN REPUBLIK INDONESIA
+          </p>
+          <p class="mb-0" style="font-size: 14px; font-weight: bold">
+            DIREKTORAT JENDERAL BEA DAN CUKAI
+          </p>
+          <p class="mb-0" style="font-size: 14px; font-weight: bold">
+            KANTOR PELAYANAN UTAMA BEA DAN CUKAI TIPE B BATAM
+          </p>
+          <p class="mb-0" style="font-size: 10px">
+            JALAN KUDA LAUT BATU AMPAR BATAM 29432
+          </p>
+          <p class="mb-0" style="font-size: 10px">
+            TELEPON (0778) 458818, 458263; FAKSIMILI (0778) 458149; SITUS
+            WWW.BCBATAM.BEACUKAI.GO.ID
+          </p>
+        </div>
+      </div>
       <hr style="size: 1000px" />
       <br />
-      <table class="simple-table fs-14">
+      <table id="my-table" class="simple-table fs-14">
         <tr
           class="d-block d-sm-table-row"
           v-for="(item, i) in [
@@ -67,13 +63,13 @@
       <br />
       <p>
         Pegawai tersebut adalah pegawai yang bekerja pada Kantor Pelayanan Utama
-        Bea dan Cukai Tipe B Batam, dengan penghasilan Bulan Tahun sebagai
-        berikut:
+        Bea dan Cukai Tipe B Batam, dengan penghasilan Bulan
+        {{ report.bulan }} Tahun {{ report.tahun }} sebagai berikut:
       </p>
       <br />
 
       <p class="fs-14 fw-medium">Gaji</p>
-      <table v-if="report.gaji" class="simple-table fs-14">
+      <table id="my-table" v-if="report.gaji" class="simple-table fs-14">
         <tr
           class="d-block d-sm-table-row"
           v-for="(item, i) in [
@@ -134,7 +130,9 @@
         <tr>
           <td style="min-width: 220px">Jumlah Kotor</td>
           <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">format3Digit</td>
+          <td class="d-none d-sm-table-cell fw-medium">
+            Rp. {{ format3Digit(report.jumlah_kotor) }}
+          </td>
         </tr>
         <tr>
           <br />
@@ -184,7 +182,9 @@
         <tr>
           <td style="min-width: 320px">Jumlah Bersih</td>
           <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">format3Digit</td>
+          <td class="d-none d-sm-table-cell fw-medium">
+            Rp. {{ format3Digit(report.jumlah_bersih) }}
+          </td>
         </tr>
         <tr>
           <br />
@@ -192,7 +192,12 @@
         <tr>
           <td style="min-width: 220px">Terbilang</td>
           <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">format3Digit</td>
+          <td
+            class="d-none d-sm-table-cell fw-medium"
+            style="text-transform: capitalize"
+          >
+            {{ angkaTerbilang(report.jumlah_bersih) }} rupiah
+          </td>
         </tr>
       </table>
       <p v-else class="fs-14 text-danger">Data Gaji belum tersedia</p>
@@ -203,7 +208,10 @@
 <script>
 import LayoutApp from "../../layouts/layout-app.vue";
 import format3Digit from "@/utils/format-3digit.js";
-import html2pdf from "html2pdf.js";
+import jspdf from "jspdf";
+import autoTable from "jspdf-autotable";
+import moment from "moment";
+import angkaTerbilang from "@develoka/angka-terbilang-js";
 
 export default {
   name: "SummaryPage",
@@ -214,7 +222,9 @@ export default {
   },
   data() {
     return {
+      angkaTerbilang,
       format3Digit,
+      datenow: moment().format("DD MMMM YYYY"),
     };
   },
   computed: {
@@ -243,10 +253,31 @@ export default {
   },
   methods: {
     exportToPDF() {
-      html2pdf(document.getElementById("element-to-convert"), {
-        margin: 1,
-        filename: "i-was-html.pdf",
+      const doc = new jspdf("p", "cm", "a4");
+      autoTable(doc, {
+        columnStyles: { europe: { halign: "center" } }, // European countries centered
+        body: [
+          { europe: "Sweden", america: "Canada", asia: "China" },
+          { europe: "Norway", america: "Mexico", asia: "Japan" },
+        ],
+        columns: [
+          { header: "Europe", dataKey: "europe" },
+          { header: "Asia", dataKey: "asia" },
+        ],
       });
+
+      autoTable(doc, {
+        styles: { fillColor: [255, 0, 0] },
+        columnStyles: { 0: { halign: "center", fillColor: [0, 255, 0] } }, // Cells in first column centered and green
+        margin: { top: 30 },
+        body: [
+          ["Sweden", "Japan", "Canada"],
+          ["Norway", "China", "USA"],
+          ["Denmark", "China", "Mexico"],
+        ],
+      });
+
+      doc.save("js.pdf");
     },
   },
   mounted() {
