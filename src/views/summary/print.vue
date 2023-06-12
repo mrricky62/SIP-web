@@ -1,20 +1,6 @@
 <template>
-  <layout-app>
-    <HeaderTitle title="Dashboard" subtitle="Summary" />
-    <div class="d-flex flex-wrap justify-content-between">
-      <div class="me-3 search-input">
-        <label class="fs-14 mb-2">Tanggal</label>
-        <DatePicker v-model="tanggal" type="month" />
-      </div>
-      <v-btn
-        class="btn text-white fw-normal bg-darkblue mb-3 mr-3"
-        @click="exportToPDF"
-      >
-        <i class="fa fa-print"></i>
-        Print
-      </v-btn>
-    </div>
-    <div id="longtext">
+  <v-card class="card">
+    <div class="card-body" id="printMe">
       <div class="d-flex">
         <img src="@/assets/header-surat.png" width="100" alt="logo" />
         <div class="text-center mx-auto">
@@ -38,9 +24,8 @@
       </div>
       <hr style="size: 1000px" />
       <br />
-      <table id="my-table" class="simple-table fs-14">
+      <table>
         <tr
-          class="d-block d-sm-table-row"
           v-for="(item, i) in [
             { key: 'Nama', value: user.nama },
             { key: 'NIP', value: user.nip },
@@ -54,8 +39,8 @@
           :key="i"
         >
           <td style="min-width: 220px">{{ item.key }}</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium">
             {{ item.value }}
           </td>
         </tr>
@@ -66,12 +51,9 @@
         Bea dan Cukai Tipe B Batam, dengan penghasilan Bulan
         {{ report.bulan }} Tahun {{ report.tahun }} sebagai berikut:
       </p>
-      <br />
-
-      <p class="fs-14 fw-medium">Gaji</p>
-      <table id="my-table" v-if="report.gaji" class="simple-table fs-14">
+      <p class="fw-medium">Gaji</p>
+      <table v-if="report.gaji">
         <tr
-          class="d-block d-sm-table-row"
           v-for="(item, i) in [
             {
               key: 'Gaji Pokok',
@@ -117,31 +99,26 @@
               key: 'Tunjangan Kinerja',
               value: format3Digit(report.tunjangan.tunj_dibayar),
             },
+            {
+              key: 'Jumlah Kotor',
+              value: format3Digit(report.jumlah_kotor),
+            },
+            {
+              key: 'Jumlah Potongan',
+              value: format3Digit(report.tunjangan.jumlah_potongan),
+            },
           ]"
           :key="i"
         >
           <td style="min-width: 220px">{{ item.key }}</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">Rp. {{ item.value }}</td>
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium">Rp. {{ item.value }}</td>
         </tr>
-        <tr>
-          <br />
-        </tr>
-        <tr>
-          <td style="min-width: 220px">Jumlah Kotor</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">
-            Rp. {{ format3Digit(report.jumlah_kotor) }}
-          </td>
-        </tr>
-        <tr>
-          <br />
-        </tr>
-        <tr>
-          Potongan gaji Pokok
-        </tr>
+      </table>
+      <br />
+      <p class="fw-medium">Potongan gaji Pokok</p>
+      <table v-if="report.gaji">
         <tr
-          class="d-block d-sm-table-row"
           v-for="(item, i) in [
             {
               key: 'IWP 10%',
@@ -163,26 +140,16 @@
           :key="i"
         >
           <td style="min-width: 220px">{{ item.key }}</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">Rp. {{ item.value }}</td>
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium">Rp. {{ item.value }}</td>
         </tr>
+      </table>
+      <p v-else>Data Gaji belum tersedia</p>
+      <table>
         <tr>
-          <br />
-        </tr>
-        <tr>
-          <td style="min-width: 220px">Jumlah Potongan</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">
-            Rp. {{ format3Digit(report.gaji.total_potongan) }}
-          </td>
-        </tr>
-        <tr>
-          <br />
-        </tr>
-        <tr>
-          <td style="min-width: 320px">Jumlah Bersih</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td class="d-none d-sm-table-cell fw-medium">
+          <td style="min-width: 220px">Jumlah Bersih</td>
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium">
             Rp. {{ format3Digit(report.jumlah_bersih) }}
           </td>
         </tr>
@@ -191,35 +158,24 @@
         </tr>
         <tr>
           <td style="min-width: 220px">Terbilang</td>
-          <td class="d-none d-sm-table-cell" style="min-width: 20px">:</td>
-          <td
-            class="d-none d-sm-table-cell fw-medium"
-            style="text-transform: capitalize"
-          >
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium" style="text-transform: capitalize">
             {{ angkaTerbilang(report.jumlah_bersih) }} rupiah
           </td>
         </tr>
       </table>
-      <p v-else class="fs-14 text-danger">Data Gaji belum tersedia</p>
     </div>
-  </layout-app>
+  </v-card>
 </template>
 
 <script>
-import LayoutApp from "../../layouts/layout-app.vue";
 import format3Digit from "@/utils/format-3digit.js";
-import jspdf from "jspdf";
-import autoTable from "jspdf-autotable";
 import moment from "moment";
 import angkaTerbilang from "@develoka/angka-terbilang-js";
 
 export default {
   name: "SummaryPage",
-  components: {
-    LayoutApp,
-    HeaderTitle: () => import("@/components/molecules/header-title.vue"),
-    DatePicker: () => import("@/components/atoms/date-picker.vue"),
-  },
+  components: {},
   data() {
     return {
       angkaTerbilang,
@@ -231,57 +187,38 @@ export default {
     isLoading() {
       return this.$store.state.summary.isLoading;
     },
+    isPrint() {
+      return this.$store.state.summary.isPrint;
+    },
     report() {
       return this.$store.state.summary.report;
     },
     user() {
       return this.$store.state.app.user;
     },
-    tanggal: {
-      get() {
-        return this.$store.state.summary.tanggal;
-      },
-      set(value) {
-        this.$store.commit("SET_TANGGAL_SUMMARY", value);
-      },
-    },
   },
   watch: {
-    tanggal() {
-      this.$store.dispatch("FetchSummary");
+    isPrint() {
+      if (this.isPrint) {
+        this.print();
+      }
     },
   },
   methods: {
-    exportToPDF() {
-      const doc = new jspdf("p", "cm", "a4");
-      autoTable(doc, {
-        columnStyles: { europe: { halign: "center" } }, // European countries centered
-        body: [
-          { europe: "Sweden", america: "Canada", asia: "China" },
-          { europe: "Norway", america: "Mexico", asia: "Japan" },
-        ],
-        columns: [
-          { header: "Europe", dataKey: "europe" },
-          { header: "Asia", dataKey: "asia" },
-        ],
-      });
-
-      autoTable(doc, {
-        styles: { fillColor: [255, 0, 0] },
-        columnStyles: { 0: { halign: "center", fillColor: [0, 255, 0] } }, // Cells in first column centered and green
-        margin: { top: 30 },
-        body: [
-          ["Sweden", "Japan", "Canada"],
-          ["Norway", "China", "USA"],
-          ["Denmark", "China", "Mexico"],
-        ],
-      });
-
-      doc.save("js.pdf");
+    handleClose() {
+      this.$store.commit("SET_IS_PRINT_SUMMARY", false);
+      this.$emit("handleModalPrint", false);
+    },
+    async print() {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      await this.$htmlToPaper("printMe");
+      this.handleClose();
     },
   },
   mounted() {
-    this.$store.dispatch("FetchSummary");
+    if (this.isPrint) {
+      this.print();
+    }
   },
 };
 </script>

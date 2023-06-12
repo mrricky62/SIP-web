@@ -19,7 +19,7 @@
     "moment": "^2.29.4",
     "sweetalert2": "^11.7.1",
     "vue": "^2.6.11",
-    "vue-html-to-paper": "^1.4.4",
+    "vue-html-to-paper": "^1.4.5",
     "vue-router": "^3.5.2",
     "vuetify": "^2.6.0",
     "vuetify-money": "^1.2.0",

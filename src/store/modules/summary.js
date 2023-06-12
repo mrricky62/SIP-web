@@ -8,6 +8,7 @@ const summary = {
     isLoading: false,
     tanggal: moment().format("YYYY-MM"),
     report: {},
+    isPrint: false,
   },
   mutations: {
     SET_IS_LOADING_SUMMARY(state, payload) {
@@ -18,6 +19,9 @@ const summary = {
     },
     SET_REPORTS_SUMMARY(state, payload) {
       state.report = payload;
+    },
+    SET_IS_PRINT_SUMMARY(state, payload) {
+      state.isPrint = payload;
     },
   },
   actions: {

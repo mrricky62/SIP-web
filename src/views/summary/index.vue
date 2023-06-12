@@ -10,7 +10,7 @@
           </div>
           <v-btn
             class="btn text-white fw-normal bg-darkblue mb-3 mr-3"
-            @click="exportToPDF"
+            @click="handleModalPrint(true)"
           >
             <i class="fa fa-print"></i>
             Print
@@ -339,13 +339,16 @@
         </div>
       </div>
     </v-card>
+
+    <v-dialog v-model="modalPrint" persistent max-width="1000">
+      <Print @handleModalPrint="handleModalPrint" />
+    </v-dialog>
   </layout-app>
 </template>
 
 <script>
 import LayoutApp from "../../layouts/layout-app.vue";
 import format3Digit from "@/utils/format-3digit.js";
-import html2pdf from "html2pdf.js";
 
 export default {
   name: "SummaryPage",
@@ -353,10 +356,12 @@ export default {
     LayoutApp,
     HeaderTitle: () => import("@/components/molecules/header-title.vue"),
     DatePicker: () => import("@/components/atoms/date-picker.vue"),
+    Print: () => import("./print.vue"),
   },
   data() {
     return {
       format3Digit,
+      modalPrint: false,
     };
   },
   computed: {
@@ -384,11 +389,12 @@ export default {
     },
   },
   methods: {
-    exportToPDF() {
-      html2pdf(document.getElementById("element-to-convert"), {
-        margin: 1,
-        filename: "i-was-html.pdf",
-      });
+    handleModalPrint(value) {
+      if (value) {
+        this.$store.dispatch("FetchSummary");
+        this.$store.commit("SET_IS_PRINT_SUMMARY", true);
+      }
+      this.modalPrint = value;
     },
   },
   mounted() {
