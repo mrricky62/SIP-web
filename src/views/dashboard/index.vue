@@ -3,11 +3,12 @@
     <div class="card border-0">
       <div class="card-body p-4 p-md-5">
         <h4>Welcome {{ user.nama }} 👋</h4>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Exercitationem suscipit repudiandae soluta fuga quam facilis quisquam
-          odit alias, modi facere et excepturi sapiente ipsam. Nisi impedit
-          earum incidunt laboriosam ipsam.
+        <p style="font-size: 18px">
+          Pada Sistem Informasi Penghasilan Pegawai<br />
+          Sistem ini menyediakan informasi penghasilan bagi pegawai KPU Bea dan
+          Cukai Tipe B Batam<br />
+          Jika ada informasi yang tidak sesuai dengan seharusnya, segera hubungi
+          staf Bagian Keuangan
         </p>
       </div>
     </div>

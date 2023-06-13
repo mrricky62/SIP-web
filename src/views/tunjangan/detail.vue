@@ -29,6 +29,14 @@
                 <td style="min-width: 20px">:</td>
                 <td>{{ item.value }}</td>
               </tr>
+              <tr
+                v-for="(item, i) in [{ key: 'Grade', value: report.grade }]"
+                :key="i"
+              >
+                <td style="min-width: 150px">{{ item.key }}</td>
+                <td style="min-width: 20px">:</td>
+                <td>{{ item.value }}</td>
+              </tr>
             </table>
           </div>
           <div class="col-md-6">
@@ -48,19 +56,6 @@
           </div>
         </div>
         <br />
-        <table class="simple-table fs-14">
-          <tr
-            v-for="(item, i) in [
-              { key: 'Grade', value: report.grade },
-              { key: 'Tanggal', value: report.tanggal },
-            ]"
-            :key="i"
-          >
-            <td style="min-width: 150px">{{ item.key }}</td>
-            <td style="min-width: 20px">:</td>
-            <td>{{ item.value }}</td>
-          </tr>
-        </table>
         <br />
         <br />
         <div class="row">
@@ -103,10 +98,10 @@
                     { key: 'Pot DKP', value: report.pot_dkp },
                     { key: 'Pot Pinjaman', value: report.pot_pinjaman },
                     { key: 'Pot Tempat Tinggal', value: report.pot_tmptinggal },
-                    { key: 'Pot Agama', value: report.pot_agama },
+                    { key: 'Pot Keagamaan', value: report.pot_agama },
                     { key: 'Pot Darmawanita', value: report.pot_darmawanita },
                     { key: 'Pot Bapors', value: report.pot_bapors },
-                    { key: 'Pot Kasangkatan', value: report.pot_kasangkatan },
+                    { key: 'Pot Kas Angkatan', value: report.pot_kasangkatan },
                     { key: 'Pot Uang Makan', value: report.pot_uangmakan },
                     { key: 'Pot Lainnya', value: report.pot_lain },
                     { key: 'Total Potongan', value: report.jumlah_potongan },

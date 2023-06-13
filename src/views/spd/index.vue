@@ -103,7 +103,10 @@
                       <span>Edit</span>
                     </v-list-item-title>
                   </v-list-item>
-                  <v-list-item @click="handleDelete(item.id)">
+                  <v-list-item
+                    @click="handleDelete(item.id)"
+                    v-if="item.status !== 'DISETUJUI' && !isAdmin"
+                  >
                     <v-list-item-title class="text-primary fs-12">
                       <i class="fas fa-trash small mr-2"></i>
                       <span>Delete</span>

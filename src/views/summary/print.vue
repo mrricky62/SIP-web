@@ -51,7 +51,6 @@
         Bea dan Cukai Tipe B Batam, dengan penghasilan Bulan
         {{ report.bulan }} Tahun {{ report.tahun }} sebagai berikut:
       </p>
-      <p class="fw-medium">Gaji</p>
       <table v-if="report.gaji">
         <tr
           v-for="(item, i) in [
