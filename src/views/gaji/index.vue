@@ -37,7 +37,7 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot:[`item.gaji_pokok`]="{ item }">
+            <template v-slot[`item.gaji_pokok`]="{ item }">
               {{ format3Digit(item.gaji_pokok) }}
             </template>
             <template v-slot:[`item.total_potongan`]="{ item }">
