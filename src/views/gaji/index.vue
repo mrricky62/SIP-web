@@ -37,14 +37,8 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <template v-slot[`item.gaji_pokok`]="{ item }">
-              {{ format3Digit(item.gaji_pokok) }}
-            </template>
             <template v-slot:[`item.total_potongan`]="{ item }">
               {{ format3Digit(item.total_potongan) }}
-            </template>
-            <template v-slot:[`item.pembulatan`]="{ item }">
-              {{ format3Digit(item.pembulatan) }}
             </template>
             <template v-slot:[`item.total_tunjangan`]="{ item }">
               {{ format3Digit(item.total_tunjangan) }}
@@ -52,7 +46,9 @@
             <template v-slot:[`item.bersih`]="{ item }">
               {{ format3Digit(item.bersih) }}
             </template>
-
+            <!-- <template v-slot[`item.gaji_pokok`]="{ item }">
+              {{ format3Digit(item.gaji_pokok) }}
+            </template> -->
             <template v-slot:[`item.action`]="{ item }">
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
