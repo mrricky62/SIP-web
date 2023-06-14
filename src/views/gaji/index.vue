@@ -118,6 +118,7 @@
 <script>
 import LayoutApp from "../../layouts/layout-app.vue";
 import moment from "moment";
+import "moment/locale/id";
 import format3Digit from "@/utils/format-3digit.js";
 import Swal from "sweetalert2";
 
@@ -146,7 +147,7 @@ export default {
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       format3Digit,
-      moment,
+      moment: moment.locale("id"),
       modalForm: false,
       modalFormImport: false,
       modalDetail: false,

@@ -121,6 +121,8 @@
 
 <script>
 import format3Digit from "@/utils/format-3digit.js";
+import moment from "moment";
+import "moment/locale/id";
 
 export default {
   name: "GajiDetail",
@@ -128,6 +130,7 @@ export default {
   data() {
     return {
       format3Digit,
+      moment: moment.locale("id"),
     };
   },
   computed: {

@@ -2,39 +2,75 @@
   <v-card class="card">
     <div class="card-body" id="printMe">
       <div class="d-flex">
-        <img src="@/assets/header-surat.png" width="100" alt="logo" />
+        <img
+          src="@/assets/header-surat.png"
+          width="85"
+          height="85"
+          alt="log"
+          style="margin-left: 30px"
+        />
         <div class="text-center mx-auto">
-          <p class="mb-0" style="font-size: 16px; font-weight: bold">
+          <p
+            style="
+              font-size: 16px;
+              font-weight: bold;
+              margin: 0%;
+              line-height: 20px;
+            "
+          >
             KEMENTERIAN KEUANGAN REPUBLIK INDONESIA
           </p>
-          <p class="mb-0" style="font-size: 14px; font-weight: bold">
+          <p
+            style="
+              font-size: 14px;
+              font-weight: bold;
+              margin: 0%;
+              line-height: 18px;
+            "
+          >
             DIREKTORAT JENDERAL BEA DAN CUKAI
           </p>
-          <p class="mb-0" style="font-size: 14px; font-weight: bold">
+          <p
+            style="
+              font-size: 14px;
+              font-weight: bold;
+              margin: 0%;
+              line-height: 18px;
+            "
+          >
             KANTOR PELAYANAN UTAMA BEA DAN CUKAI TIPE B BATAM
           </p>
-          <p class="mb-0" style="font-size: 10px">
+          <p
+            style="
+              font-size: 10px;
+              margin: 0%;
+              line-height: 13px;
+              text-decoration-color: blue;
+            "
+          >
             JALAN KUDA LAUT BATU AMPAR BATAM 29432
           </p>
-          <p class="mb-0" style="font-size: 10px">
+          <p style="font-size: 10px; margin: 0%; line-height: 14px">
             TELEPON (0778) 458818, 458263; FAKSIMILI (0778) 458149; SITUS
             WWW.BCBATAM.BEACUKAI.GO.ID
           </p>
         </div>
       </div>
-      <hr style="size: 1000px" />
-      <br />
+
+      <hr style="color: red" />
+
+      <p style="text-align: center; margin-bottom: 5px; font-weight: bold">
+        <u>SURAT KETERANGAN PENGHASILAN</u>
+      </p>
+      <p style="text-indent: 45px; margin-bottom: 5px">
+        Yang bertanda tangan di bawah ini, menerangkan bahwa:
+      </p>
+
       <table>
         <tr
           v-for="(item, i) in [
             { key: 'Nama', value: user.nama },
             { key: 'NIP', value: user.nip },
-            { key: 'Pangkat', value: user.pangkat },
-            { key: 'Golongan', value: user.golongan },
-            {
-              key: 'Unit Kerja',
-              value: 'Kantor Pelayanan Utama Bea dan Cukai Tipe B Batam',
-            },
           ]"
           :key="i"
         >
@@ -44,9 +80,20 @@
             {{ item.value }}
           </td>
         </tr>
+        <tr>
+          <td style="min-width: 220px">Pangkat / Golongan</td>
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium">{{ user.pangkat }} / {{ user.golongan }}</td>
+        </tr>
+        <tr>
+          <td style="min-width: 220px">Unit Kerja</td>
+          <td style="min-width: 20px">:</td>
+          <td class="fw-medium">
+            Kantor Pelayanan Utama Bea dan Cukai Tipe B Batam
+          </td>
+        </tr>
       </table>
-      <br />
-      <p>
+      <p style="margin-top: 7px; margin-bottom: 5px">
         Pegawai tersebut adalah pegawai yang bekerja pada Kantor Pelayanan Utama
         Bea dan Cukai Tipe B Batam, dengan penghasilan Bulan
         {{ report.bulan }} Tahun {{ report.tahun }} sebagai berikut:
@@ -98,24 +145,33 @@
               key: 'Tunjangan Kinerja',
               value: format3Digit(report.tunjangan.tunj_dibayar),
             },
-            {
-              key: 'Jumlah Kotor',
-              value: format3Digit(report.jumlah_kotor),
-            },
-            {
-              key: 'Jumlah Potongan',
-              value: format3Digit(report.tunjangan.jumlah_potongan),
-            },
           ]"
           :key="i"
         >
           <td style="min-width: 220px">{{ item.key }}</td>
           <td style="min-width: 20px">:</td>
-          <td class="fw-medium">Rp. {{ item.value }}</td>
+          <td>Rp.</td>
+          <td class="fw-medium" style="text-align: right" width="85px">
+            {{ item.value }}
+          </td>
         </tr>
       </table>
-      <br />
-      <p class="fw-medium">Potongan gaji Pokok</p>
+      <table style="margin-top: 5px">
+        <td style="min-width: 80px"></td>
+        <td style="min-width: 180px; text-align: left">
+          <b>Jumlah Kotor</b>
+        </td>
+        <td style="min-width: 20px"><b>:</b></td>
+        <td><b>Rp.</b></td>
+        <td class="fw-medium" width="105px" style="text-align: right">
+          <b
+            ><u>{{ format3Digit(report.jumlah_kotor) }}</u></b
+          >
+        </td>
+      </table>
+      <p class="fw-medium" style="margin-top: 6px; margin-bottom: 2px">
+        Potongan gaji Pokok
+      </p>
       <table v-if="report.gaji">
         <tr
           v-for="(item, i) in [
@@ -144,25 +200,43 @@
         </tr>
       </table>
       <p v-else>Data Gaji belum tersedia</p>
-      <table>
+      <table style="margin-top: 5px; margin-bottom: 7px; line-height: 20px">
         <tr>
-          <td style="min-width: 220px">Jumlah Bersih</td>
-          <td style="min-width: 20px">:</td>
-          <td class="fw-medium">
-            Rp. {{ format3Digit(report.jumlah_bersih) }}
+          <td style="min-width: 80px"></td>
+          <td style="min-width: 180px; text-align: left">
+            <b>Jumlah Potongan</b>
+          </td>
+          <td style="min-width: 20px"><b>:</b></td>
+          <td><b>Rp.</b></td>
+          <td class="fw-medium" width="105px" style="text-align: right">
+            <b
+              ><u>{{ format3Digit(report.gaji.total_potongan) }}</u></b
+            >
           </td>
         </tr>
         <tr>
-          <br />
-        </tr>
-        <tr>
-          <td style="min-width: 220px">Terbilang</td>
-          <td style="min-width: 20px">:</td>
-          <td class="fw-medium" style="text-transform: capitalize">
-            {{ angkaTerbilang(report.jumlah_bersih) }} rupiah
+          <td style="min-width: 80px"></td>
+          <td style="text-align: left">
+            <b>Jumlah Bersih</b>
+          </td>
+          <td style="min-width: 20px"><b>:</b></td>
+          <td><b>Rp.</b></td>
+          <td class="fw-medium" width="105px" style="text-align: right">
+            <b
+              ><u>{{ format3Digit(report.jumlah_bersih) }}</u></b
+            >
           </td>
         </tr>
       </table>
+      <table>
+        <td style="min-width: 90px; vertical-align: top">
+          <b>Terbilang :</b>
+        </td>
+        <td style="vertical-align: top; text-transform: capitalize">
+          <b> {{ angkaTerbilang(report.jumlah_bersih) }} Rupiah</b>
+        </td>
+      </table>
+      <p></p>
     </div>
   </v-card>
 </template>
@@ -170,6 +244,7 @@
 <script>
 import format3Digit from "@/utils/format-3digit.js";
 import moment from "moment";
+import "moment/locale/id";
 import angkaTerbilang from "@develoka/angka-terbilang-js";
 
 export default {
