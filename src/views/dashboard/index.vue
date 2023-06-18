@@ -2,7 +2,7 @@
   <layout-app>
     <div class="card border-0">
       <div class="card-body p-4 p-md-5">
-        <h4>Welcome {{ user.nama }} 👋</h4>
+        <h4>Selamat Datang {{ user.nama }} 👋</h4>
         <p style="font-size: 18px">
           Pada Sistem Informasi Penghasilan Pegawai<br />
           Sistem ini menyediakan informasi penghasilan bagi pegawai KPU Bea dan

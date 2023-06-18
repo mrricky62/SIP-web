@@ -156,14 +156,7 @@
               key: 'Pembulatan',
               value: format3Digit(report.gaji.pembulatan),
             },
-            {
-              key: 'Uang Makan',
-              value: format3Digit(report.uang_makan.bersih),
-            },
-            {
-              key: 'Uang Lembur',
-              value: format3Digit(report.uang_lembur.bersih),
-            },
+
             {
               key: 'Tunjangan Kinerja',
               value: format3Digit(report.tunjangan.tunj_dibayar),
@@ -179,6 +172,49 @@
           </td>
         </tr>
       </table>
+      <table
+        v-if="report.uang_makan"
+        style="font-family: 'Times New Roman'; font-size: 14px"
+      >
+        <tr
+          v-for="(item, i) in [
+            {
+              key: 'Uang Makan',
+              value: format3Digit(report.uang_makan.bersih),
+            },
+          ]"
+          :key="i"
+        >
+          <td style="min-width: 220px">{{ item.key }}</td>
+          <td style="min-width: 20px">:</td>
+          <td>Rp.</td>
+          <td class="fw-medium" style="text-align: right" width="85px">
+            {{ item.value }}
+          </td>
+        </tr>
+      </table>
+      <table
+        v-if="report.uang_lembur"
+        style="font-family: 'Times New Roman'; font-size: 14px"
+      >
+        <tr
+          v-for="(item, i) in [
+            {
+              key: 'Uang Lembur',
+              value: format3Digit(report.uang_lembur.bersih),
+            },
+          ]"
+          :key="i"
+        >
+          <td style="min-width: 220px">{{ item.key }}</td>
+          <td style="min-width: 20px">:</td>
+          <td>Rp.</td>
+          <td class="fw-medium" style="text-align: right" width="85px">
+            {{ item.value }}
+          </td>
+        </tr>
+      </table>
+
       <table
         style="margin-top: 5px; font-family: 'Times New Roman'; font-size: 14px"
       >
@@ -235,7 +271,7 @@
           <td class="fw-medium">Rp. {{ item.value }}</td>
         </tr>
       </table>
-      <p v-else>Data Gaji belum tersedia</p>
+
       <table
         style="
           margin-top: 5px;
