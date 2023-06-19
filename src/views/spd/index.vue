@@ -37,9 +37,9 @@
             :options.sync="optionsTable"
             :search="optionsTable.search"
           >
-            <!-- <template v-slot:[`item.total`]="{ item }">
+            <template v-slot:[`item.total`]="{ item }">
               {{ format3Digit(item.total) }}
-            </template> -->
+            </template>
             <template v-slot:[`item.status`]="{ item }">
               <v-chip small v-if="item.status == 'PENDING'" color="orange" dark>
                 {{ item.status }}
