@@ -35,7 +35,7 @@
             <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
-                  { key: 'Tanggal', value: report.tanggal },
+                  { key: 'Periode', value: report.tanggal },
                   { key: 'Tanggal SPM', value: report.tanggal_spm },
                 ]"
                 :key="i"
@@ -56,8 +56,8 @@
             v-for="(item, i) in [
               { key: 'Jam Kerja', value: report.jam_kerja },
               { key: 'Jam Libur', value: report.jam_libur },
-              { key: 'Jam Makan', value: report.jam_makan },
               { key: 'Jumlah Jam', value: report.jumlah_jam },
+              { key: 'Jumlah Hari Makan', value: report.jam_makan },
               { key: 'Lembur', value: `RP.${format3Digit(report.lembur)}` },
               { key: 'Makan', value: `RP.${format3Digit(report.makan)}` },
               { key: 'PPH', value: `RP.${format3Digit(report.pph)}` },
