@@ -40,7 +40,7 @@
             <table class="simple-table fs-14">
               <tr
                 v-for="(item, i) in [
-                  { key: 'Tanggal SPM', value: report.tanggal_spm },
+                  { key: 'Tanggal Disetujui', value: report.tanggal_spm },
                   { key: 'No SPD', value: report.no_spd },
                   { key: 'No ST', value: report.no_st },
                 ]"

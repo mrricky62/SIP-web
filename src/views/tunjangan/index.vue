@@ -148,7 +148,7 @@ export default {
       headers: [
         { text: "No", value: "no" },
         { text: "NIP", value: "user.nip" },
-        { text: "Tanggal", value: "tanggal" },
+        { text: "Periode", value: "tanggal" },
         { text: "Grade", value: "grade" },
         { text: "Tunjangan", value: "besaran_tunjangan" },
         { text: "Tunjangan Dibayar", value: "tunj_dibayar" },

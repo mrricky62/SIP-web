@@ -187,7 +187,7 @@ export default {
         { text: "Lama", value: "lama" },
         { text: "Status", value: "status" },
         { text: "Total", value: "total" },
-        { text: "Tanggal SPM", value: "tanggal_spm" },
+        { text: "Tanggal Disetujui", value: "tanggal_spm" },
         { text: "Action", value: "action", sortable: false, align: "right" },
       ],
       format3Digit,

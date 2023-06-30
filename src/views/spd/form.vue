@@ -101,6 +101,7 @@
             <vuetify-money
               placeholder="0"
               v-model="uang_penginapan"
+              @input="calculateTotal"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -115,6 +116,7 @@
             <vuetify-money
               placeholder="0"
               v-model="uang_transport_pergi"
+              @input="calculateTotal"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -129,6 +131,7 @@
             <vuetify-money
               placeholder="0"
               v-model="uang_transport_pulang"
+              @input="calculateTotal"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -145,6 +148,21 @@
             <vuetify-money
               placeholder="0"
               v-model="uang_transport_dpd"
+              @input="calculateTotal"
+              :options="{
+                prefix: 'Rp ',
+                thousands: '.',
+                precision: 0,
+              }"
+              outlined
+              dense
+            />
+          </div>
+          <div class="col-12">
+            <label class="mb-2 fw-medium fs-14">Total</label>
+            <vuetify-money
+              placeholder="0"
+              v-model="total"
               :options="{
                 prefix: 'Rp ',
                 thousands: '.',
@@ -295,6 +313,17 @@ export default {
         });
       },
     },
+    total: {
+      get() {
+        return this.$store.state.spd.form.total;
+      },
+      set(value) {
+        this.$store.commit("SET_FORM_SPD", {
+          key: "total",
+          value,
+        });
+      },
+    },
   },
   methods: {
     handleClose() {
@@ -302,6 +331,14 @@ export default {
       this.$store.commit("SET_IS_UPDATE_SPD", false);
 
       this.$emit("handleModalForm", false);
+    },
+    calculateTotal() {
+      const total =
+        +this.uang_penginapan +
+        +this.uang_transport_pergi +
+        +this.uang_transport_pulang +
+        +this.uang_transport_dpd;
+      this.total = total;
     },
     async handleSubmit() {
       if (this.$refs.initialForm.validate()) {
