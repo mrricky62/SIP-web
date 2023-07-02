@@ -19,7 +19,7 @@
         />
       </div>
       <div class="col-md-4">
-        <label class="mb-2 fw-medium fs-14">Tanggal</label>
+        <label class="mb-2 fw-medium fs-14">Periode</label>
         <date-picker type="month" v-model="tanggal" />
       </div>
       <div class="col-md-4">
